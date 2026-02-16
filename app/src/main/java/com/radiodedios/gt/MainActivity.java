@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private View miniPlayerPlayPause;
     private ImageView miniPlayerPlayPauseIcon;
     private View bottomContainer;
+    private ImageView bannerImage;
 
     private MediaController mediaController;
     private boolean wasPlayingBeforeAd = false;
@@ -173,9 +174,7 @@ public class MainActivity extends AppCompatActivity {
         miniPlayerTitle = findViewById(R.id.miniPlayerTitle);
         miniPlayerPlayPause = findViewById(R.id.miniPlayerPlayPause);
         miniPlayerPlayPauseIcon = (ImageView) miniPlayerPlayPause;
-
-        // Verse of the Day
-        setupVerseCard();
+        bannerImage = findViewById(R.id.bannerImage);
 
         // Load Ads
         adsManager.loadBanner(adView);
@@ -197,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
         setupMediaController();
         
         miniPlayerPlayPause.setOnClickListener(v -> {
+            animateButton(v);
             if (mediaController != null) {
                 if (mediaController.isPlaying()) {
                     mediaController.pause();
@@ -249,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
         });
         
         fabResume.setOnClickListener(v -> {
+             animateButton(v);
              playLastStation();
              fabResume.setVisibility(View.GONE);
         });
@@ -256,27 +257,20 @@ public class MainActivity extends AppCompatActivity {
         // checkResumeLastStation(); // Moved to MediaController callback
     }
 
-    private void setupVerseCard() {
-        View verseContainer = findViewById(R.id.verseContainer);
-        TextView verseContent = findViewById(R.id.verseContent);
-        View btnClose = findViewById(R.id.btnCloseVerse);
-        
-        verseContent.setText(bibleManager.getDailyVerse());
-
-        android.content.SharedPreferences prefs = getSharedPreferences("app_prefs", MODE_PRIVATE);
-        String lastDismissedDate = prefs.getString("verse_dismissed_date", "");
-        String currentDate = new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(new java.util.Date());
-
-        if (currentDate.equals(lastDismissedDate)) {
-            verseContainer.setVisibility(View.GONE);
-        } else {
-            verseContainer.setVisibility(View.VISIBLE);
-        }
-        
-        btnClose.setOnClickListener(v -> {
-            verseContainer.setVisibility(View.GONE);
-            prefs.edit().putString("verse_dismissed_date", currentDate).apply();
-        });
+    private void animateButton(View view) {
+        view.animate()
+            .scaleX(0.9f)
+            .scaleY(0.9f)
+            .setDuration(100)
+            .withEndAction(() -> {
+                view.animate()
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .setInterpolator(new android.view.animation.OvershootInterpolator())
+                    .setDuration(200)
+                    .start();
+            })
+            .start();
     }
 
     private void checkResumeLastStation() {
@@ -424,7 +418,44 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
+                    // Load pinned status
+                    android.content.SharedPreferences prefs = getSharedPreferences("pinned_prefs", MODE_PRIVATE);
+                    java.util.Set<String> pinnedSet = prefs.getStringSet("pinned_urls", new java.util.HashSet<>());
+                    if (pinnedSet != null) {
+                        for (RadioStation station : filteredRadios) {
+                            if (pinnedSet.contains(station.getStreamUrl())) {
+                                station.setPinned(true);
+                            }
+                        }
+                    }
+
+                    // Initial Sort
+                    java.util.Collections.sort(filteredRadios, (r1, r2) -> {
+                        boolean p1 = r1.isPinned();
+                        boolean p2 = r2.isPinned();
+                        if (p1 && !p2) return -1;
+                        if (!p1 && p2) return 1;
+                        return 0;
+                    });
+
                     setupList(filteredRadios);
+
+                    if (response.getBannerConfig() != null && response.getBannerConfig().isEnabled()) {
+                        String img = response.getBannerConfig().getImage();
+                        if (img != null && !img.isEmpty()) {
+                            bannerImage.setVisibility(View.VISIBLE);
+                            Glide.with(MainActivity.this)
+                                    .load(img)
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(bannerImage);
+                            bannerImage.setOnClickListener(null);
+                        } else {
+                            bannerImage.setVisibility(View.GONE);
+                        }
+                    } else {
+                        bannerImage.setVisibility(View.GONE);
+                    }
+
                     Toast.makeText(MainActivity.this, R.string.station_list_updated, Toast.LENGTH_SHORT).show();
                 });
             }
@@ -449,6 +480,7 @@ public class MainActivity extends AppCompatActivity {
         if (adView != null) {
             adView.resume();
         }
+        invalidateOptionsMenu();
     }
 
     @Override
@@ -475,6 +507,23 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         getMenuInflater().inflate(R.menu.top_app_bar, menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(android.view.Menu menu) {
+        MenuItem item = menu.findItem(R.id.action_notifications);
+        if (item != null) {
+            android.content.SharedPreferences prefs = getSharedPreferences("app_prefs", MODE_PRIVATE);
+            String lastSeenDate = prefs.getString("verse_seen_date", "");
+            String currentDate = new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(new java.util.Date());
+
+            if (!currentDate.equals(lastSeenDate)) {
+                item.setIcon(R.drawable.ic_notification_active);
+            } else {
+                item.setIcon(R.drawable.ic_notification); // Assuming this is the default icon name
+            }
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -882,6 +931,39 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 holder.popular.setVisibility(View.GONE);
             }
+
+            if (station.isPinned()) {
+                holder.pinIcon.setVisibility(View.VISIBLE);
+            } else {
+                holder.pinIcon.setVisibility(View.GONE);
+            }
+
+            holder.itemView.setOnLongClickListener(v -> {
+                boolean newState = !station.isPinned();
+                station.setPinned(newState);
+
+                android.content.SharedPreferences prefs = holder.itemView.getContext().getSharedPreferences("pinned_prefs", MODE_PRIVATE);
+                java.util.Set<String> pinnedSet = new java.util.HashSet<>(prefs.getStringSet("pinned_urls", new java.util.HashSet<>()));
+
+                if (newState) {
+                    pinnedSet.add(station.getStreamUrl());
+                } else {
+                    pinnedSet.remove(station.getStreamUrl());
+                }
+                prefs.edit().putStringSet("pinned_urls", pinnedSet).apply();
+
+                java.util.Collections.sort(list, (r1, r2) -> {
+                    boolean p1 = r1.isPinned();
+                    boolean p2 = r2.isPinned();
+                    if (p1 && !p2) return -1;
+                    if (!p1 && p2) return 1;
+                    return 0;
+                });
+                notifyDataSetChanged();
+
+                Toast.makeText(holder.itemView.getContext(), newState ? R.string.station_pinned : R.string.station_unpinned, Toast.LENGTH_SHORT).show();
+                return true;
+            });
             
             android.content.Context context = holder.itemView.getContext();
             int color = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.DKGRAY);
@@ -969,7 +1051,7 @@ public class MainActivity extends AppCompatActivity {
 
         class ViewHolder extends RecyclerView.ViewHolder {
             TextView name, desc;
-            ImageView image, popular;
+            ImageView image, popular, pinIcon;
             View cardContainer;
 
             ViewHolder(View itemView) {
@@ -979,6 +1061,7 @@ public class MainActivity extends AppCompatActivity {
                 desc = itemView.findViewById(R.id.stationDesc);
                 image = itemView.findViewById(R.id.stationImage);
                 popular = itemView.findViewById(R.id.popularIcon);
+                pinIcon = itemView.findViewById(R.id.pinIcon);
             }
         }
     }

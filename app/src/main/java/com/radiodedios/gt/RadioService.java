@@ -89,6 +89,16 @@ public class RadioService extends MediaSessionService {
         return mediaSession;
     }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent != null && "com.radiodedios.gt.ACTION_STOP_PLAYBACK".equals(intent.getAction())) {
+            if (player != null) {
+                player.pause();
+            }
+        }
+        return super.onStartCommand(intent, flags, startId);
+    }
+
     private class PlayerListener implements Player.Listener {
         @Override
         public void onMetadata(Metadata metadata) {
