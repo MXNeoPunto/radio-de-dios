@@ -94,7 +94,27 @@ public class PlayerActivity extends AppCompatActivity {
         
         billingManager = new BillingManager(this);
         adsManager = new com.radiodedios.gt.manager.AdsManager(this, billingManager);
-        sleepTimerManager = new SleepTimerManager();
+        sleepTimerManager = SleepTimerManager.getInstance();
+
+        // Restore timer state
+        if (sleepTimerManager.isTimerRunning()) {
+            sleepTimerManager.setListener(new SleepTimerManager.TimerListener() {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    updateTimerUI(millisUntilFinished);
+                }
+
+                @Override
+                public void onFinish() {
+                    updateTimerUI(0);
+                    if (mediaController != null) {
+                        mediaController.pause();
+                        finish();
+                    }
+                }
+            });
+            updateTimerUI(sleepTimerManager.getRemainingTimeMillis());
+        }
 
         btnClose.setOnClickListener(v -> finish());
         
@@ -114,6 +134,7 @@ public class PlayerActivity extends AppCompatActivity {
         setupSwipeToDismiss();
 
         btnPlayPauseContainer.setOnClickListener(v -> {
+            animateButton(v);
             if (mediaController != null) {
                 if (mediaController.isPlaying()) {
                     mediaController.pause();
@@ -124,6 +145,22 @@ public class PlayerActivity extends AppCompatActivity {
         });
         
         setupMediaController();
+    }
+
+    private void animateButton(View view) {
+        view.animate()
+            .scaleX(0.9f)
+            .scaleY(0.9f)
+            .setDuration(100)
+            .withEndAction(() -> {
+                view.animate()
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .setInterpolator(new android.view.animation.OvershootInterpolator())
+                    .setDuration(200)
+                    .start();
+            })
+            .start();
     }
 
     @SuppressWarnings("deprecation")
@@ -280,7 +317,7 @@ public class PlayerActivity extends AppCompatActivity {
             .setItems(options, (dialog, which) -> {
                 if (which < 4) {
                     int min = minutes[which];
-                    sleepTimerManager.startTimer(min, new SleepTimerManager.TimerListener() {
+                    sleepTimerManager.startTimer(this, min, new SleepTimerManager.TimerListener() {
                         @Override
                         public void onTick(long millisUntilFinished) {
                             updateTimerUI(millisUntilFinished);
@@ -321,6 +358,9 @@ public class PlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        if (sleepTimerManager != null) {
+             sleepTimerManager.setListener(null);
+        }
         if (mediaController != null) {
             mediaController.release();
             mediaController = null;

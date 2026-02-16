@@ -39,6 +39,7 @@ public class NotificationHistoryActivity extends AppCompatActivity {
     private TextView emptyView;
     private NotificationAdapter adapter;
     private List<NotificationItem> notificationList;
+    private com.radiodedios.gt.manager.BibleManager bibleManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,18 @@ public class NotificationHistoryActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         emptyView = findViewById(R.id.emptyView);
+
+        // Load Daily Verse
+        bibleManager = new com.radiodedios.gt.manager.BibleManager(this);
+        TextView dailyVerseText = findViewById(R.id.dailyVerseText);
+        if (dailyVerseText != null) {
+            dailyVerseText.setText(bibleManager.getDailyVerse());
+        }
+
+        // Mark as seen
+        SharedPreferences appPrefs = getSharedPreferences("app_prefs", MODE_PRIVATE);
+        String currentDate = new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(new java.util.Date());
+        appPrefs.edit().putString("verse_seen_date", currentDate).apply();
 
         ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());

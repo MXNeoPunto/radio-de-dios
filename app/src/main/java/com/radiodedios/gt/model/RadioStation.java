@@ -25,6 +25,8 @@ public class RadioStation implements Serializable {
     @SerializedName("language")
     private String language;
 
+    private boolean isPinned;
+
     public int getId() {
         return id;
     }
@@ -51,5 +53,13 @@ public class RadioStation implements Serializable {
 
     public String getLanguage() {
         return language;
+    }
+
+    public boolean isPinned() {
+        return isPinned;
+    }
+
+    public void setPinned(boolean pinned) {
+        isPinned = pinned;
     }
 }

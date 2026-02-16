@@ -134,6 +134,8 @@ Guatemala – LATAM
     <string name="no_notifications">No notifications yet</string>
     <string name="clear_all">Clear All</string>
     <string name="notifications_cleared">Notifications cleared</string>
+    <string name="station_pinned">Station pinned</string>
+    <string name="station_unpinned">Station unpinned</string>
 
     <string-array name="verses">
         <item>The Lord is my shepherd; I shall not want. - Psalm 23:1</item>
