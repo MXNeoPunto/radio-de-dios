@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
     private View miniPlayerPlayPause;
     private ImageView miniPlayerPlayPauseIcon;
     private View bottomContainer;
-    private ImageView bannerImage;
 
     private MediaController mediaController;
     private boolean wasPlayingBeforeAd = false;
@@ -174,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
         miniPlayerTitle = findViewById(R.id.miniPlayerTitle);
         miniPlayerPlayPause = findViewById(R.id.miniPlayerPlayPause);
         miniPlayerPlayPauseIcon = (ImageView) miniPlayerPlayPause;
-        bannerImage = findViewById(R.id.bannerImage);
 
         // Load Ads
         adsManager.loadBanner(adView);
@@ -440,20 +438,8 @@ public class MainActivity extends AppCompatActivity {
 
                     setupList(filteredRadios);
 
-                    if (response.getBannerConfig() != null && response.getBannerConfig().isEnabled()) {
-                        String img = response.getBannerConfig().getImage();
-                        if (img != null && !img.isEmpty()) {
-                            bannerImage.setVisibility(View.VISIBLE);
-                            Glide.with(MainActivity.this)
-                                    .load(img)
-                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                    .into(bannerImage);
-                            bannerImage.setOnClickListener(null);
-                        } else {
-                            bannerImage.setVisibility(View.GONE);
-                        }
-                    } else {
-                        bannerImage.setVisibility(View.GONE);
+                    if (response.getBannerConfig() != null) {
+                        checkAndShowInterstitial(response.getBannerConfig());
                     }
 
                     Toast.makeText(MainActivity.this, R.string.station_list_updated, Toast.LENGTH_SHORT).show();
@@ -468,6 +454,46 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private void checkAndShowInterstitial(RadioResponse.BannerConfig config) {
+        if (!config.isEnabled() || config.getImage() == null || config.getImage().isEmpty()) {
+            return;
+        }
+
+        android.content.SharedPreferences prefs = getSharedPreferences("app_prefs", MODE_PRIVATE);
+        long lastShown = prefs.getLong("pref_interstitial_last_shown", 0);
+        long currentTime = System.currentTimeMillis();
+
+        // 24 hours in milliseconds = 86400000
+        if (currentTime - lastShown < 86400000) {
+            return;
+        }
+
+        android.app.Dialog dialog = new android.app.Dialog(this);
+        dialog.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_interstitial);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+
+        ImageView image = dialog.findViewById(R.id.interstitialImage);
+        View btnClose = dialog.findViewById(R.id.btnClose);
+
+        Glide.with(this)
+                .load(config.getImage())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(image);
+
+        btnClose.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.setOnDismissListener(d -> {
+            prefs.edit().putLong("pref_interstitial_last_shown", System.currentTimeMillis()).apply();
+        });
+
+        dialog.show();
     }
 
     private void setupList(List<RadioStation> radios) {
