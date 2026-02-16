@@ -1,0 +1,147 @@
+<resources>
+    <string name="app_name">Radio De Dios</string>
+    <string name="error_loading_data">Error loading data</string>
+    <string name="checking_updates">Checking for updates...</string>
+    <string name="updated_to_version">Updated to version: %1$s</string>
+    <string name="no_updates">No updates available (Check internet)</string>
+    <string name="about_title">About</string>
+    <string name="about_message">Enjoy the best Christian music 24/7.\n\nContact:</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_use">Terms of Use</string>
+    <string name="settings_title">Settings</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_system">System</string>
+    <string name="language_title">Language</string>
+    <string name="language_en">English</string>
+    <string name="language_es">Spanish</string>
+    <string name="max_active_remaining">MAX Active: %1$d m remaining</string>
+    <string name="max_limit_reached">Daily limit reached for MAX</string>
+    <string name="upgrade_max_title">Upgrade to MAX</string>
+    <string name="upgrade_max_message">Watch a short video to unlock MAX Premium for 30 minutes. \n\n• No Banner Ads\n• No Interstitials\n• Uninterrupted Listening</string>
+    <string name="unlock_free">UNLOCK FREE</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Save</string>
+    <string name="max_activated">MAX Activated for 30 minutes!</string>
+    
+    <string name="action_update">Check for Updates</string>
+    <string name="action_about">About</string>
+    
+    <string name="sleep_timer">Sleep Timer</string>
+    <string name="sleep_timer_set">Timer set for %d min</string>
+    <string name="car_mode">Car Mode</string>
+    <string name="share_app">Share App</string>
+    <string name="share_message">Listen to the best Christian music with RadioDeDios! Download now. https://play.google.com/store/apps/details?id=com.radiodedios.gt</string>
+    
+    <string name="verse_of_day">Verse of the Day</string>
+    <string name="resume_station">Resume Station</string>
+    <string name="resume_message">Do you want to continue listening to %s?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    
+    <string name="particles_effect">Spiritual Particles</string>
+    <string name="auto_play">Auto-play</string>
+    <string name="contact_email">contact@radiocristiana.com</string>
+    <string name="policy_text">
+Terms of Service and Privacy Policy\n\n
+Radio de Dios – Christian Radio Streaming\n\n
+
+1. Privacy and personal data\n
+We respect your privacy. This application does not collect sensitive personal information. Some technical data may be automatically processed to improve app performance, display relevant advertisements, and generate anonymous analytics.\n\n
+
+2. Advertising and monetization\n
+This app uses advertising to keep the service free. Users may unlock a Premium ad-free experience for 30 minutes through rewarded ads, with a maximum limit of 5 videos per day. This option is completely optional and does not require any purchases.\n\n
+
+3. Christian content\n
+Radio de Dios is a Christian radio service focused on Latin America, especially Guatemala. The content is religious, spiritual, and family-friendly.\n\n
+
+4. Children protection\n
+This application is suitable for all ages. It does not contain violent, sexual, or inappropriate material for children and complies with Google Play’s child safety policies.\n\n
+
+5. Copyright and DMCA\n
+We respect copyright laws. If you believe any content infringes intellectual property rights (DMCA), please contact us for review and possible removal.\n\n
+
+6. Limitation of liability\n
+Radio de Dios does not guarantee uninterrupted service availability, as it depends on external streaming sources and internet connectivity. Use of the app is at the user’s own responsibility.\n\n
+
+7. Contact\n
+For legal inquiries, support, privacy concerns, or copyright requests, please contact us at:\n
+ventas@neopunto.com\n\n
+
+Last updated: January 2026\n
+Guatemala – LATAM
+</string>
+    <string name="station_name_placeholder">Station Name</string>
+    <string name="description_placeholder">Description</string>
+    <string name="now_playing_upper">NOW PLAYING</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="play_pause">PLAY / PAUSE</string>
+    <string name="pause">PAUSE</string>
+    <string name="play">PLAY</string>
+    <string name="verse_placeholder">Verse text here...</string>
+    <string name="retry_connection">Connection failed. Retrying... (%d/5)</string>
+    <string name="switching_station">Connection failed. Changing station...</string>
+    <string name="update_available_title">Update Available</string>
+    <string name="update_available_message">A new version is available. Please update to continue.</string>
+    <string name="update_now">Update Now</string>
+
+    <string name="remove_ads_title">Remove Ads</string>
+    <string name="remove_ads_message">Pay $5 once to remove ads permanently or watch a video to unlock 30 minutes free.</string>
+    <string name="pay_5_dollars">Pay $5 (Lifetime)</string>
+    <string name="premium_active">Premium Active (Lifetime)</string>
+    <string name="battery_saver_title">Battery Optimization</string>
+    <string name="battery_saver_message">To ensure uninterrupted playback, please disable battery optimization for this app.</string>
+    <string name="go_to_settings">Settings</string>
+    <string name="cancel_sleep_timer_message">Cancel sleep timer?</string>
+
+    <!-- Modern Popup -->
+    <string name="support_radio">Support this radio</string>
+    <string name="god_bless_you">God bless you</string>
+    <string name="max_mode">MAX Mode</string>
+    <string name="watch_1_ad">Watch Ad / Renew</string>
+    <string name="remove_ads_2h">30 minutes ad-free</string>
+    <string name="max_permanent">Donate to developer</string>
+    <string name="purchase">Purchase</string>
+    <string name="next_ad_in">Next ad in %ds</string>
+    <string name="hours_remaining">Time remaining</string>
+    <string name="wait_seconds">Wait %ds</string>
+    
+    <string name="max_benefits_title">Benefits</string>
+    <string name="max_benefits_desc">• Remove ads permanently\n• Support added stations\n• Help churches spread the word</string>
+    <string name="donate_message">This donation is to help added stations and help churches.</string>
+
+    <string name="loading_ad">Loading ad...</string>
+    <string name="ad_load_failed">Error loading ad, trying alternative...</string>
+
+    <string name="action_send_email">Send Email</string>
+    <string name="developer_info">Developer: Andrés Turcios</string>
+    
+    <!-- New Strings -->
+    <string name="billing_error_canceled">Purchase canceled</string>
+    <string name="billing_error_failed">Purchase failed</string>
+    <string name="billing_error_product_not_found">Product not found</string>
+    
+    <string name="station_list_updated">The station list has been updated</string>
+    
+    <string name="rate_title">Do you want to review Radio de Dios?</string>
+    <string name="rate_message">If you enjoy listening to God\'s word and Christian music, please take a moment to rate us. It helps us reach more people!</string>
+    <string name="rate_now">Review</string>
+    <string name="rate_never">Don\'t show again</string>
+    <string name="rate_later">Later</string>
+    
+    <string name="notifications_title">Notifications</string>
+    <string name="no_notifications">No notifications yet</string>
+    <string name="clear_all">Clear All</string>
+    <string name="notifications_cleared">Notifications cleared</string>
+
+    <string-array name="verses">
+        <item>The Lord is my shepherd; I shall not want. - Psalm 23:1</item>
+        <item>In the beginning God created the heavens and the earth. - Genesis 1:1</item>
+        <item>I can do all things through Christ who strengthens me. - Philippians 4:13</item>
+        <item>For God so loved the world that He gave His only begotten Son... - John 3:16</item>
+        <item>Your word is a lamp to my feet and a light to my path. - Psalm 119:105</item>
+        <item>Trust in the Lord with all your heart, and lean not on your own understanding. - Proverbs 3:5</item>
+        <item>And we know that all things work together for good to those who love God... - Romans 8:28</item>
+    </string-array>
+</resources>

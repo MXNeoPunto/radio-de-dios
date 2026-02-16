@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "916730801095",
+    "project_id": "radio-de-dios",
+    "storage_bucket": "radio-de-dios.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916730801095:android:7bb8bccc96fcc0352207e2",
+        "android_client_info": {
+          "package_name": "com.radiodedios.gt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3mwlMn67GqfNibMPT8u9_15C1He0OMe8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

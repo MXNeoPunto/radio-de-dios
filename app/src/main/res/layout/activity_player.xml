@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/playerRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/player_background">
+
+    <!-- Drag Handle -->
+    <View
+        android:id="@+id/dragHandle"
+        android:layout_width="40dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/drag_handle"
+        android:alpha="0.5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Top Bar -->
+    <ImageButton
+        android:id="@+id/btnClose"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_play"
+        android:rotation="90" 
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:tint="?attr/colorOnSurface"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dragHandle"
+        android:contentDescription="Close" />
+        
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/now_playing_upper"
+        android:letterSpacing="0.15"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnClose"
+        app:layout_constraintBottom_toBottomOf="@id/btnClose" />
+
+    <ImageButton
+        android:id="@+id/btnMore"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_music_placeholder" 
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:tint="?attr/colorOnSurface"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dragHandle" />
+
+
+    <!-- Album Art (Rounded Squircle Style) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardArt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="20dp"
+        app:strokeWidth="0dp"
+        android:transitionName="player_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnClose"
+        app:layout_constraintBottom_toTopOf="@id/infoLayout">
+
+        <ImageView
+            android:id="@+id/playerImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_music_placeholder"
+            android:scaleType="centerCrop"
+            android:background="?attr/colorSurfaceVariant"/>
+            
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Info Section -->
+    <LinearLayout
+        android:id="@+id/infoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/waveView">
+
+        <TextView
+            android:id="@+id/playerTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:text="@string/station_name_placeholder"
+            android:gravity="center"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textAppearance="?attr/textAppearanceHeadlineMedium"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface" />
+
+        <TextView
+            android:id="@+id/playerDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/description_placeholder"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+            
+    </LinearLayout>
+
+    <com.radiodedios.gt.ui.RGBWaveView
+        android:id="@+id/waveView"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/controlsLayout" />
+
+    <!-- Controls (Squircle Play Button) -->
+    <LinearLayout
+        android:id="@+id/controlsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        
+        <!-- Sleep Timer Container -->
+        <FrameLayout
+            android:id="@+id/sleepTimerContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageButton
+                 android:id="@+id/btnSleepTimer"
+                 android:layout_width="48dp"
+                 android:layout_height="48dp"
+                 android:src="@drawable/ic_clock" 
+                 android:alpha="0.6"
+                 android:background="?attr/selectableItemBackgroundBorderless"
+                 app:tint="?attr/colorOnSurface"
+                 android:clickable="false"
+                 android:focusable="false"/>
+                 
+            <TextView
+                android:id="@+id/tvTimerCountdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#80000000" 
+                android:padding="4dp"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:text="30"/>
+        </FrameLayout>
+
+        <!-- Modern Play Button (Squircle) - Shadow Removed -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnPlayPauseContainer"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="?attr/colorPrimary"
+            android:clickable="true"
+            android:focusable="true">
+            
+            <ImageView
+                android:id="@+id/btnPlayPauseIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_pause"
+                app:tint="?attr/colorOnPrimary" />
+                
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Next (Placeholder -> Car Mode / Share) -->
+        <ImageButton
+             android:id="@+id/btnCarMode"
+             android:layout_width="48dp"
+             android:layout_height="48dp"
+             android:src="@drawable/ic_car"
+             android:alpha="0.6"
+             android:background="?attr/selectableItemBackgroundBorderless"
+             app:tint="?attr/colorOnSurface"
+             android:layout_marginStart="32dp"/>
+
+    </LinearLayout>
+    
+    <ImageButton
+        android:id="@+id/btnShare"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_share" 
+        android:layout_margin="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:tint="?attr/colorOnSurface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dragHandle"/>
+    
+
+</androidx.constraintlayout.widget.ConstraintLayout>

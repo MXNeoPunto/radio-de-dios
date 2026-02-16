@@ -1,0 +1,27 @@
+{
+  "app": {
+    "name": "Radio de Dios",
+    "version": "1",
+    "updated": "2026-01-24"
+  },
+  "radios": [
+    {
+      "id": 1,
+      "name": "Actualización",
+      "image": null,
+      "stream_url": "",
+      "description": "Debes actualizar las emisoras",
+      "popular": false,
+      "language": "es"
+    },
+    {
+      "id": 2,
+      "name": "Update Required",
+      "image": null,
+      "stream_url": "",
+      "description": "You must update the radio stations",
+      "popular": false,
+      "language": "en"
+    }
+  ]
+}

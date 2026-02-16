@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Modern Light Theme -->
+    <color name="md_theme_light_primary">#4F5CD1</color> <!-- Modern Indigo -->
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#E0E4FF</color>
+    <color name="md_theme_light_onPrimaryContainer">#040859</color>
+    <color name="md_theme_light_background">#F2F4F8</color>
+    <color name="md_theme_light_onBackground">#191C20</color>
+    <color name="md_theme_light_surface">#FFFFFF</color>
+    <color name="md_theme_light_onSurface">#191C20</color>
+    <color name="md_theme_light_surfaceVariant">#E1E2EC</color>
+    <color name="md_theme_light_onSurfaceVariant">#44474F</color>
+
+    <!-- Modern Dark Theme (Deep Blue/Slate - Android 16 Style) -->
+    <color name="md_theme_dark_primary">#BCC2FF</color>
+    <color name="md_theme_dark_onPrimary">#1F2578</color>
+    <color name="md_theme_dark_primaryContainer">#363E90</color>
+    <color name="md_theme_dark_onPrimaryContainer">#E0E4FF</color>
+    
+    <!-- Deep Flat Background (Not Black, but Deep Slate) -->
+    <color name="md_theme_dark_background">#12141C</color> 
+    <color name="md_theme_dark_onBackground">#E2E2E6</color>
+    
+    <color name="md_theme_dark_surface">#1F222A</color> <!-- Slightly lighter than background for cards -->
+    <color name="md_theme_dark_onSurface">#E2E2E6</color>
+    <color name="md_theme_dark_surfaceVariant">#44474F</color>
+    <color name="md_theme_dark_onSurfaceVariant">#C4C6D0</color>
+
+    <!-- Specific Player Colors -->
+    <color name="player_background_dark">#181B24</color> <!-- Deep Slate -->
+    <color name="player_background_light">#FFFFFF</color>
+    <color name="player_accent">#5C6BC0</color>
+
+    <!-- Glass Theme Colors -->
+    <color name="glass_background_light">#80FFFFFF</color>
+    <color name="glass_background_dark">#401F222A</color>
+
+    <color name="splash_background">#87CEEB</color>
+</resources>

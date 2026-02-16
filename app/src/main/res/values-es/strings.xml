@@ -1,0 +1,147 @@
+<resources>
+    <string name="app_name">Radio De Dios</string>
+    <string name="error_loading_data">Error cargando datos</string>
+    <string name="checking_updates">Buscando actualizaciones...</string>
+    <string name="updated_to_version">Actualizado a la versión: %1$s</string>
+    <string name="no_updates">No hay actualizaciones disponibles (Revise su internet)</string>
+    <string name="about_title">Acerca de</string>
+    <string name="about_message">Disfruta la mejor música Cristiana 24/7.\n\nContacto:</string>
+    <string name="privacy_policy">Política de Privacidad</string>
+    <string name="terms_of_use">Términos de Uso</string>
+    <string name="settings_title">Ajustes</string>
+    <string name="theme_title">Tema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Oscuro</string>
+    <string name="theme_system">Sistema</string>
+    <string name="language_title">Idioma</string>
+    <string name="language_en">Inglés</string>
+    <string name="language_es">Español</string>
+    <string name="max_active_remaining">MAX Activo: %1$d m restantes</string>
+    <string name="max_limit_reached">Límite diario alcanzado para MAX</string>
+    <string name="upgrade_max_title">Mejorar a MAX</string>
+    <string name="upgrade_max_message">Mira un video corto para desbloquear MAX Premium por 30 minutos. \n\n• Sin Anuncios Banner\n• Sin Intersticiales\n• Escucha sin interrupciones</string>
+    <string name="unlock_free">DESBLOQUEAR GRATIS</string>
+    <string name="cancel">Cancelar</string>
+    <string name="ok">Guardar</string>
+    <string name="max_activated">¡MAX Activado por 30 minutos!</string>
+    
+    <string name="action_update">Buscar Actualizaciones</string>
+    <string name="action_about">Acerca de</string>
+    
+    <string name="sleep_timer">Temporizador</string>
+    <string name="sleep_timer_set">Temporizador: %d min</string>
+    <string name="car_mode">Modo Coche</string>
+    <string name="share_app">Compartir App</string>
+    <string name="share_message">¡Escucha la mejor música Cristiana con RadioDeDios! Descarga ahora. https://play.google.com/store/apps/details?id=com.radiodedios.gt</string>
+    
+    <string name="verse_of_day">Versículo del Día</string>
+    <string name="resume_station">Reanudar Estación</string>
+    <string name="resume_message">¿Deseas seguir escuchando %s?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    
+    <string name="particles_effect">Partículas Espirituales</string>
+    <string name="auto_play">Auto-reproducir</string>
+    <string name="contact_email">ventas@neopunto.com</string>
+   <string name="policy_text">
+Términos de Servicio y Política de Privacidad\n\n
+Radio de Dios – Radio Cristiana Streaming\n\n
+
+1. Privacidad y datos personales\n
+Respetamos tu privacidad. Esta aplicación no recopila información personal sensible. Algunos datos técnicos pueden ser utilizados de forma automática para mejorar el funcionamiento del servicio, mostrar anuncios relevantes y realizar análisis estadísticos anónimos.\n\n
+
+2. Publicidad y monetización\n
+La aplicación utiliza publicidad para mantener el servicio gratuito. Los usuarios pueden desbloquear la experiencia Premium sin anuncios durante 30 minutos mediante anuncios recompensados, con un límite máximo de 5 videos por día. Esta opción es voluntaria y no obliga a realizar compras.\n\n
+
+3. Contenido cristiano\n
+Radio de Dios es una radio cristiana orientada al público de Latinoamérica, especialmente Guatemala. El contenido transmitido es de carácter religioso, espiritual y familiar.\n\n
+
+4. Protección de menores\n
+La aplicación es apta para todo público. No contiene material violento, sexual ni inapropiado para niños. Se cumple con las políticas de protección infantil establecidas por Google Play.\n\n
+
+5. Derechos de autor y DMCA\n
+Respetamos los derechos de autor. Si considera que algún contenido infringe derechos de propiedad intelectual (DMCA), puede contactarnos para su revisión y posible retiro.\n\n
+
+6. Limitación de responsabilidad\n
+Radio de Dios no garantiza la disponibilidad continua del servicio, ya que depende de transmisiones externas y conexión a internet. El uso de la aplicación es bajo responsabilidad del usuario.\n\n
+
+7. Contacto\n
+Para consultas legales, soporte o solicitudes relacionadas con privacidad o derechos de autor, puede escribirnos a:\n
+ventas@neopunto.com\n\n
+
+Última actualización: Enero 2026\n
+Guatemala – LATAM
+</string>
+    <string name="station_name_placeholder">Nombre de la Estación</string>
+    <string name="description_placeholder">Descripción</string>
+    <string name="now_playing_upper">REPRODUCIENDO AHORA</string>
+    <string name="now_playing">Reproduciendo Ahora</string>
+    <string name="play_pause">REPRODUCIR / PAUSAR</string>
+    <string name="pause">PAUSAR</string>
+    <string name="play">REPRODUCIR</string>
+    <string name="verse_placeholder">Texto del versículo...</string>
+    <string name="retry_connection">Conexión fallida. Reintentando... (%d/5)</string>
+    <string name="switching_station">Conexión fallida. Cambiando emisora...</string>
+    <string name="update_available_title">Actualización Disponible</string>
+    <string name="update_available_message">Hay una nueva versión disponible. Por favor actualice para continuar.</string>
+    <string name="update_now">Actualizar Ahora</string>
+
+    <string name="remove_ads_title">Eliminar Anuncios</string>
+    <string name="remove_ads_message">Paga $5 una vez para eliminar anuncios permanentemente o mira un video para desbloquear 30 minutos gratis.</string>
+    <string name="pay_5_dollars">Pagar $5 (Permanente)</string>
+    <string name="premium_active">Premium Activo (Permanente)</string>
+    <string name="battery_saver_title">Ahorro de Energía</string>
+    <string name="battery_saver_message">Para asegurar una reproducción sin interrupciones, por favor desactiva el ahorro de energía para esta aplicación.</string>
+    <string name="go_to_settings">Ajustes</string>
+    <string name="cancel_sleep_timer_message">¿Cancelar autoapagado?</string>
+
+    <!-- Modern Popup -->
+    <string name="support_radio">Gracias por apoyar esta radio</string>
+    <string name="god_bless_you">Dios te bendiga</string>
+    <string name="max_mode">Modo MAX</string>
+    <string name="watch_1_ad">Ver Anuncio / Renovar</string>
+    <string name="remove_ads_2h">30 minutos sin anuncios</string>
+    <string name="max_permanent">Donar al desarrollador</string>
+    <string name="purchase">Compra</string>
+    <string name="next_ad_in">Siguiente anuncio en %ds</string>
+    <string name="hours_remaining">Tiempo restante</string>
+    <string name="wait_seconds">Esperar %ds</string>
+    
+    <string name="max_benefits_title">Beneficios</string>
+    <string name="max_benefits_desc">• Elimina anuncios permanente\n• Apoya a las emisoras agregadas\n• Ayuda a iglesias a difundir la palabra</string>
+    <string name="donate_message">Esta donación es para ayudar a las emisoras agregadas y ayudar a iglesias.</string>
+
+    <string name="loading_ad">Cargando anuncio...</string>
+    <string name="ad_load_failed">Error cargando anuncio, intentando alternativa...</string>
+
+    <string name="action_send_email">Enviar correo</string>
+    <string name="developer_info">Desarrollador: Andrés Turcios</string>
+    
+    <!-- New Strings -->
+    <string name="billing_error_canceled">Compra cancelada</string>
+    <string name="billing_error_failed">Compra fallida</string>
+    <string name="billing_error_product_not_found">Producto no encontrado</string>
+    
+    <string name="station_list_updated">Se actualizó la lista de emisoras</string>
+    
+    <string name="rate_title">¿Deseas reseñar Radio de Dios?</string>
+    <string name="rate_message">Si te gusta escuchar la palabra de Dios y la música cristiana, por favor tómate un momento para calificarnos. ¡Nos ayuda a llegar a más personas!</string>
+    <string name="rate_now">Reseñar</string>
+    <string name="rate_never">No volver a mostrar</string>
+    <string name="rate_later">Más tarde</string>
+    
+    <string name="notifications_title">Notificaciones</string>
+    <string name="no_notifications">No hay notificaciones</string>
+    <string name="clear_all">Borrar todo</string>
+    <string name="notifications_cleared">Notificaciones borradas</string>
+
+    <string-array name="verses">
+        <item>Jehová es mi pastor; nada me faltará. - Salmos 23:1</item>
+        <item>En el principio crió Dios los cielos y la tierra. - Génesis 1:1</item>
+        <item>Todo lo puedo en Cristo que me fortalece. - Filipenses 4:13</item>
+        <item>Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito... - Juan 3:16</item>
+        <item>Lámpara es a mis pies tu palabra, y lumbrera a mi camino. - Salmos 119:105</item>
+        <item>Confía en Jehová con todo tu corazón, y no estribes en tu prudencia. - Proverbios 3:5</item>
+        <item>Y sabemos que á los que a Dios aman, todas las cosas les ayudan a bien... - Romanos 8:28</item>
+    </string-array>
+</resources>

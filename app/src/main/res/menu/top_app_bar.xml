@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_max"
+        android:title="MAX"
+        android:icon="@drawable/ic_crown"
+        app:iconTint="?attr/colorOnSurface"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_notifications"
+        android:title="@string/notifications_title"
+        android:icon="@drawable/ic_notification" 
+        app:iconTint="?attr/colorOnSurface"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/settings_title"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_privacy"
+        android:title="@string/privacy_policy"
+        app:showAsAction="never" />
+     <item
+        android:id="@+id/action_about"
+        android:title="@string/action_about"
+        app:showAsAction="never" />
+</menu>
