@@ -14,7 +14,6 @@
         <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
 
         <!-- Status Bar and Navigation Bar colors removed for API 35+ -->
-        <item name="android:windowLightStatusBar">true</item>
         
         <!-- Icon Tinting -->
         <item name="colorControlNormal">?attr/colorOnSurface</item>
