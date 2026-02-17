@@ -13,7 +13,6 @@
         <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariant</item>
 
         <!-- Status Bar and Navigation Bar colors removed for API 35+ -->
-        <item name="android:windowLightStatusBar">false</item>
         
          <!-- Icon Tinting -->
         <item name="colorControlNormal">?attr/colorOnSurface</item>
