@@ -545,22 +545,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showModernMenu() {
-        com.google.android.material.bottomsheet.BottomSheetDialog dialog = new com.google.android.material.bottomsheet.BottomSheetDialog(this);
-        dialog.setContentView(R.layout.dialog_modern_menu);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_modern_menu, null);
 
-        dialog.setOnShowListener(dialogInterface -> {
-             com.google.android.material.bottomsheet.BottomSheetDialog d = (com.google.android.material.bottomsheet.BottomSheetDialog) dialogInterface;
-             android.widget.FrameLayout bottomSheet = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
-             if (bottomSheet != null) {
-                 bottomSheet.setBackgroundResource(android.R.color.transparent);
-             }
-        });
+        androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(this)
+            .setView(view)
+            .create();
 
-        View menuNotifs = dialog.findViewById(R.id.menuNotifs);
-        View menuSettings = dialog.findViewById(R.id.menuSettings);
-        View menuAds = dialog.findViewById(R.id.menuAds);
-        View menuAbout = dialog.findViewById(R.id.menuAbout);
-        View menuShare = dialog.findViewById(R.id.menuShare);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+        }
+
+        View menuNotifs = view.findViewById(R.id.menuNotifs);
+        View menuSettings = view.findViewById(R.id.menuSettings);
+        View menuAds = view.findViewById(R.id.menuAds);
+        View menuAbout = view.findViewById(R.id.menuAbout);
+        View menuShare = view.findViewById(R.id.menuShare);
 
         // Notifications
         if (menuNotifs != null) {
