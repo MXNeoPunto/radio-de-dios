@@ -95,7 +95,10 @@ Guatemala – LATAM
     <string name="premium_active">Premium Active (Lifetime)</string>
     <string name="battery_saver_title">Battery Optimization</string>
     <string name="battery_saver_message">To ensure uninterrupted playback, please disable battery optimization for this app.</string>
+    <string name="battery_saver_message_detailed">Android stops background radio to save battery.\n\nTo prevent stops:\n1. Tap \'Go to Settings\'\n2. Select \'All apps\' -> \'Radio De Dios\'\n3. Select \'Don\'t optimize\'</string>
     <string name="go_to_settings">Settings</string>
+    <string name="go_to_settings_action">Go to Settings &amp; Fix</string>
+    <string name="later">Later</string>
     <string name="cancel_sleep_timer_message">Cancel sleep timer?</string>
 
     <!-- Modern Popup -->
