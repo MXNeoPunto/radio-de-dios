@@ -1,183 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:background="?android:attr/colorBackground">
+    android:layout_height="wrap_content">
 
-    <TextView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/menu_modern_title"
-        android:textAppearance="?attr/textAppearanceHeadlineSmall"
-        android:gravity="center"
-        android:layout_marginBottom="24dp"
-        android:textColor="?attr/colorOnSurface"/>
+        android:layout_margin="16dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="?android:attr/colorBackground"
+        app:strokeWidth="0dp">
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="3"
-        android:alignmentMode="alignMargins"
-        android:columnOrderPreserved="false">
-
-        <!-- Notifications -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/menuNotifs"
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:clickable="true"
-            android:focusable="true">
-            <LinearLayout
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_notification"
-                    app:tint="?attr/colorPrimary"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/notifications_title"
-                    android:layout_marginTop="8dp"
-                    android:textSize="12sp"
-                    android:gravity="center"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                android:text="@string/menu_modern_title"
+                android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                android:gravity="center"
+                android:layout_marginBottom="24dp"
+                android:textColor="?attr/colorOnSurface"/>
 
-        <!-- Settings -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/menuSettings"
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:clickable="true"
-            android:focusable="true">
-            <LinearLayout
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_settings"
-                    app:tint="?attr/colorPrimary"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/settings_title"
-                    android:layout_marginTop="8dp"
-                    android:textSize="12sp"
-                    android:gravity="center"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                android:columnCount="2"
+                android:rowCount="3"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false">
 
-        <!-- Remove Ads -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/menuAds"
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:clickable="true"
-            android:focusable="true">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_star_filled"
-                    app:tint="?attr/colorPrimary"/>
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Notifications -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/menuNotifs"
+                    style="@style/Widget.Material3.CardView.Filled"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/max_mode"
-                    android:layout_marginTop="8dp"
-                    android:textSize="12sp"
-                    android:gravity="center"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:gravity="center">
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_notification"
+                            app:tint="?attr/colorPrimary"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/notifications_title"
+                            android:layout_marginTop="8dp"
+                            android:textSize="12sp"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-        <!-- About -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/menuAbout"
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:clickable="true"
-            android:focusable="true">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_info"
-                    app:tint="?attr/colorPrimary"/>
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Settings -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/menuSettings"
+                    style="@style/Widget.Material3.CardView.Filled"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/action_about"
-                    android:layout_marginTop="8dp"
-                    android:textSize="12sp"
-                    android:gravity="center"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:gravity="center">
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_settings"
+                            app:tint="?attr/colorPrimary"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_title"
+                            android:layout_marginTop="8dp"
+                            android:textSize="12sp"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-        <!-- Share -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/menuShare"
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:clickable="true"
-            android:focusable="true">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_share"
-                    app:tint="?attr/colorPrimary"/>
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Remove Ads -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/menuAds"
+                    style="@style/Widget.Material3.CardView.Filled"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/share_app"
-                    android:layout_marginTop="8dp"
-                    android:textSize="12sp"
-                    android:gravity="center"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:gravity="center">
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_star_filled"
+                            app:tint="?attr/colorPrimary"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/max_mode"
+                            android:layout_marginTop="8dp"
+                            android:textSize="12sp"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-    </GridLayout>
-</LinearLayout>
+                <!-- About -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/menuAbout"
+                    style="@style/Widget.Material3.CardView.Filled"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:gravity="center">
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_info"
+                            app:tint="?attr/colorPrimary"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/action_about"
+                            android:layout_marginTop="8dp"
+                            android:textSize="12sp"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Share -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/menuShare"
+                    style="@style/Widget.Material3.CardView.Filled"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:gravity="center">
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_share"
+                            app:tint="?attr/colorPrimary"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/share_app"
+                            android:layout_marginTop="8dp"
+                            android:textSize="12sp"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </GridLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

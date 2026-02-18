@@ -548,6 +548,14 @@ public class MainActivity extends AppCompatActivity {
         com.google.android.material.bottomsheet.BottomSheetDialog dialog = new com.google.android.material.bottomsheet.BottomSheetDialog(this);
         dialog.setContentView(R.layout.dialog_modern_menu);
 
+        dialog.setOnShowListener(dialogInterface -> {
+             com.google.android.material.bottomsheet.BottomSheetDialog d = (com.google.android.material.bottomsheet.BottomSheetDialog) dialogInterface;
+             android.widget.FrameLayout bottomSheet = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+             if (bottomSheet != null) {
+                 bottomSheet.setBackgroundResource(android.R.color.transparent);
+             }
+        });
+
         View menuNotifs = dialog.findViewById(R.id.menuNotifs);
         View menuSettings = dialog.findViewById(R.id.menuSettings);
         View menuAds = dialog.findViewById(R.id.menuAds);
