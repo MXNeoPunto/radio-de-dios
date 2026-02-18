@@ -719,23 +719,54 @@ public class MainActivity extends AppCompatActivity {
     private void showSettingsDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_settings, null);
         
-        MaterialButtonToggleGroup languageGroup = view.findViewById(R.id.languageGroup);
-        android.widget.RadioGroup themeGroup = view.findViewById(R.id.themeGroup);
+        // Views
+        com.google.android.material.card.MaterialCardView cardLangEn = view.findViewById(R.id.cardLangEn);
+        com.google.android.material.card.MaterialCardView cardLangEs = view.findViewById(R.id.cardLangEs);
+
+        com.google.android.material.card.MaterialCardView cardThemeLight = view.findViewById(R.id.cardThemeLight);
+        com.google.android.material.card.MaterialCardView cardThemeDark = view.findViewById(R.id.cardThemeDark);
+        com.google.android.material.card.MaterialCardView cardThemeSystem = view.findViewById(R.id.cardThemeSystem);
+
         View btnApply = view.findViewById(R.id.btnApply);
 
-        // Set Current Values
-        // Language
-        if (languageManager.getLanguage().equals("es")) {
-            languageGroup.check(R.id.langEs);
-        } else {
-            languageGroup.check(R.id.langEn);
-        }
+        // State Holders
+        final String[] selectedLang = {languageManager.getLanguage()};
+        final int[] selectedTheme = {themeManager.getCurrentTheme()};
 
-        // Theme
-        int currentTheme = themeManager.getCurrentTheme();
-        if (currentTheme == ThemeManager.THEME_LIGHT) themeGroup.check(R.id.themeLight);
-        else if (currentTheme == ThemeManager.THEME_DARK) themeGroup.check(R.id.themeDark);
-        else themeGroup.check(R.id.themeSystem);
+        // UI Update Helper
+        Runnable updateUI = () -> {
+            int colorSelected = MaterialColors.getColor(view, com.google.android.material.R.attr.colorPrimaryContainer);
+            int colorUnselected = MaterialColors.getColor(view, com.google.android.material.R.attr.colorSurface);
+
+            // Language
+            if ("en".equals(selectedLang[0])) {
+                cardLangEn.setCardBackgroundColor(colorSelected);
+                cardLangEs.setCardBackgroundColor(colorUnselected);
+            } else {
+                cardLangEn.setCardBackgroundColor(colorUnselected);
+                cardLangEs.setCardBackgroundColor(colorSelected);
+            }
+
+            // Theme
+            cardThemeLight.setCardBackgroundColor(colorUnselected);
+            cardThemeDark.setCardBackgroundColor(colorUnselected);
+            cardThemeSystem.setCardBackgroundColor(colorUnselected);
+
+            if (selectedTheme[0] == ThemeManager.THEME_LIGHT) cardThemeLight.setCardBackgroundColor(colorSelected);
+            else if (selectedTheme[0] == ThemeManager.THEME_DARK) cardThemeDark.setCardBackgroundColor(colorSelected);
+            else cardThemeSystem.setCardBackgroundColor(colorSelected);
+        };
+
+        // Initial State
+        updateUI.run();
+
+        // Listeners
+        cardLangEn.setOnClickListener(v -> { selectedLang[0] = "en"; updateUI.run(); });
+        cardLangEs.setOnClickListener(v -> { selectedLang[0] = "es"; updateUI.run(); });
+
+        cardThemeLight.setOnClickListener(v -> { selectedTheme[0] = ThemeManager.THEME_LIGHT; updateUI.run(); });
+        cardThemeDark.setOnClickListener(v -> { selectedTheme[0] = ThemeManager.THEME_DARK; updateUI.run(); });
+        cardThemeSystem.setOnClickListener(v -> { selectedTheme[0] = ThemeManager.THEME_SYSTEM; updateUI.run(); });
 
         androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(this)
             .setView(view)
@@ -749,23 +780,14 @@ public class MainActivity extends AppCompatActivity {
             boolean restartNeeded = false;
 
             // Language
-            String newLang = languageGroup.getCheckedButtonId() == R.id.langEs ? "es" : "en";
-            if (!newLang.equals(languageManager.getLanguage())) {
-                languageManager.setLanguage(newLang);
+            if (!selectedLang[0].equals(languageManager.getLanguage())) {
+                languageManager.setLanguage(selectedLang[0]);
                 restartNeeded = true;
             }
 
             // Theme
-            int newTheme;
-            int themeId = themeGroup.getCheckedRadioButtonId();
-            if (themeId == R.id.themeLight) newTheme = ThemeManager.THEME_LIGHT;
-            else if (themeId == R.id.themeDark) newTheme = ThemeManager.THEME_DARK;
-            else newTheme = ThemeManager.THEME_SYSTEM;
-
-            if (newTheme != themeManager.getCurrentTheme()) {
-                themeManager.setTheme(newTheme);
-                // No need to set restartNeeded because setTheme already applies it, 
-                // but we might want to recreate to ensure everything reloads correctly
+            if (selectedTheme[0] != themeManager.getCurrentTheme()) {
+                themeManager.setTheme(selectedTheme[0]);
                 restartNeeded = true; 
             }
 

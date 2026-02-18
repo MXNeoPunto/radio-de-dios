@@ -13,6 +13,8 @@
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
     <string name="theme_system">System</string>
+    <string name="language_select">Select Language</string>
+    <string name="theme_select">Select Theme</string>
     <string name="language_title">Language</string>
     <string name="language_en">English</string>
     <string name="language_es">Spanish</string>
@@ -99,7 +101,8 @@ Guatemala – LATAM
     <!-- Modern Popup -->
     <string name="support_radio">Support this radio</string>
     <string name="god_bless_you">God bless you</string>
-    <string name="max_mode">Eliminar publicidad</string>
+    <string name="max_mode">Remove Ads</string>
+    <string name="timer_idle">Timer</string>
     <string name="watch_1_ad">Watch Ad / Renew</string>
     <string name="remove_ads_2h">30 minutes ad-free</string>
     <string name="max_permanent">Donate to developer</string>
