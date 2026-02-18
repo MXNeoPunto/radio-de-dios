@@ -194,6 +194,16 @@ public class MainActivity extends AppCompatActivity {
         setupMediaController();
         
         // Modern Menu Setup
+        android.widget.ImageButton btnNotifications = findViewById(R.id.btnNotifications);
+        if (btnNotifications != null) {
+            btnNotifications.setOnClickListener(v -> startActivity(new Intent(this, com.radiodedios.gt.ui.NotificationHistoryActivity.class)));
+        }
+
+        android.widget.ImageButton btnRemoveAds = findViewById(R.id.btnRemoveAds);
+        if (btnRemoveAds != null) {
+            btnRemoveAds.setOnClickListener(v -> handleMaxAction());
+        }
+
         android.widget.ImageButton btnMenu = findViewById(R.id.btnMenu);
         if (btnMenu != null) {
             btnMenu.setOnClickListener(v -> showModernMenu());
