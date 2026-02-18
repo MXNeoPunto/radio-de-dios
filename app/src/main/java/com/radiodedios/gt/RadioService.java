@@ -28,6 +28,7 @@ import com.radiodedios.gt.R;
 import com.radiodedios.gt.data.JsonFallbackLoader;
 import com.radiodedios.gt.model.RadioResponse;
 import com.radiodedios.gt.model.RadioStation;
+import com.radiodedios.gt.manager.StatsManager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,15 @@ public class RadioService extends MediaSessionService {
     private int retryCount = 0;
     private static final int MAX_RETRIES = 5;
     private RadioStation currentStation;
+
+    private Handler statsHandler = new Handler(Looper.getMainLooper());
+    private Runnable statsRunnable = new Runnable() {
+        @Override
+        public void run() {
+            StatsManager.getInstance(RadioService.this).addPlayTime(60000);
+            statsHandler.postDelayed(this, 60000);
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -72,6 +82,9 @@ public class RadioService extends MediaSessionService {
 
     @Override
     public void onDestroy() {
+        if (statsHandler != null && statsRunnable != null) {
+            statsHandler.removeCallbacks(statsRunnable);
+        }
         if (mediaSession != null) {
             mediaSession.release();
             mediaSession = null;
@@ -142,6 +155,17 @@ public class RadioService extends MediaSessionService {
         public void onIsPlayingChanged(boolean isPlaying) {
             if (isPlaying) {
                 retryCount = 0;
+                statsHandler.removeCallbacks(statsRunnable);
+                statsHandler.postDelayed(statsRunnable, 60000);
+            } else {
+                statsHandler.removeCallbacks(statsRunnable);
+            }
+        }
+
+        @Override
+        public void onMediaItemTransition(@Nullable MediaItem mediaItem, int reason) {
+            if (mediaItem != null && mediaItem.mediaMetadata != null && mediaItem.mediaMetadata.title != null) {
+                StatsManager.getInstance(RadioService.this).incrementStationPlay(mediaItem.mediaMetadata.title.toString());
             }
         }
     }

@@ -2,11 +2,16 @@ package com.radiodedios.gt;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.activity.EdgeToEdge;
 import androidx.core.view.WindowCompat;
@@ -37,12 +42,18 @@ public class PlayerActivity extends AppCompatActivity {
     private ImageView btnPlayPauseIcon;
     private ImageView playerImage;
     private TextView title, desc;
-    private android.widget.ImageButton btnClose;
-    private android.widget.ImageButton btnShare;
-    private View btnSleepTimerContainer; // Use container click
-    private android.widget.ImageButton btnSleepTimerIcon;
-    private android.widget.TextView tvTimerCountdown;
-    private android.widget.ImageButton btnCarMode;
+    private ImageButton btnClose;
+    private ImageButton btnShare;
+    private View btnSleepTimerContainer;
+    private ImageButton btnSleepTimerIcon;
+    private TextView tvTimerCountdown;
+    private ImageButton btnCarMode;
+
+    // New Features
+    private ImageButton btnAmen, btnLike, btnBlessing;
+    private Button btnLyrics, btnYoutube;
+    private ToneGenerator toneGenerator;
+
     private com.radiodedios.gt.manager.AdsManager adsManager;
     private BillingManager billingManager;
     private SleepTimerManager sleepTimerManager;
@@ -68,6 +79,8 @@ public class PlayerActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_player);
 
+        toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+
         rootLayout = findViewById(R.id.playerRoot);
         
         ViewCompat.setOnApplyWindowInsetsListener(rootLayout, (v, windowInsets) -> {
@@ -84,7 +97,6 @@ public class PlayerActivity extends AppCompatActivity {
         btnClose = findViewById(R.id.btnClose);
         btnShare = findViewById(R.id.btnShare);
         
-        // Sleep Timer
         btnSleepTimerContainer = findViewById(R.id.sleepTimerContainer);
         btnSleepTimerIcon = findViewById(R.id.btnSleepTimer);
         tvTimerCountdown = findViewById(R.id.tvTimerCountdown);
@@ -92,11 +104,17 @@ public class PlayerActivity extends AppCompatActivity {
         btnCarMode = findViewById(R.id.btnCarMode);
         waveView = findViewById(R.id.waveView);
         
+        // Reactions & Search
+        btnAmen = findViewById(R.id.btnAmen);
+        btnLike = findViewById(R.id.btnLike);
+        btnBlessing = findViewById(R.id.btnBlessing);
+        btnLyrics = findViewById(R.id.btnLyrics);
+        btnYoutube = findViewById(R.id.btnYoutube);
+
         billingManager = new BillingManager(this);
         adsManager = new com.radiodedios.gt.manager.AdsManager(this, billingManager);
         sleepTimerManager = SleepTimerManager.getInstance();
 
-        // Restore timer state
         if (sleepTimerManager.isTimerRunning()) {
             sleepTimerManager.setListener(new SleepTimerManager.TimerListener() {
                 @Override
@@ -144,7 +162,64 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
         
+        setupReactions();
+        setupSearch();
         setupMediaController();
+    }
+
+    private void setupReactions() {
+        View.OnClickListener reactionListener = v -> {
+            animateButton(v);
+            toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP, 150);
+
+            String msg = "";
+            if (v.getId() == R.id.btnAmen) msg = getString(R.string.reaction_amen);
+            else if (v.getId() == R.id.btnLike) msg = getString(R.string.reaction_like);
+            else if (v.getId() == R.id.btnBlessing) msg = getString(R.string.reaction_blessing);
+
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
+            // Wait 2 mins logic? For now local simulation as requested "solo hace click"
+        };
+
+        btnAmen.setOnClickListener(reactionListener);
+        btnLike.setOnClickListener(reactionListener);
+        btnBlessing.setOnClickListener(reactionListener);
+    }
+
+    private void setupSearch() {
+        btnLyrics.setOnClickListener(v -> {
+            String query = title.getText().toString();
+            if (!query.equals(getString(R.string.station_name_placeholder))) {
+                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+                intent.putExtra(android.app.SearchManager.QUERY, query + " lyrics");
+                try {
+                     startActivity(intent);
+                } catch (Exception e) {
+                     // Ignore
+                }
+            } else {
+                 Toast.makeText(this, R.string.no_song_info, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnYoutube.setOnClickListener(v -> {
+            String query = title.getText().toString();
+            if (!query.equals(getString(R.string.station_name_placeholder))) {
+                Intent intent = new Intent(Intent.ACTION_SEARCH);
+                intent.setPackage("com.google.android.youtube");
+                intent.putExtra("query", query);
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    // Fallback to browser
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=" + query));
+                    startActivity(webIntent);
+                }
+            } else {
+                 Toast.makeText(this, R.string.no_song_info, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void animateButton(View view) {
@@ -167,7 +242,6 @@ public class PlayerActivity extends AppCompatActivity {
     private void setupSwipeToDismiss() {
         rootLayout.setOnTouchListener(new android.view.View.OnTouchListener() {
             private float startY;
-            private float initialY;
             private boolean isDragging = false;
             
             @Override
@@ -175,16 +249,14 @@ public class PlayerActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case android.view.MotionEvent.ACTION_DOWN:
                         startY = event.getRawY();
-                        initialY = v.getTranslationY();
                         isDragging = false;
                         return true;
                         
                     case android.view.MotionEvent.ACTION_MOVE:
                         float deltaY = event.getRawY() - startY;
-                        if (deltaY > 0) { // Only drag downwards
+                        if (deltaY > 0) {
                             v.setTranslationY(deltaY);
-                            // Optional: Scale down slightly as we drag
-                            float scale = 1.0f - (deltaY / v.getHeight() * 0.2f); // Max 20% shrink
+                            float scale = 1.0f - (deltaY / v.getHeight() * 0.2f);
                             v.setScaleX(Math.max(0.8f, scale));
                             v.setScaleY(Math.max(0.8f, scale));
                             isDragging = true;
@@ -195,7 +267,7 @@ public class PlayerActivity extends AppCompatActivity {
                     case android.view.MotionEvent.ACTION_CANCEL:
                         if (isDragging) {
                             float currentY = v.getTranslationY();
-                            if (currentY > v.getHeight() * 0.25f) { // Dismiss if dragged 25% down
+                            if (currentY > v.getHeight() * 0.25f) {
                                 v.animate()
                                     .translationY(v.getHeight())
                                     .alpha(0f)
@@ -210,7 +282,6 @@ public class PlayerActivity extends AppCompatActivity {
                                     })
                                     .start();
                             } else {
-                                // Bounce back
                                 v.animate()
                                     .translationY(0f)
                                     .scaleX(1.0f)
@@ -358,6 +429,10 @@ public class PlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        if (toneGenerator != null) {
+            toneGenerator.release();
+            toneGenerator = null;
+        }
         if (sleepTimerManager != null) {
              sleepTimerManager.setListener(null);
         }

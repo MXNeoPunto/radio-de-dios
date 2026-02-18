@@ -121,7 +121,70 @@
             android:ellipsize="end"
             android:textAppearance="?attr/textAppearanceBodyLarge"
             android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/btnLyrics"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/search_lyrics"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:textSize="12sp"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnYoutube"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/search_youtube"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:textSize="12sp"/>
+        </LinearLayout>
             
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/reactionContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/waveView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp">
+
+        <ImageButton
+            android:id="@+id/btnAmen"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_reaction_amen"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/reaction_amen"/>
+
+        <ImageButton
+            android:id="@+id/btnLike"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_reaction_like"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/reaction_like"/>
+
+        <ImageButton
+            android:id="@+id/btnBlessing"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_reaction_blessing"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/reaction_blessing"/>
+
     </LinearLayout>
 
     <com.radiodedios.gt.ui.RGBWaveView
