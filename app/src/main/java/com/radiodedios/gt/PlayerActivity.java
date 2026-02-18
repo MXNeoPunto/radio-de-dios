@@ -51,7 +51,6 @@ public class PlayerActivity extends AppCompatActivity {
 
     // New Features
     private ImageButton btnAmen, btnLike, btnBlessing;
-    private Button btnLyrics, btnYoutube;
     private ToneGenerator toneGenerator;
 
     private com.radiodedios.gt.manager.AdsManager adsManager;
@@ -108,8 +107,6 @@ public class PlayerActivity extends AppCompatActivity {
         btnAmen = findViewById(R.id.btnAmen);
         btnLike = findViewById(R.id.btnLike);
         btnBlessing = findViewById(R.id.btnBlessing);
-        btnLyrics = findViewById(R.id.btnLyrics);
-        btnYoutube = findViewById(R.id.btnYoutube);
 
         billingManager = new BillingManager(this);
         adsManager = new com.radiodedios.gt.manager.AdsManager(this, billingManager);
@@ -163,12 +160,46 @@ public class PlayerActivity extends AppCompatActivity {
         });
         
         setupReactions();
-        setupSearch();
         setupMediaController();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (sleepTimerManager != null && sleepTimerManager.isTimerRunning()) {
+            sleepTimerManager.setListener(new SleepTimerManager.TimerListener() {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    updateTimerUI(millisUntilFinished);
+                }
+
+                @Override
+                public void onFinish() {
+                    updateTimerUI(0);
+                    if (mediaController != null) {
+                        mediaController.pause();
+                        finish();
+                    }
+                }
+            });
+            updateTimerUI(sleepTimerManager.getRemainingTimeMillis());
+        } else {
+            updateTimerUI(0);
+        }
     }
 
     private void setupReactions() {
         View.OnClickListener reactionListener = v -> {
+            android.content.SharedPreferences prefs = getSharedPreferences("reaction_prefs", MODE_PRIVATE);
+            long lastTime = prefs.getLong("last_reaction_time", 0);
+            long currentTime = System.currentTimeMillis();
+
+            if (currentTime - lastTime < 5 * 60 * 1000) {
+                long remainingSeconds = (5 * 60 * 1000 - (currentTime - lastTime)) / 1000;
+                Toast.makeText(this, getString(R.string.wait_seconds, remainingSeconds), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             animateButton(v);
             toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP, 150);
 
@@ -179,47 +210,12 @@ public class PlayerActivity extends AppCompatActivity {
 
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 
-            // Wait 2 mins logic? For now local simulation as requested "solo hace click"
+            prefs.edit().putLong("last_reaction_time", currentTime).apply();
         };
 
         btnAmen.setOnClickListener(reactionListener);
         btnLike.setOnClickListener(reactionListener);
         btnBlessing.setOnClickListener(reactionListener);
-    }
-
-    private void setupSearch() {
-        btnLyrics.setOnClickListener(v -> {
-            String query = title.getText().toString();
-            if (!query.equals(getString(R.string.station_name_placeholder))) {
-                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-                intent.putExtra(android.app.SearchManager.QUERY, query + " lyrics");
-                try {
-                     startActivity(intent);
-                } catch (Exception e) {
-                     // Ignore
-                }
-            } else {
-                 Toast.makeText(this, R.string.no_song_info, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        btnYoutube.setOnClickListener(v -> {
-            String query = title.getText().toString();
-            if (!query.equals(getString(R.string.station_name_placeholder))) {
-                Intent intent = new Intent(Intent.ACTION_SEARCH);
-                intent.setPackage("com.google.android.youtube");
-                intent.putExtra("query", query);
-                try {
-                    startActivity(intent);
-                } catch (Exception e) {
-                    // Fallback to browser
-                    Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=" + query));
-                    startActivity(webIntent);
-                }
-            } else {
-                 Toast.makeText(this, R.string.no_song_info, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void animateButton(View view) {

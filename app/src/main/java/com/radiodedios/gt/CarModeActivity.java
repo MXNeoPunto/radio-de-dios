@@ -23,6 +23,7 @@ import androidx.media3.session.SessionToken;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.radiodedios.gt.manager.LanguageManager;
+import com.radiodedios.gt.manager.SleepTimerManager;
 import com.radiodedios.gt.manager.ThemeManager;
 import java.util.Locale;
 import java.util.Random;
@@ -38,7 +39,7 @@ public class CarModeActivity extends AppCompatActivity implements TextToSpeech.O
     private TextToSpeech tts;
     private Handler handler = new Handler(Looper.getMainLooper());
     private Runnable speechRunnable;
-    private CountDownTimer tripTimer;
+    private SleepTimerManager sleepTimerManager;
     private boolean isTtsReady = false;
 
     @Override
@@ -77,8 +78,9 @@ public class CarModeActivity extends AppCompatActivity implements TextToSpeech.O
         // Show Blessing
         showBlessing();
 
-        // Start Trip Timer (30 mins)
-        startTripTimer();
+        sleepTimerManager = SleepTimerManager.getInstance();
+        tvTripTimer.setOnClickListener(v -> showTimerDialog());
+        updateTimerUI(sleepTimerManager.getRemainingTimeMillis());
 
         // Init TTS
         tts = new TextToSpeech(this, this);
@@ -96,27 +98,85 @@ public class CarModeActivity extends AppCompatActivity implements TextToSpeech.O
         }
     }
 
-    private void startTripTimer() {
-        if (tripTimer != null) tripTimer.cancel();
-
-        // 30 Minutes
-        tripTimer = new CountDownTimer(30 * 60 * 1000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                long minutes = millisUntilFinished / 1000 / 60;
-                long seconds = (millisUntilFinished / 1000) % 60;
-                tvTripTimer.setText(getString(R.string.trip_timer_active, minutes));
-            }
-
-            @Override
-            public void onFinish() {
-                tvTripTimer.setText(getString(R.string.trip_timer_active, 0));
-                if (mediaController != null) {
-                    mediaController.pause();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (sleepTimerManager.isTimerRunning()) {
+            sleepTimerManager.setListener(new SleepTimerManager.TimerListener() {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    updateTimerUI(millisUntilFinished);
                 }
-                finish();
+                @Override
+                public void onFinish() {
+                    updateTimerUI(0);
+                    if (mediaController != null) {
+                        mediaController.pause();
+                    }
+                    finish();
+                }
+            });
+            updateTimerUI(sleepTimerManager.getRemainingTimeMillis());
+        } else {
+            updateTimerUI(0);
+        }
+    }
+
+    private void showTimerDialog() {
+        if (sleepTimerManager.isTimerRunning()) {
+            new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.sleep_timer)
+                .setMessage(getString(R.string.cancel_sleep_timer_message))
+                .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
+                    sleepTimerManager.cancelTimer();
+                    updateTimerUI(0);
+                })
+                .setNegativeButton(getString(R.string.no), null)
+                .show();
+            return;
+        }
+
+        String[] options = {"15 min", "30 min", "45 min", "60 min", getString(R.string.cancel)};
+        int[] minutes = {15, 30, 45, 60, 0};
+
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.sleep_timer)
+            .setItems(options, (dialog, which) -> {
+                if (which < 4) {
+                    int min = minutes[which];
+                    sleepTimerManager.startTimer(this, min, new SleepTimerManager.TimerListener() {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            updateTimerUI(millisUntilFinished);
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            updateTimerUI(0);
+                            if (mediaController != null) {
+                                mediaController.pause();
+                            }
+                            finish();
+                        }
+                    });
+                    Toast.makeText(this, getString(R.string.sleep_timer_set, min), Toast.LENGTH_SHORT).show();
+                }
+            })
+            .show();
+    }
+
+    private void updateTimerUI(long millisUntilFinished) {
+        runOnUiThread(() -> {
+            if (millisUntilFinished > 0) {
+                long minutes = (millisUntilFinished / 1000) / 60;
+                long seconds = (millisUntilFinished / 1000) % 60;
+                tvTripTimer.setText(String.format("%d:%02d", minutes, seconds));
+                tvTripTimer.setAlpha(1.0f);
+            } else {
+                tvTripTimer.setText("Timer");
+                tvTripTimer.setAlpha(0.6f);
             }
-        }.start();
+        });
     }
 
     private void playQuickFavorite() {
@@ -211,9 +271,6 @@ public class CarModeActivity extends AppCompatActivity implements TextToSpeech.O
 
     @Override
     protected void onDestroy() {
-        if (tripTimer != null) {
-            tripTimer.cancel();
-        }
         if (tts != null) {
             tts.stop();
             tts.shutdown();

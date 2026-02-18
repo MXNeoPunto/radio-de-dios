@@ -538,20 +538,11 @@ public class MainActivity extends AppCompatActivity {
         com.google.android.material.bottomsheet.BottomSheetDialog dialog = new com.google.android.material.bottomsheet.BottomSheetDialog(this);
         dialog.setContentView(R.layout.dialog_modern_menu);
 
-        View menuStats = dialog.findViewById(R.id.menuStats);
         View menuNotifs = dialog.findViewById(R.id.menuNotifs);
         View menuSettings = dialog.findViewById(R.id.menuSettings);
         View menuAds = dialog.findViewById(R.id.menuAds);
         View menuAbout = dialog.findViewById(R.id.menuAbout);
         View menuShare = dialog.findViewById(R.id.menuShare);
-
-        // Stats
-        if (menuStats != null) {
-            menuStats.setOnClickListener(v -> {
-                dialog.dismiss();
-                showStatsDialog();
-            });
-        }
 
         // Notifications
         if (menuNotifs != null) {
@@ -645,26 +636,6 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-
-    private void showStatsDialog() {
-        com.radiodedios.gt.manager.StatsManager stats = com.radiodedios.gt.manager.StatsManager.getInstance(this);
-
-        String totalTime = stats.getTotalPlayTimeFormatted();
-        String mostPlayed = stats.getMostPlayedStation();
-        String activeDay = stats.getMostActiveDay();
-        String dataUsage = stats.getDataUsageFormatted();
-
-        String message = getString(R.string.total_listening_time, totalTime) + "\n\n" +
-                         getString(R.string.most_played_station, mostPlayed) + "\n\n" +
-                         getString(R.string.active_day, activeDay) + "\n\n" +
-                         getString(R.string.data_usage_warning, dataUsage);
-
-        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.stats_title)
-            .setMessage(message)
-            .setPositiveButton(R.string.close, null)
-            .show();
     }
 
     private void showForcedUpdateDialog() {

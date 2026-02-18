@@ -24,37 +24,6 @@
         android:alignmentMode="alignMargins"
         android:columnOrderPreserved="false">
 
-        <!-- Stats -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/menuStats"
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:clickable="true"
-            android:focusable="true">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_trending_up"
-                    app:tint="?attr/colorPrimary"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/stats_title"
-                    android:layout_marginTop="8dp"
-                    android:textSize="12sp"
-                    android:gravity="center"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
         <!-- Notifications -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/menuNotifs"
@@ -105,7 +74,7 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_preferences"
+                    android:src="@drawable/ic_settings"
                     app:tint="?attr/colorPrimary"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -167,7 +136,7 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_info_details"
+                    android:src="@drawable/ic_info"
                     app:tint="?attr/colorPrimary"/>
                 <TextView
                     android:layout_width="wrap_content"
