@@ -24,6 +24,7 @@
     <string name="upgrade_max_message">Mira un video corto para desbloquear MAX Premium por 30 minutos. \n\n• Sin Anuncios Banner\n• Sin Intersticiales\n• Escucha sin interrupciones</string>
     <string name="unlock_free">DESBLOQUEAR GRATIS</string>
     <string name="cancel">Cancelar</string>
+    <string name="close">Cerrar</string>
     <string name="ok">Guardar</string>
     <string name="max_activated">¡MAX Activado por 30 minutos!</string>
     
@@ -94,7 +95,10 @@ Guatemala – LATAM
     <string name="premium_active">Premium Activo (Permanente)</string>
     <string name="battery_saver_title">Ahorro de Energía</string>
     <string name="battery_saver_message">Para asegurar una reproducción sin interrupciones, por favor desactiva el ahorro de energía para esta aplicación.</string>
+    <string name="battery_saver_message_detailed">Android detiene la radio en segundo plano para ahorrar batería.\n\nPara evitar cortes:\n1. Toca \'Ir a Ajustes\'\n2. Selecciona \'Todas las aplicaciones\' -> \'Radio De Dios\'\n3. Selecciona \'No optimizar\'</string>
     <string name="go_to_settings">Ajustes</string>
+    <string name="go_to_settings_action">Ir a Ajustes y Activar</string>
+    <string name="later">Más tarde</string>
     <string name="cancel_sleep_timer_message">¿Cancelar autoapagado?</string>
 
     <!-- Modern Popup -->

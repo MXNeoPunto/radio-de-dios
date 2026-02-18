@@ -101,6 +101,17 @@ public class CarModeActivity extends AppCompatActivity implements TextToSpeech.O
     @Override
     protected void onResume() {
         super.onResume();
+
+        // Check favorites
+        SharedPreferences prefs = getSharedPreferences("favorite_prefs", MODE_PRIVATE);
+        Set<String> favorites = prefs.getStringSet("pinned_urls", null);
+        Button btnQuickFavorite = findViewById(R.id.btnQuickFavorite);
+        if (favorites == null || favorites.isEmpty()) {
+            btnQuickFavorite.setVisibility(View.GONE);
+        } else {
+            btnQuickFavorite.setVisibility(View.VISIBLE);
+        }
+
         if (sleepTimerManager.isTimerRunning()) {
             sleepTimerManager.setListener(new SleepTimerManager.TimerListener() {
                 @Override
