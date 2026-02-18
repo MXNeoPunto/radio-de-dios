@@ -50,7 +50,6 @@ public class PlayerActivity extends AppCompatActivity {
     private ImageButton btnCarMode;
 
     // New Features
-    private ImageButton btnAmen, btnLike, btnBlessing;
     private ToneGenerator toneGenerator;
 
     private com.radiodedios.gt.manager.AdsManager adsManager;
@@ -102,11 +101,6 @@ public class PlayerActivity extends AppCompatActivity {
         
         btnCarMode = findViewById(R.id.btnCarMode);
         waveView = findViewById(R.id.waveView);
-        
-        // Reactions & Search
-        btnAmen = findViewById(R.id.btnAmen);
-        btnLike = findViewById(R.id.btnLike);
-        btnBlessing = findViewById(R.id.btnBlessing);
 
         billingManager = new BillingManager(this);
         adsManager = new com.radiodedios.gt.manager.AdsManager(this, billingManager);
@@ -159,7 +153,6 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
         
-        setupReactions();
         setupMediaController();
     }
 
@@ -188,35 +181,6 @@ public class PlayerActivity extends AppCompatActivity {
         }
     }
 
-    private void setupReactions() {
-        View.OnClickListener reactionListener = v -> {
-            android.content.SharedPreferences prefs = getSharedPreferences("reaction_prefs", MODE_PRIVATE);
-            long lastTime = prefs.getLong("last_reaction_time", 0);
-            long currentTime = System.currentTimeMillis();
-
-            if (currentTime - lastTime < 5 * 60 * 1000) {
-                long remainingSeconds = (5 * 60 * 1000 - (currentTime - lastTime)) / 1000;
-                Toast.makeText(this, getString(R.string.wait_seconds, remainingSeconds), Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            animateButton(v);
-            toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP, 150);
-
-            String msg = "";
-            if (v.getId() == R.id.btnAmen) msg = getString(R.string.reaction_amen);
-            else if (v.getId() == R.id.btnLike) msg = getString(R.string.reaction_like);
-            else if (v.getId() == R.id.btnBlessing) msg = getString(R.string.reaction_blessing);
-
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-
-            prefs.edit().putLong("last_reaction_time", currentTime).apply();
-        };
-
-        btnAmen.setOnClickListener(reactionListener);
-        btnLike.setOnClickListener(reactionListener);
-        btnBlessing.setOnClickListener(reactionListener);
-    }
 
     private void animateButton(View view) {
         view.animate()
