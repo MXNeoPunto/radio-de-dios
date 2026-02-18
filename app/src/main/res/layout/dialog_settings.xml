@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="28dp"
+    app:cardElevation="8dp"
     app:cardBackgroundColor="?attr/colorSurface"
     app:strokeWidth="0dp">
 
@@ -14,87 +15,210 @@
         android:padding="24dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/titleSettings"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/settings_title"
-            android:textAppearance="?attr/textAppearanceTitleLarge"
+            android:textAppearance="?attr/textAppearanceHeadlineSmall"
+            android:gravity="center"
             android:layout_marginBottom="24dp"
-            android:layout_gravity="center_horizontal"/>
+            android:textStyle="bold"/>
 
-        <!-- Language -->
+        <!-- Language Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/language_title"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:text="@string/language_select"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:layout_marginBottom="16dp"/>
 
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/languageGroup"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:singleSelection="true"
-            app:selectionRequired="true"
-            app:checkedButton="@+id/langEn">
-            
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/langEn"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/language_en"/>
-                
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/langEs"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/language_es"/>
-        </com.google.android.material.button.MaterialButtonToggleGroup>
-
-        <!-- Theme -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/theme_title"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
-
-        <RadioGroup
-            android:id="@+id/themeGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
             android:layout_marginBottom="24dp">
-            
-            <RadioButton
-                android:id="@+id/themeLight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/theme_light"/>
-                
-            <RadioButton
-                android:id="@+id/themeDark"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/theme_dark"/>
 
-            <RadioButton
-                android:id="@+id/themeSystem"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/theme_system"/>
-        </RadioGroup>
+            <!-- English Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLangEn"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="16dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="EN"
+                        android:textStyle="bold"
+                        android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/language_en"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Spanish Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLangEs"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="16dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ES"
+                        android:textStyle="bold"
+                        android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/language_es"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- Theme Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/theme_select"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:layout_marginBottom="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:layout_marginBottom="32dp">
+
+            <!-- Light -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardThemeLight"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="16dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <!-- Assuming standard Material icons might not be available by name, using generic structure or text -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="☀"
+                        android:textSize="24sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/theme_light"
+                        android:textSize="11sp"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Dark -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardThemeDark"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="16dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="☾"
+                        android:textSize="24sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/theme_dark"
+                        android:textSize="11sp"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- System -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardThemeSystem"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="16dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorOutlineVariant">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚙"
+                        android:textSize="24sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/theme_system"
+                        android:textSize="11sp"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnApply"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:text="@string/ok"
-            app:cornerRadius="12dp"/>
+            app:cornerRadius="16dp"/>
 
     </LinearLayout>
 

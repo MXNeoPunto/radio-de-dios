@@ -13,6 +13,8 @@
     <string name="theme_light">Claro</string>
     <string name="theme_dark">Oscuro</string>
     <string name="theme_system">Sistema</string>
+    <string name="language_select">Seleccionar Idioma</string>
+    <string name="theme_select">Seleccionar Tema</string>
     <string name="language_title">Idioma</string>
     <string name="language_en">Inglés</string>
     <string name="language_es">Español</string>
@@ -98,7 +100,8 @@ Guatemala – LATAM
     <!-- Modern Popup -->
     <string name="support_radio">Gracias por apoyar esta radio</string>
     <string name="god_bless_you">Dios te bendiga</string>
-    <string name="max_mode">Modo MAX</string>
+    <string name="max_mode">Eliminar publicidad</string>
+    <string name="timer_idle">Temporizador</string>
     <string name="watch_1_ad">Ver Anuncio / Renovar</string>
     <string name="remove_ads_2h">30 minutos sin anuncios</string>
     <string name="max_permanent">Donar al desarrollador</string>

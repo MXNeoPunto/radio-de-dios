@@ -173,7 +173,7 @@ public class CarModeActivity extends AppCompatActivity implements TextToSpeech.O
                 tvTripTimer.setText(String.format("%d:%02d", minutes, seconds));
                 tvTripTimer.setAlpha(1.0f);
             } else {
-                tvTripTimer.setText("Timer");
+                tvTripTimer.setText(getString(R.string.timer_idle));
                 tvTripTimer.setAlpha(0.6f);
             }
         });
