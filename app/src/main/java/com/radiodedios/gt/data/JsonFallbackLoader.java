@@ -46,26 +46,7 @@ public class JsonFallbackLoader {
     }
 
     public void loadData(Callback callback) {
-        executor.execute(() -> {
-            try {
-                // Try loading from online
-                String json = loadFromUrl(getDecryptedUrl());
-                if (json == null) {
-                    throw new IOException("Failed to load from URL");
-                }
-                RadioResponse response = gson.fromJson(json, RadioResponse.class);
-                callback.onSuccess(response);
-            } catch (Exception e) {
-                // Fallback to local assets
-                try {
-                    String json = loadFromAssets(LOCAL_FILE);
-                    RadioResponse response = gson.fromJson(json, RadioResponse.class);
-                    callback.onSuccess(response);
-                } catch (IOException ex) {
-                    callback.onError(ex);
-                }
-            }
-        });
+        loadOnlineOnly(callback);
     }
 
     public void loadOnlineOnly(Callback callback) {
@@ -100,10 +81,6 @@ public class JsonFallbackLoader {
                 urlConnection.disconnect();
             }
         }
-    }
-
-    private String loadFromAssets(String filename) throws IOException {
-        return readStream(context.getAssets().open(filename));
     }
 
     private String readStream(InputStream inputStream) throws IOException {

@@ -134,6 +134,33 @@ Guatemala – LATAM
     <string name="no_notifications">No hay notificaciones</string>
     <string name="clear_all">Borrar todo</string>
     <string name="notifications_cleared">Notificaciones borradas</string>
+    <string name="station_pinned">Emisora añadida a favoritos</string>
+    <string name="station_unpinned">Emisora eliminada de favoritos</string>
+
+    <!-- Car Mode -->
+    <string name="blessing_trip">Que Dios guarde tu camino hoy</string>
+    <string name="trip_timer_active">Viaje de %d min</string>
+    <string name="listening_to">Estás escuchando %s</string>
+    <string name="quick_favorite">Ir a mi emisora favorita</string>
+
+    <!-- Stats (Mi Reals) -->
+    <string name="stats_title">Mi Reals (Estadísticas)</string>
+    <string name="total_listening_time">Tiempo total escuchado: %s</string>
+    <string name="most_played_station">Emisora más escuchada: %s</string>
+    <string name="active_day">Día más activo: %s</string>
+    <string name="data_usage_warning">Has usado %s hoy en streaming</string>
+
+    <!-- Player Reactions & Features -->
+    <string name="reaction_amen">Amén</string>
+    <string name="reaction_like">Me gusta</string>
+    <string name="reaction_blessing">Bendición</string>
+    <string name="search_lyrics">Buscar letra</string>
+    <string name="search_youtube">Buscar en YouTube</string>
+    <string name="no_song_info">No hay información de la canción</string>
+    <string name="no_favorites_found">No hay favoritos</string>
+
+    <!-- Modern Menu -->
+    <string name="menu_modern_title">Menú</string>
 
     <string-array name="verses">
         <item>Jehová es mi pastor; nada me faltará. - Salmos 23:1</item>

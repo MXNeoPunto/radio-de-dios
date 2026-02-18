@@ -135,8 +135,33 @@ Guatemala – LATAM
     <string name="no_notifications">No notifications yet</string>
     <string name="clear_all">Clear All</string>
     <string name="notifications_cleared">Notifications cleared</string>
-    <string name="station_pinned">Station pinned</string>
-    <string name="station_unpinned">Station unpinned</string>
+    <string name="station_pinned">Station added to favorites</string>
+    <string name="station_unpinned">Station removed from favorites</string>
+
+    <!-- Car Mode -->
+    <string name="blessing_trip">May God keep your way today</string>
+    <string name="trip_timer_active">Trip: %d min</string>
+    <string name="listening_to">You are listening to %s</string>
+    <string name="quick_favorite">Go to my favorite station</string>
+
+    <!-- Stats (Mi Reals) -->
+    <string name="stats_title">My Reals (Stats)</string>
+    <string name="total_listening_time">Total listening time: %s</string>
+    <string name="most_played_station">Most played station: %s</string>
+    <string name="active_day">Most active day: %s</string>
+    <string name="data_usage_warning">You have used %s today in streaming</string>
+
+    <!-- Player Reactions & Features -->
+    <string name="reaction_amen">Amen</string>
+    <string name="reaction_like">Like</string>
+    <string name="reaction_blessing">Blessing</string>
+    <string name="search_lyrics">Search Lyrics</string>
+    <string name="search_youtube">Search in YouTube</string>
+    <string name="no_song_info">No song info available</string>
+    <string name="no_favorites_found">No favorites found</string>
+
+    <!-- Modern Menu -->
+    <string name="menu_modern_title">Menu</string>
 
     <string-array name="verses">
         <item>The Lord is my shepherd; I shall not want. - Psalm 23:1</item>
