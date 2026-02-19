@@ -326,11 +326,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupGridLayout() {
-        int spanCount = 2;
         int screenWidthDp = getResources().getConfiguration().screenWidthDp;
-        if (screenWidthDp >= 600) {
-            spanCount = 3;
-        }
+        int spanCount = Math.max(2, screenWidthDp / 180);
         recyclerView.setLayoutManager(new GridLayoutManager(this, spanCount));
     }
 
