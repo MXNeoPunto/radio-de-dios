@@ -22,8 +22,12 @@ import androidx.media3.extractor.metadata.icy.IcyInfo;
 import androidx.media3.extractor.metadata.id3.TextInformationFrame;
 import androidx.media3.session.MediaSession;
 import androidx.media3.session.MediaSessionService;
+import androidx.media3.session.SessionCommand;
+import androidx.media3.session.SessionResult;
 import androidx.annotation.OptIn;
 import androidx.media3.common.util.UnstableApi;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.radiodedios.gt.R;
 import com.radiodedios.gt.data.JsonFallbackLoader;
 import com.radiodedios.gt.model.RadioResponse;
@@ -77,7 +81,82 @@ public class RadioService extends MediaSessionService {
                 
         player.addListener(new PlayerListener());
         
-        mediaSession = new MediaSession.Builder(this, player).build();
+        mediaSession = new MediaSession.Builder(this, player)
+                .setCallback(new CustomMediaSessionCallback())
+                .build();
+    }
+
+    private class CustomMediaSessionCallback implements MediaSession.Callback {
+        @Override
+        public ListenableFuture<SessionResult> onCustomCommand(MediaSession session,
+                MediaSession.ControllerInfo controller,
+                SessionCommand customCommand, Bundle args) {
+
+            if ("ACTION_DJ_FADE_OUT".equals(customCommand.customAction)) {
+                startFadeOut();
+                return Futures.immediateFuture(new SessionResult(SessionResult.RESULT_SUCCESS));
+            } else if ("ACTION_DJ_FADE_IN".equals(customCommand.customAction)) {
+                startFadeIn();
+                return Futures.immediateFuture(new SessionResult(SessionResult.RESULT_SUCCESS));
+            }
+            return MediaSession.Callback.super.onCustomCommand(session, controller, customCommand, args);
+        }
+    }
+
+    private void startFadeOut() {
+        final int FADE_DURATION = 2000;
+        final int STEPS = 20;
+        final int DELAY = FADE_DURATION / STEPS;
+        final float MIN_VOLUME = 0.1f;
+
+        if (player == null) return;
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            int step = 0;
+            @Override
+            public void run() {
+                if (player == null) return;
+                float currentVol = player.getVolume();
+
+                if (step < STEPS && currentVol > MIN_VOLUME) {
+                    float newVol = currentVol - ((1.0f - MIN_VOLUME) / STEPS);
+                    if (newVol < MIN_VOLUME) newVol = MIN_VOLUME;
+                    player.setVolume(newVol);
+                    step++;
+                    new Handler(Looper.getMainLooper()).postDelayed(this, DELAY);
+                } else {
+                    player.setVolume(MIN_VOLUME);
+                }
+            }
+        });
+    }
+
+    private void startFadeIn() {
+        final int FADE_DURATION = 2000;
+        final int STEPS = 20;
+        final int DELAY = FADE_DURATION / STEPS;
+        final float TARGET_VOLUME = 1.0f;
+
+        if (player == null) return;
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            int step = 0;
+            @Override
+            public void run() {
+                if (player == null) return;
+                float currentVol = player.getVolume();
+
+                if (step < STEPS && currentVol < TARGET_VOLUME) {
+                    float newVol = currentVol + ((TARGET_VOLUME - 0.1f) / STEPS);
+                    if (newVol > TARGET_VOLUME) newVol = TARGET_VOLUME;
+                    player.setVolume(newVol);
+                    step++;
+                    new Handler(Looper.getMainLooper()).postDelayed(this, DELAY);
+                } else {
+                    player.setVolume(TARGET_VOLUME);
+                }
+            }
+        });
     }
 
     @Override

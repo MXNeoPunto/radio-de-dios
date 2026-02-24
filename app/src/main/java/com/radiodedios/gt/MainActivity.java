@@ -31,6 +31,7 @@ import com.radiodedios.gt.manager.HistoryManager;
 import com.radiodedios.gt.manager.LanguageManager;
 import com.radiodedios.gt.manager.MaxManager;
 import com.radiodedios.gt.manager.ThemeManager;
+import com.radiodedios.gt.manager.DJModeManager;
 import com.radiodedios.gt.model.RadioResponse;
 import com.radiodedios.gt.model.RadioStation;
 import com.google.android.gms.ads.AdView;
@@ -70,9 +71,10 @@ public class MainActivity extends AppCompatActivity {
     private LanguageManager languageManager;
     private BibleManager bibleManager;
     private HistoryManager historyManager;
+    private DJModeManager djModeManager;
     private RecyclerView recyclerView;
     private AdView adView;
-    private FloatingActionButton fabResume;
+    private FloatingActionButton fabDJMode;
     private View loadingIndicator;
     private View miniPlayerContainer;
     private View miniPlayerCard;
@@ -101,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
         historyManager = new HistoryManager(this);
         super.onCreate(savedInstanceState);
         
+        djModeManager = DJModeManager.getInstance(this);
+
         EdgeToEdge.enable(this);
         
         setContentView(R.layout.activity_main);
@@ -165,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         adView = findViewById(R.id.adView);
-        fabResume = findViewById(R.id.fabResume);
+        fabDJMode = findViewById(R.id.fabDJMode);
         loadingIndicator = findViewById(R.id.loadingIndicator);
         miniPlayerContainer = findViewById(R.id.miniPlayerContainer);
         miniPlayerCard = findViewById(R.id.miniPlayerImageContainer);
@@ -262,10 +266,10 @@ public class MainActivity extends AppCompatActivity {
                 });
         });
         
-        fabResume.setOnClickListener(v -> {
+        fabDJMode.setOnClickListener(v -> {
              animateButton(v);
-             playLastStation();
-             fabResume.setVisibility(View.GONE);
+             djModeManager.toggleDJMode();
+             updateDJModeUI();
         });
 
         // checkResumeLastStation(); // Moved to MediaController callback
@@ -287,42 +291,16 @@ public class MainActivity extends AppCompatActivity {
             .start();
     }
 
-    private void checkResumeLastStation() {
-        if (historyManager.hasLastStation()) {
-            // Only show if NOT playing
-            if (mediaController != null && mediaController.isPlaying()) {
-                return;
-            }
-            // If mediaController is null (async), we check inside the listener, 
-            // but here we are in onCreate.
-            // Actually, we should check this logic AFTER mediaController is connected.
+    private void updateDJModeUI() {
+        int color;
+        if (djModeManager.isActive()) {
+            color = MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimaryContainer, Color.GREEN);
+            fabDJMode.setContentDescription(getString(R.string.dj_mode_active));
+        } else {
+             color = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurfaceVariant, Color.GRAY);
+             fabDJMode.setContentDescription(getString(R.string.dj_mode_inactive));
         }
-    }
-
-    private void playLastStation() {
-        if (mediaController != null && historyManager.getLastStationUrl() != null) {
-             androidx.media3.common.MediaMetadata.Builder metaBuilder = new androidx.media3.common.MediaMetadata.Builder()
-                        .setTitle(historyManager.getLastStationName());
-
-             String imgUrl = historyManager.getLastStationImg();
-             if (imgUrl != null && !imgUrl.isEmpty()) {
-                 metaBuilder.setArtworkUri(Uri.parse(imgUrl));
-             }
-
-             androidx.media3.common.MediaMetadata metadata = metaBuilder.build();
-
-             androidx.media3.common.MediaItem mediaItem = new androidx.media3.common.MediaItem.Builder()
-                        .setUri(historyManager.getLastStationUrl())
-                        .setMediaMetadata(metadata)
-                        .build();
-                        
-             mediaController.setMediaItem(mediaItem);
-             mediaController.prepare();
-             mediaController.play();
-             
-             Intent intent = new Intent(this, PlayerActivity.class);
-             startActivity(intent);
-        }
+        fabDJMode.setBackgroundTintList(android.content.res.ColorStateList.valueOf(color));
     }
 
     private void setupGridLayout() {
@@ -337,6 +315,8 @@ public class MainActivity extends AppCompatActivity {
         controllerFuture.addListener(() -> {
             try {
                 mediaController = controllerFuture.get();
+                djModeManager.setMediaController(mediaController);
+
                 mediaController.addListener(new Player.Listener() {
                     @Override
                     public void onIsPlayingChanged(boolean isPlaying) {
@@ -346,19 +326,24 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onMediaMetadataChanged(androidx.media3.common.MediaMetadata mediaMetadata) {
                         updateMiniPlayerMetadata(mediaMetadata);
+                        if (mediaMetadata.title != null) {
+                            djModeManager.onStationChanged(mediaMetadata.title.toString());
+                        }
                     }
                 });
                 
                 // Initial state
                 if (mediaController.getMediaMetadata() != null) {
-                    updateMiniPlayerMetadata(mediaController.getMediaMetadata());
+                    androidx.media3.common.MediaMetadata meta = mediaController.getMediaMetadata();
+                    updateMiniPlayerMetadata(meta);
+                    if (meta.title != null) {
+                        djModeManager.onStationChanged(meta.title.toString());
+                    }
                 }
                 updateMiniPlayerState(mediaController.isPlaying());
                 
-                // Check Resume ONLY if not playing
-                if (!mediaController.isPlaying() && historyManager.hasLastStation()) {
-                    fabResume.setVisibility(View.VISIBLE);
-                }
+                // Ensure DJ UI is correct
+                updateDJModeUI();
                 
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
@@ -403,7 +388,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateMiniPlayerState(boolean isPlaying) {
         if (isPlaying) {
-            fabResume.setVisibility(View.GONE);
             miniPlayerPlayPauseIcon.setImageResource(R.drawable.ic_pause);
         } else {
             miniPlayerPlayPauseIcon.setImageResource(R.drawable.ic_play);
@@ -450,6 +434,11 @@ public class MainActivity extends AppCompatActivity {
                     });
 
                     setupList(filteredRadios);
+                    djModeManager.setStationList(filteredRadios);
+
+                    if (!filteredRadios.isEmpty()) {
+                        fabDJMode.setVisibility(View.VISIBLE);
+                    }
 
                     if (response.getBannerConfig() != null) {
                         checkAndShowInterstitial(response.getBannerConfig());
@@ -533,6 +522,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         if (adView != null) {
             adView.destroy();
+        }
+        if (djModeManager != null) {
+            djModeManager.setMediaController(null);
         }
         if (mediaController != null) {
             mediaController.release();
@@ -1079,6 +1071,9 @@ public class MainActivity extends AppCompatActivity {
                         () -> {
                             // Save History
                             historyManager.saveLastStation(station.getName(), station.getStreamUrl(), station.getImage());
+
+                            // Notify DJ Mode
+                            djModeManager.onStationChanged(station);
 
                             // Play
                             Intent intent = new Intent(MainActivity.this, RadioService.class);
