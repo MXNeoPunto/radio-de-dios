@@ -169,12 +169,6 @@ Guatemala – LATAM
     <!-- Modern Menu -->
     <string name="menu_modern_title">Menú</string>
 
-    <!-- DJ Mode -->
-    <string name="dj_mode_active">Modo DJ activado</string>
-    <string name="dj_mode_inactive">Modo DJ desactivado</string>
-    <string name="dj_intro_msg">He notado que te gusta esta emisora... pero vamos a explorar algo nuevo...</string>
-    <string name="dj_outro_msg">Ahora cambiamos a %s...</string>
-
     <string-array name="verses">
         <item>Jehová es mi pastor; nada me faltará. - Salmos 23:1</item>
         <item>En el principio crió Dios los cielos y la tierra. - Génesis 1:1</item>
