@@ -31,7 +31,6 @@ import com.radiodedios.gt.manager.HistoryManager;
 import com.radiodedios.gt.manager.LanguageManager;
 import com.radiodedios.gt.manager.MaxManager;
 import com.radiodedios.gt.manager.ThemeManager;
-import com.radiodedios.gt.manager.DJModeManager;
 import com.radiodedios.gt.model.RadioResponse;
 import com.radiodedios.gt.model.RadioStation;
 import com.google.android.gms.ads.AdView;
@@ -71,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     private LanguageManager languageManager;
     private BibleManager bibleManager;
     private HistoryManager historyManager;
-    private DJModeManager djModeManager;
     private RecyclerView recyclerView;
     private AdView adView;
     private FloatingActionButton fabDJMode;
@@ -102,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
         bibleManager = new BibleManager(this);
         historyManager = new HistoryManager(this);
         super.onCreate(savedInstanceState);
-        
-        djModeManager = DJModeManager.getInstance(this);
 
         EdgeToEdge.enable(this);
         
@@ -169,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         adView = findViewById(R.id.adView);
-        fabDJMode = findViewById(R.id.fabDJMode);
         loadingIndicator = findViewById(R.id.loadingIndicator);
         miniPlayerContainer = findViewById(R.id.miniPlayerContainer);
         miniPlayerCard = findViewById(R.id.miniPlayerImageContainer);
@@ -268,8 +263,6 @@ public class MainActivity extends AppCompatActivity {
         
         fabDJMode.setOnClickListener(v -> {
              animateButton(v);
-             djModeManager.toggleDJMode();
-             updateDJModeUI();
         });
 
         // checkResumeLastStation(); // Moved to MediaController callback
@@ -291,17 +284,25 @@ public class MainActivity extends AppCompatActivity {
             .start();
     }
 
-    private void updateDJModeUI() {
-        int color;
-        if (djModeManager.isActive()) {
-            color = MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimaryContainer, Color.GREEN);
-            fabDJMode.setContentDescription(getString(R.string.dj_mode_active));
-        } else {
-             color = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurfaceVariant, Color.GRAY);
-             fabDJMode.setContentDescription(getString(R.string.dj_mode_inactive));
+    private void animateDialogItems(View... views) {
+        long delay = 100;
+        android.view.animation.Animation anim;
+        for (View view : views) {
+            if (view == null) continue;
+            view.setVisibility(View.INVISIBLE);
+            anim = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.item_slide_in);
+            anim.setStartOffset(delay);
+            final View finalView = view;
+            anim.setAnimationListener(new android.view.animation.Animation.AnimationListener() {
+                @Override public void onAnimationStart(android.view.animation.Animation animation) { finalView.setVisibility(View.VISIBLE); }
+                @Override public void onAnimationEnd(android.view.animation.Animation animation) {}
+                @Override public void onAnimationRepeat(android.view.animation.Animation animation) {}
+            });
+            view.startAnimation(anim);
+            delay += 50;
         }
-        fabDJMode.setBackgroundTintList(android.content.res.ColorStateList.valueOf(color));
     }
+
 
     private void setupGridLayout() {
         int screenWidthDp = getResources().getConfiguration().screenWidthDp;
@@ -315,7 +316,6 @@ public class MainActivity extends AppCompatActivity {
         controllerFuture.addListener(() -> {
             try {
                 mediaController = controllerFuture.get();
-                djModeManager.setMediaController(mediaController);
 
                 mediaController.addListener(new Player.Listener() {
                     @Override
@@ -326,9 +326,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onMediaMetadataChanged(androidx.media3.common.MediaMetadata mediaMetadata) {
                         updateMiniPlayerMetadata(mediaMetadata);
-                        if (mediaMetadata.title != null) {
-                            djModeManager.onStationChanged(mediaMetadata.title.toString());
-                        }
                     }
                 });
                 
@@ -336,14 +333,8 @@ public class MainActivity extends AppCompatActivity {
                 if (mediaController.getMediaMetadata() != null) {
                     androidx.media3.common.MediaMetadata meta = mediaController.getMediaMetadata();
                     updateMiniPlayerMetadata(meta);
-                    if (meta.title != null) {
-                        djModeManager.onStationChanged(meta.title.toString());
-                    }
                 }
                 updateMiniPlayerState(mediaController.isPlaying());
-                
-                // Ensure DJ UI is correct
-                updateDJModeUI();
                 
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
@@ -434,11 +425,6 @@ public class MainActivity extends AppCompatActivity {
                     });
 
                     setupList(filteredRadios);
-                    djModeManager.setStationList(filteredRadios);
-
-                    if (!filteredRadios.isEmpty()) {
-                        fabDJMode.setVisibility(View.VISIBLE);
-                    }
 
                     if (response.getBannerConfig() != null) {
                         checkAndShowInterstitial(response.getBannerConfig());
@@ -523,9 +509,6 @@ public class MainActivity extends AppCompatActivity {
         if (adView != null) {
             adView.destroy();
         }
-        if (djModeManager != null) {
-            djModeManager.setMediaController(null);
-        }
         if (mediaController != null) {
             mediaController.release();
             mediaController = null;
@@ -542,6 +525,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.getWindow().setWindowAnimations(R.style.DialogAnimation);
         }
 
         View menuNotifs = view.findViewById(R.id.menuNotifs);
@@ -549,6 +533,9 @@ public class MainActivity extends AppCompatActivity {
         View menuAds = view.findViewById(R.id.menuAds);
         View menuAbout = view.findViewById(R.id.menuAbout);
         View menuShare = view.findViewById(R.id.menuShare);
+
+        // Animate Items
+        animateDialogItems(menuNotifs, menuAds, menuSettings, menuAbout, menuShare);
 
         // Notifications
         if (menuNotifs != null) {
@@ -685,6 +672,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.getWindow().setWindowAnimations(R.style.DialogAnimation);
         }
 
         btnEmail.setOnClickListener(v -> {
@@ -724,6 +712,13 @@ public class MainActivity extends AppCompatActivity {
         com.google.android.material.card.MaterialCardView cardThemeSystem = view.findViewById(R.id.cardThemeSystem);
 
         View btnApply = view.findViewById(R.id.btnApply);
+
+        // Animate
+        animateDialogItems(view.findViewById(R.id.titleSettings),
+                          view.findViewById(R.id.titleSettings), // dummy
+                          cardLangEn, cardLangEs,
+                          cardThemeLight, cardThemeDark, cardThemeSystem,
+                          btnApply);
 
         // State Holders
         final String[] selectedLang = {languageManager.getLanguage()};
@@ -770,6 +765,7 @@ public class MainActivity extends AppCompatActivity {
             
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.getWindow().setWindowAnimations(R.style.DialogAnimation);
         }
 
         btnApply.setOnClickListener(v -> {
@@ -879,6 +875,7 @@ public class MainActivity extends AppCompatActivity {
         // Window background transparent to show card corners
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.getWindow().setWindowAnimations(R.style.DialogAnimation);
         }
 
         boolean isPremium = billingManager.isPremiumPurchased();
@@ -1071,9 +1068,6 @@ public class MainActivity extends AppCompatActivity {
                         () -> {
                             // Save History
                             historyManager.saveLastStation(station.getName(), station.getStreamUrl(), station.getImage());
-
-                            // Notify DJ Mode
-                            djModeManager.onStationChanged(station);
 
                             // Play
                             Intent intent = new Intent(MainActivity.this, RadioService.class);

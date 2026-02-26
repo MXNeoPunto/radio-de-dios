@@ -69,17 +69,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabDJMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_dj_mode"
-        android:contentDescription="@string/dj_mode_inactive"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/bottomContainer"
-        app:layout_constraintEnd_toEndOf="parent" />
-        
     <LinearLayout
         android:id="@+id/bottomContainer"
         android:layout_width="match_parent"

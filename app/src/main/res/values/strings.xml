@@ -169,12 +169,6 @@ Guatemala – LATAM
     <!-- Modern Menu -->
     <string name="menu_modern_title">Menu</string>
 
-    <!-- DJ Mode -->
-    <string name="dj_mode_active">DJ Mode Active</string>
-    <string name="dj_mode_inactive">DJ Mode Inactive</string>
-    <string name="dj_intro_msg">I\'ve noticed you enjoy this station... but let\'s explore something new...</string>
-    <string name="dj_outro_msg">Now changing to %s...</string>
-
     <string-array name="verses">
         <item>The Lord is my shepherd; I shall not want. - Psalm 23:1</item>
         <item>In the beginning God created the heavens and the earth. - Genesis 1:1</item>
