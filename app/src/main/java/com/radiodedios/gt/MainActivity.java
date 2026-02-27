@@ -31,6 +31,7 @@ import com.radiodedios.gt.manager.HistoryManager;
 import com.radiodedios.gt.manager.LanguageManager;
 import com.radiodedios.gt.manager.MaxManager;
 import com.radiodedios.gt.manager.ThemeManager;
+import com.radiodedios.gt.manager.OnboardingManager;
 import com.radiodedios.gt.model.RadioResponse;
 import com.radiodedios.gt.model.RadioStation;
 import com.google.android.gms.ads.AdView;
@@ -180,14 +181,11 @@ public class MainActivity extends AppCompatActivity {
         // Load Data
         loadData();
 
-        // Check Battery Optimization
-        BatteryOptimizationHelper.checkBatteryOptimization(this);
+        // Onboarding
+        new OnboardingManager(this).showOnboardingIfNeeded();
 
         // Rate Dialog
         checkRateDialog();
-
-        // Notification Permission
-        checkNotificationPermission();
 
         // Connect to MediaService
         setupMediaController();

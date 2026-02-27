@@ -178,4 +178,19 @@ Guatemala – LATAM
         <item>Trust in the Lord with all your heart, and lean not on your own understanding. - Proverbs 3:5</item>
         <item>And we know that all things work together for good to those who love God... - Romans 8:28</item>
     </string-array>
+
+    <!-- Onboarding -->
+    <string name="onboarding_battery_title">Restricción de Batería</string>
+    <string name="onboarding_battery_desc">Para escuchar la radio sin interrupciones, permite que la app funcione en segundo plano.</string>
+    <string name="onboarding_battery_btn_allow">Quitar restricción</string>
+    <string name="onboarding_battery_btn_skip">Omitir paso</string>
+
+    <string name="onboarding_notif_title">Notificaciones</string>
+    <string name="onboarding_notif_desc">¿Permitir que Radio de Dios te envíe notificaciones?</string>
+    <string name="onboarding_notif_btn_allow">Permitir</string>
+    <string name="onboarding_notif_btn_deny">No permitir</string>
+
+    <string name="onboarding_ads_title">Eliminar Publicidad</string>
+    <string name="onboarding_ads_desc">Debido a que es una aplicación cristiana, eliminamos anuncios de manera gratuita mediante un botón en la parte superior. Al ver un video publicitario de 30 segundos, eliminas todos los anuncios molestos durante 30 minutos. También puedes donar para eliminarlos permanentemente.</string>
+    <string name="onboarding_ads_btn_finish">Entendido</string>
 </resources>
