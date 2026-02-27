@@ -22,7 +22,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.radiodedios.gt.data.JsonFallbackLoader;
 import com.radiodedios.gt.manager.AdsManager;
 import com.radiodedios.gt.manager.BillingManager;
@@ -73,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
     private HistoryManager historyManager;
     private RecyclerView recyclerView;
     private AdView adView;
-    private FloatingActionButton fabDJMode;
     private View loadingIndicator;
     private View miniPlayerContainer;
     private View miniPlayerCard;
@@ -257,10 +255,6 @@ public class MainActivity extends AppCompatActivity {
                             this, miniPlayerCard, "player_image");
                     startActivity(intent, options.toBundle());
                 });
-        });
-        
-        fabDJMode.setOnClickListener(v -> {
-             animateButton(v);
         });
 
         // checkResumeLastStation(); // Moved to MediaController callback
