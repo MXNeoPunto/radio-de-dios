@@ -178,4 +178,9 @@ Guatemala – LATAM
         <item>Confía en Jehová con todo tu corazón, y no estribes en tu prudencia. - Proverbios 3:5</item>
         <item>Y sabemos que á los que a Dios aman, todas las cosas les ayudan a bien... - Romanos 8:28</item>
     </string-array>
+
+    <string name="dj_mode_active">Modo DJ Activo</string>
+    <string name="dj_mode_inactive">Modo DJ Inactivo</string>
+    <string name="dj_intro_msg">Iniciando Modo DJ con la mejor selección</string>
+    <string name="dj_outro_msg">A continuación %s</string>
 </resources>

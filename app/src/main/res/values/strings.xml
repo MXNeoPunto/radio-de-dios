@@ -193,4 +193,9 @@ Guatemala – LATAM
     <string name="onboarding_ads_title">Eliminar Publicidad</string>
     <string name="onboarding_ads_desc">Debido a que es una aplicación cristiana, eliminamos anuncios de manera gratuita mediante un botón en la parte superior. Al ver un video publicitario de 30 segundos, eliminas todos los anuncios molestos durante 30 minutos. También puedes donar para eliminarlos permanentemente.</string>
     <string name="onboarding_ads_btn_finish">Entendido</string>
+
+    <string name="dj_mode_active">DJ Mode Active</string>
+    <string name="dj_mode_inactive">DJ Mode Inactive</string>
+    <string name="dj_intro_msg">Starting DJ Mode with the best selection</string>
+    <string name="dj_outro_msg">Next up is %s</string>
 </resources>
