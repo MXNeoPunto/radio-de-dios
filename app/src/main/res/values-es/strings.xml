@@ -5,7 +5,7 @@
     <string name="updated_to_version">Actualizado a la versión: %1$s</string>
     <string name="no_updates">No hay actualizaciones disponibles (Revise su internet)</string>
     <string name="about_title">Acerca de</string>
-    <string name="about_message">Disfruta la mejor música Cristiana 24/7.\n\nContacto:</string>
+    <string name="about_message">¡Bienvenido a Radio de Dios! 🕊️\n\nDisfruta de la mejor música cristiana y mensajes que edifican tu vida las 24 horas del día. Estamos aquí para acompañarte en tu caminar espiritual.\n\nPara cualquier consulta o soporte:</string>
     <string name="privacy_policy">Política de Privacidad</string>
     <string name="terms_of_use">Términos de Uso</string>
     <string name="settings_title">Ajustes</string>
@@ -45,7 +45,7 @@
     
     <string name="particles_effect">Partículas Espirituales</string>
     <string name="auto_play">Auto-reproducir</string>
-    <string name="contact_email">ventas@neopunto.com</string>
+    <string name="contact_email">cliente@neopunto.com</string>
    <string name="policy_text">
 Términos de Servicio y Política de Privacidad\n\n
 Radio de Dios – Radio Cristiana Streaming\n\n
@@ -70,7 +70,7 @@ Radio de Dios no garantiza la disponibilidad continua del servicio, ya que depen
 
 7. Contacto\n
 Para consultas legales, soporte o solicitudes relacionadas con privacidad o derechos de autor, puede escribirnos a:\n
-ventas@neopunto.com\n\n
+cliente@neopunto.com\n\n
 
 Última actualización: Enero 2026\n
 Guatemala – LATAM
