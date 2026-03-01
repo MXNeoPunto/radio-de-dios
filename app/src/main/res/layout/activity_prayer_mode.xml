@@ -25,6 +25,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_arrow_back"
             app:tint="?attr/colorOnSurface"
+            android:focusable="true"
             android:contentDescription="@string/close" />
 
         <TextView
@@ -43,6 +44,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_history"
             app:tint="?attr/colorOnSurface"
+            android:focusable="true"
             android:contentDescription="@string/prayer_history" />
     </LinearLayout>
 
@@ -221,6 +223,7 @@
                                 android:background="?attr/selectableItemBackgroundBorderless"
                                 android:src="@drawable/ic_play"
                                 app:tint="?attr/colorOnSurfaceVariant"
+                                android:focusable="true"
                                 android:contentDescription="@string/listen" />
 
                             <ImageButton
@@ -230,6 +233,7 @@
                                 android:background="?attr/selectableItemBackgroundBorderless"
                                 android:src="@drawable/ic_share"
                                 app:tint="?attr/colorOnSurfaceVariant"
+                                android:focusable="true"
                                 android:contentDescription="@string/share_app" />
                         </LinearLayout>
 
