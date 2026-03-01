@@ -201,12 +201,114 @@ Guatemala – LATAM
     <string name="tts_not_ready">Motor de voz no disponible</string>
     <string name="history_cleared">Historial borrado</string>
 
+    <string name="prayer_default_name">esta persona</string>
+    <string name="prayer_default_desc">lo que atraviesa</string>
+    <string name="prayer_verse_separator">versículo</string>
+
     <string-array name="prayer_categories">
-        <item>Salud</item>
-        <item>Economía</item>
+        <item>Salud / Enfermedades / Covid</item>
+        <item>Economía / Finanzas</item>
         <item>Familia</item>
         <item>Ansiedad</item>
         <item>Fortaleza Espiritual</item>
+        <item>Adicciones / Alcohol</item>
+        <item>Motociclistas / Viajes</item>
         <item>General</item>
+    </string-array>
+
+    <string-array name="prayer_templates_health">
+        <item>Señor Jesucristo, médico divino, te presento a %1$s. Pon tu mano sanadora sobre %1$s y restaura su salud física y emocional frente a %2$s. Que tu voluntad perfecta se cumpla en su vida. Amén.</item>
+        <item>Padre amado, te ruego por la salud de %1$s. Tú conoces su dolor y su situación: %2$s. Dale fortaleza y permite que recupere su bienestar pronto. Amén.</item>
+        <item>Dios de infinita misericordia, te pedimos por %1$s. Trae sanidad y consuelo frente a %2$s. Que tu paz que sobrepasa todo entendimiento guarde su corazón. Amén.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_health">
+        <item>Mas yo haré venir sanidad para ti, y sanaré tus heridas, dice Jehová. - Jeremías 30:17</item>
+        <item>Él es quien perdona todas tus iniquidades, El que sana todas tus dolencias. - Salmos 103:3</item>
+        <item>Sáname, oh Jehová, y seré sano; sálvame, y seré salvo; porque tú eres mi alabanza. - Jeremías 17:14</item>
+    </string-array>
+
+    <string-array name="prayer_templates_economy">
+        <item>Padre Proveedor, abrimos nuestro corazón por %1$s. En medio de esta necesidad: %2$s, abre las ventanas de los cielos y derrama bendición hasta que sobreabunde. Amén.</item>
+        <item>Señor, dueño del oro y la plata, te encomiendo las finanzas de %1$s. Ante %2$s, danos sabiduría y abre puertas de oportunidad que ningún hombre pueda cerrar. Amén.</item>
+        <item>Dios fiel, te pedimos por la situación económica de %1$s. Que %2$s sea una prueba temporal de la cual salgan fortalecidos, confiando siempre en tu provisión. Amén.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_economy">
+        <item>Mi Dios, pues, suplirá todo lo que os falta conforme a sus riquezas en gloria en Cristo Jesús. - Filipenses 4:19</item>
+        <item>Jehová es mi pastor; nada me faltará. - Salmos 23:1</item>
+        <item>Joven fui, y he envejecido, Y no he visto justo desamparado, Ni su descendencia que mendigue pan. - Salmos 37:25</item>
+    </string-array>
+
+    <string-array name="prayer_templates_family">
+        <item>Señor, te presentamos a la familia de %1$s. En medio de %2$s, trae unidad, perdón y amor incondicional a su hogar. Que tu Espíritu Santo sea el centro de sus vidas. Amén.</item>
+        <item>Padre Celestial, te ruego por %1$s y sus seres queridos. Fortalece sus lazos familiares frente a %2$s. Que el amor y la comprensión reinen siempre en su casa. Amén.</item>
+        <item>Dios de paz, bendice el hogar de %1$s. Ante la situación de %2$s, te pedimos que restaures las relaciones rotas y traigas armonía a su familia. Amén.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_family">
+        <item>Cree en el Señor Jesucristo, y serás salvo, tú y tu casa. - Hechos 16:31</item>
+        <item>Y nosotros hemos conocido y creído el amor que Dios tiene para con nosotros. Dios es amor... - 1 Juan 4:16</item>
+        <item>Mirad cuán bueno y cuán delicioso es Habitar los hermanos juntos en armonía! - Salmos 133:1</item>
+    </string-array>
+
+    <string-array name="prayer_templates_anxiety">
+        <item>Príncipe de Paz, calma la mente y el corazón de %1$s. En este momento de %2$s, disipa todo temor y angustia. Llena su ser con tu dulce presencia y dales descanso. Amén.</item>
+        <item>Señor, te entrego la ansiedad de %1$s. Conociendo que %2$s les aflige, te pedimos que echen toda su ansiedad sobre Ti, porque Tú cuidas de ellos. Amén.</item>
+        <item>Padre de consuelo, abraza a %1$s con tu amor. Frente a %2$s, te ruego que tu paz, que sobrepasa todo entendimiento, guarde su corazón y sus pensamientos en Cristo Jesús. Amén.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_anxiety">
+        <item>Echando toda vuestra ansiedad sobre él, porque él tiene cuidado de vosotros. - 1 Pedro 5:7</item>
+        <item>Por nada estéis afanosos, sino sean conocidas vuestras peticiones delante de Dios en toda oración y ruego... - Filipenses 4:6</item>
+        <item>La paz os dejo, mi paz os doy; yo no os la doy como el mundo la da. No se turbe vuestro corazón, ni tenga miedo. - Juan 14:27</item>
+    </string-array>
+
+    <string-array name="prayer_templates_strength">
+        <item>Espíritu Santo, renueva las fuerzas de %1$s. En medio de %2$s, levanta su fe como las águilas, para que corran y no se cansen, caminen y no se fatiguen. Amén.</item>
+        <item>Señor, fortalece el espíritu de %1$s. Ante la prueba de %2$s, te pedimos que se mantengan firmes en tu Palabra y confíen plenamente en tus promesas. Amén.</item>
+        <item>Padre Amado, derrama tu poder sobre %1$s. Que %2$s no sea motivo de desánimo, sino una oportunidad para ver tu gloria y crecer espiritualmente. Amén.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_strength">
+        <item>Todo lo puedo en Cristo que me fortalece. - Filipenses 4:13</item>
+        <item>Pero los que esperan a Jehová tendrán nuevas fuerzas; levantarán alas como las águilas... - Isaías 40:31</item>
+        <item>Mira que te mando que te esfuerces y seas valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo... - Josué 1:9</item>
+    </string-array>
+
+    <string-array name="prayer_templates_addictions">
+        <item>Señor de liberación, te presentamos a %1$s. Rompe las cadenas de adicción y alcohol que le atan. En su lucha con %2$s, concédele la valentía para buscar ayuda y la fuerza para vencer. Amén.</item>
+        <item>Padre misericordioso, mira con compasión a %1$s. Libérale del dominio de las sustancias. Que tu luz brille en la oscuridad de %2$s y le guíe hacia un camino de recuperación y paz. Amén.</item>
+        <item>Dios de transformación, oramos por la sanidad de %1$s frente a las adicciones. Protégele durante %2$s y rodéale de personas que le brinden apoyo y reflejen tu amor incondicional. Amén.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_addictions">
+        <item>Así que, si el Hijo os libertare, seréis verdaderamente libres. - Juan 8:36</item>
+        <item>No os ha sobrevenido ninguna tentación que no sea humana; pero fiel es Dios, que no os dejará ser tentados más de lo que podéis resistir... - 1 Corintios 10:13</item>
+        <item>Jehová será refugio del pobre, Refugio para el tiempo de angustia. - Salmos 9:9</item>
+    </string-array>
+
+    <string-array name="prayer_templates_travel">
+        <item>Señor, pedimos tu protección divina sobre %1$s mientras viaja en motocicleta o en la carretera. Guárdale de accidentes y peligros invisibles, especialmente en relación a %2$s. Llévale con seguridad a su destino. Amén.</item>
+        <item>Padre Celestial, pon tus ángeles alrededor de %1$s durante sus trayectos. Concédele estar alerta, visión clara y seguridad en medio de los desafíos de %2$s. Guía su camino siempre. Amén.</item>
+        <item>Dios de los viajeros, encomendamos la seguridad de %1$s en tus manos. Protégele de todo mal en el camino y dale tranquilidad ante %2$s. Que tu presencia vaya siempre con él. Amén.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_travel">
+        <item>Jehová te guardará de todo mal; Él guardará tu alma. Jehová guardará tu salida y tu entrada Desde ahora y para siempre. - Salmos 121:7-8</item>
+        <item>Pues a sus ángeles mandará acerca de ti, Que te guarden en todos tus caminos. - Salmos 91:11</item>
+        <item>Confortará mi alma; Me guiará por sendas de justicia por amor de su nombre. - Salmos 23:3</item>
+    </string-array>
+
+    <string-array name="prayer_templates_general">
+        <item>Señor, elevamos esta oración por %1$s. Tú conoces profundamente: %2$s. Te pedimos que obres según tu perfecta voluntad y derrames tus bendiciones. Amén.</item>
+        <item>Padre Nuestro, te entregamos a %1$s. En esta situación: %2$s, te rogamos que guíes sus pasos y les llenes de tu gracia inagotable. Amén.</item>
+        <item>Dios Todopoderoso, escucha nuestro clamor por %1$s. Ante %2$s, muestra tu gran poder y misericordia, trayendo paz y solución a sus vidas. Amén.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_general">
+        <item>Clama a mí, y yo te responderé, y te enseñaré cosas grandes y ocultas que tú no conoces. - Jeremías 33:3</item>
+        <item>Confía en Jehová con todo tu corazón, Y no te apoyes en tu propia prudencia. - Proverbios 3:5</item>
+        <item>Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal... - Jeremías 29:11</item>
     </string-array>
 </resources>
