@@ -521,13 +521,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         View menuNotifs = view.findViewById(R.id.menuNotifs);
+        View menuPrayerMode = view.findViewById(R.id.menuPrayerMode);
         View menuSettings = view.findViewById(R.id.menuSettings);
         View menuAds = view.findViewById(R.id.menuAds);
         View menuAbout = view.findViewById(R.id.menuAbout);
         View menuShare = view.findViewById(R.id.menuShare);
 
         // Animate Items
-        animateDialogItems(menuNotifs, menuAds, menuSettings, menuAbout, menuShare);
+        animateDialogItems(menuNotifs, menuPrayerMode, menuAds, menuSettings, menuAbout, menuShare);
 
         // Notifications
         if (menuNotifs != null) {
@@ -543,6 +544,14 @@ public class MainActivity extends AppCompatActivity {
             menuNotifs.setOnClickListener(v -> {
                 dialog.dismiss();
                 startActivity(new Intent(this, com.radiodedios.gt.ui.NotificationHistoryActivity.class));
+            });
+        }
+
+        // Prayer Mode
+        if (menuPrayerMode != null) {
+            menuPrayerMode.setOnClickListener(v -> {
+                dialog.dismiss();
+                startActivity(new Intent(this, com.radiodedios.gt.prayer.PrayerModeActivity.class));
             });
         }
 
