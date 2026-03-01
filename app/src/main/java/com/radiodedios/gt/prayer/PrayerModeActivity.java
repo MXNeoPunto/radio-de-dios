@@ -238,7 +238,7 @@ public class PrayerModeActivity extends AppCompatActivity implements TextToSpeec
         if (status == TextToSpeech.SUCCESS) {
             LanguageManager langMgr = new LanguageManager(this);
             String currentLang = langMgr.getLanguage();
-            Locale ttsLocale = currentLang.equals("es") ? new Locale("es", "ES") : new Locale("en", "US");
+            Locale ttsLocale = currentLang.equals("es") ? Locale.forLanguageTag("es-ES") : Locale.forLanguageTag("en-US");
 
             int result = tts.setLanguage(ttsLocale);
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
