@@ -183,4 +183,30 @@ Guatemala – LATAM
     <string name="dj_mode_inactive">Modo DJ Inactivo</string>
     <string name="dj_intro_msg">Iniciando Modo DJ con la mejor selección</string>
     <string name="dj_outro_msg">A continuación %s</string>
+
+
+    <!-- Prayer Mode -->
+    <string name="prayer_mode_title">Modo Oración</string>
+    <string name="prayer_history">Historial de Oraciones</string>
+    <string name="prayer_history_empty">Aún no hay oraciones guardadas</string>
+    <string name="prayer_who_for">¿Por quién es la oración? (Opcional)</string>
+    <string name="prayer_category">¿Qué tipo de situación atraviesa?</string>
+    <string name="prayer_description">Describe brevemente el motivo (Opcional)</string>
+    <string name="prayer_generate">Generar Oración</string>
+    <string name="prayer_select_category_error">Por favor selecciona una categoría</string>
+    <string name="prayer_new">Nueva Oración</string>
+    <string name="amen_counted">¡Amén! Contador: %d</string>
+    <string name="blessings_message">¡Que Dios te bendiga abundantemente!</string>
+    <string name="listen">Escuchar</string>
+    <string name="tts_not_ready">Motor de voz no disponible</string>
+    <string name="history_cleared">Historial borrado</string>
+
+    <string-array name="prayer_categories">
+        <item>Salud</item>
+        <item>Economía</item>
+        <item>Familia</item>
+        <item>Ansiedad</item>
+        <item>Fortaleza Espiritual</item>
+        <item>General</item>
+    </string-array>
 </resources>

@@ -198,4 +198,30 @@ Guatemala – LATAM
     <string name="dj_mode_inactive">DJ Mode Inactive</string>
     <string name="dj_intro_msg">Starting DJ Mode with the best selection</string>
     <string name="dj_outro_msg">Next up is %s</string>
+
+
+    <!-- Prayer Mode -->
+    <string name="prayer_mode_title">Prayer Mode</string>
+    <string name="prayer_history">Prayer History</string>
+    <string name="prayer_history_empty">No prayers saved yet</string>
+    <string name="prayer_who_for">Who is this prayer for? (Optional)</string>
+    <string name="prayer_category">What kind of situation?</string>
+    <string name="prayer_description">Describe briefly (Optional)</string>
+    <string name="prayer_generate">Generate Prayer</string>
+    <string name="prayer_select_category_error">Please select a category</string>
+    <string name="prayer_new">New Prayer</string>
+    <string name="amen_counted">Amen! Count: %d</string>
+    <string name="blessings_message">God bless you abundantly!</string>
+    <string name="listen">Listen</string>
+    <string name="tts_not_ready">Voice engine not ready</string>
+    <string name="history_cleared">History cleared</string>
+
+    <string-array name="prayer_categories">
+        <item>Salud</item>
+        <item>Economía</item>
+        <item>Familia</item>
+        <item>Ansiedad</item>
+        <item>Fortaleza Espiritual</item>
+        <item>General</item>
+    </string-array>
 </resources>

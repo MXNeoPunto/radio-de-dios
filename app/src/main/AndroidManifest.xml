@@ -89,6 +89,9 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".prayer.PrayerModeActivity"
+            android:exported="false"
+             />
     </application>
 
 </manifest>
