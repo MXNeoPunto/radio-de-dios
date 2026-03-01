@@ -216,12 +216,114 @@ Guatemala – LATAM
     <string name="tts_not_ready">Voice engine not ready</string>
     <string name="history_cleared">History cleared</string>
 
+    <string name="prayer_default_name">this person</string>
+    <string name="prayer_default_desc">what they are going through</string>
+    <string name="prayer_verse_separator">verse</string>
+
     <string-array name="prayer_categories">
-        <item>Salud</item>
-        <item>Economía</item>
-        <item>Familia</item>
-        <item>Ansiedad</item>
-        <item>Fortaleza Espiritual</item>
+        <item>Health / Illness / Covid</item>
+        <item>Economy / Finance</item>
+        <item>Family</item>
+        <item>Anxiety</item>
+        <item>Spiritual Strength</item>
+        <item>Addictions / Alcohol</item>
+        <item>Motorcyclists / Travel</item>
         <item>General</item>
+    </string-array>
+
+    <string-array name="prayer_templates_health">
+        <item>Lord Jesus Christ, divine physician, I present %1$s to you. Place your healing hand upon %1$s and restore their physical and emotional health, especially in the face of %2$s. May your perfect will be done in their life. Amen.</item>
+        <item>Loving Father, I pray for the health of %1$s. You know their pain and their situation: %2$s. Give them strength and allow them to recover their well-being soon. Amen.</item>
+        <item>God of infinite mercy, we ask you for %1$s. Bring healing and comfort in the face of %2$s. May your peace that surpasses all understanding guard their heart. Amen.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_health">
+        <item>But I will restore you to health and heal your wounds, declares the LORD. - Jeremiah 30:17</item>
+        <item>Who forgives all your sins and heals all your diseases. - Psalms 103:3</item>
+        <item>Heal me, LORD, and I will be healed; save me and I will be saved, for you are the one I praise. - Jeremiah 17:14</item>
+    </string-array>
+
+    <string-array name="prayer_templates_economy">
+        <item>Provider Father, we open our hearts for %1$s. In the midst of this need: %2$s, open the windows of heaven and pour out blessings until they overflow. Amen.</item>
+        <item>Lord, owner of the gold and the silver, I entrust the finances of %1$s to you. Facing %2$s, give us wisdom and open doors of opportunity that no man can close. Amen.</item>
+        <item>Faithful God, we pray for the economic situation of %1$s. May %2$s be a temporary trial from which they emerge strengthened, always trusting in your provision. Amen.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_economy">
+        <item>And my God will meet all your needs according to the riches of his glory in Christ Jesus. - Philippians 4:19</item>
+        <item>The LORD is my shepherd, I lack nothing. - Psalms 23:1</item>
+        <item>I was young and now I am old, yet I have never seen the righteous forsaken or their children begging bread. - Psalms 37:25</item>
+    </string-array>
+
+    <string-array name="prayer_templates_family">
+        <item>Lord, we present the family of %1$s to you. In the midst of %2$s, bring unity, forgiveness, and unconditional love to their home. May your Holy Spirit be the center of their lives. Amen.</item>
+        <item>Heavenly Father, I pray for %1$s and their loved ones. Strengthen their family ties facing %2$s. May love and understanding always reign in their house. Amen.</item>
+        <item>God of peace, bless the home of %1$s. Facing the situation of %2$s, we ask you to restore broken relationships and bring harmony to their family. Amen.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_family">
+        <item>Believe in the Lord Jesus, and you will be saved, you and your household. - Acts 16:31</item>
+        <item>And so we know and rely on the love God has for us. God is love. - 1 John 4:16</item>
+        <item>How good and pleasant it is when God\'s people live together in unity! - Psalms 133:1</item>
+    </string-array>
+
+    <string-array name="prayer_templates_anxiety">
+        <item>Prince of Peace, calm the mind and heart of %1$s. In this moment of %2$s, dispel all fear and anguish. Fill their being with your sweet presence and give them rest. Amen.</item>
+        <item>Lord, I hand over the anxiety of %1$s to you. Knowing that %2$s afflicts them, we ask that they cast all their anxiety on You, because You care for them. Amen.</item>
+        <item>Father of comfort, embrace %1$s with your love. Facing %2$s, I pray that your peace, which transcends all understanding, will guard their hearts and their minds in Christ Jesus. Amen.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_anxiety">
+        <item>Cast all your anxiety on him because he cares for you. - 1 Peter 5:7</item>
+        <item>Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. - Philippians 4:6</item>
+        <item>Peace I leave with you; my peace I give you. I do not give to you as the world gives. Do not let your hearts be troubled and do not be afraid. - John 14:27</item>
+    </string-array>
+
+    <string-array name="prayer_templates_strength">
+        <item>Holy Spirit, renew the strength of %1$s. In the midst of %2$s, lift their faith like eagles, so they run and are not weary, walk and do not faint. Amen.</item>
+        <item>Lord, strengthen the spirit of %1$s. Facing the trial of %2$s, we ask that they stand firm in your Word and fully trust in your promises. Amen.</item>
+        <item>Beloved Father, pour out your power over %1$s. May %2$s not be a reason for discouragement, but an opportunity to see your glory and grow spiritually. Amen.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_strength">
+        <item>I can do all this through him who gives me strength. - Philippians 4:13</item>
+        <item>But those who hope in the LORD will renew their strength. They will soar on wings like eagles. - Isaiah 40:31</item>
+        <item>Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the LORD your God will be with you wherever you go. - Joshua 1:9</item>
+    </string-array>
+
+    <string-array name="prayer_templates_addictions">
+        <item>Lord of deliverance, we lift up %1$s to you. Break the chains of addiction and alcohol that bind them. In the struggle with %2$s, grant them the courage to seek help and the strength to overcome. Amen.</item>
+        <item>Merciful Father, look with compassion on %1$s. Free them from the grip of substance abuse. May your light shine into the darkness of %2$s and guide them toward a path of recovery and peace. Amen.</item>
+        <item>God of transformation, we pray for the healing of %1$s from addiction. Protect them during %2$s and surround them with supportive people who reflect your unconditional love. Amen.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_addictions">
+        <item>So if the Son sets you free, you will be free indeed. - John 8:36</item>
+        <item>No temptation has overtaken you except what is common to mankind. And God is faithful; he will not let you be tempted beyond what you can bear. - 1 Corinthians 10:13</item>
+        <item>The Lord is a refuge for the oppressed, a stronghold in times of trouble. - Psalms 9:9</item>
+    </string-array>
+
+    <string-array name="prayer_templates_travel">
+        <item>Lord, we ask for your divine protection over %1$s as they travel by motorcycle or on the road. Guard them against accidents and unseen dangers, especially concerning %2$s. Bring them safely to their destination. Amen.</item>
+        <item>Heavenly Father, place your angels around %1$s during their journeys. Grant them alertness, clear vision, and safety amidst the challenges of %2$s. Guide their path always. Amen.</item>
+        <item>God of travelers, we entrust the safety of %1$s to your hands. Protect them from harm on the road and give them peace of mind regarding %2$s. May your presence go with them. Amen.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_travel">
+        <item>The LORD will keep you from all harm— he will watch over your life; the LORD will watch over your coming and going both now and forevermore. - Psalms 121:7</item>
+        <item>For he will command his angels concerning you to guard you in all your ways. - Psalms 91:11</item>
+        <item>He guides me along the right paths for his name\'s sake. - Psalms 23:3</item>
+    </string-array>
+
+    <string-array name="prayer_templates_general">
+        <item>Lord, we lift up this prayer for %1$s. You deeply know: %2$s. We ask that you work according to your perfect will and pour out your blessings. Amen.</item>
+        <item>Our Father, we hand over %1$s to you. In this situation: %2$s, we pray that you guide their steps and fill them with your inexhaustible grace. Amen.</item>
+        <item>Almighty God, hear our cry for %1$s. Facing %2$s, show your great power and mercy, bringing peace and a solution to their lives. Amen.</item>
+    </string-array>
+
+    <string-array name="prayer_verses_general">
+        <item>Call to me and I will answer you and tell you great and unsearchable things you do not know. - Jeremiah 33:3</item>
+        <item>Trust in the LORD with all your heart and lean not on your own understanding. - Proverbs 3:5</item>
+        <item>For I know the plans I have for you, declares the LORD, plans to prosper you and not to harm you, plans to give you hope and a future. - Jeremiah 29:11</item>
     </string-array>
 </resources>

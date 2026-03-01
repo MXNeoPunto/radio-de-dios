@@ -179,7 +179,12 @@ public class PrayerModeActivity extends AppCompatActivity implements TextToSpeec
 
     private void listenPrayer(Prayer prayer) {
         if (isTtsReady) {
-            String textToSpeak = prayer.getText() + ". " + prayer.getVerse();
+            String separator = getString(R.string.prayer_verse_separator);
+            String verse = prayer.getVerse();
+            // Replace ':' with the verse separator (e.g., "versículo" or "verse")
+            // so TTS doesn't read verses as time formats
+            verse = verse.replace(":", " " + separator + " ");
+            String textToSpeak = prayer.getText() + ". " + verse;
             tts.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "PrayerTTS");
         } else {
             Toast.makeText(this, R.string.tts_not_ready, Toast.LENGTH_SHORT).show();
@@ -231,8 +236,11 @@ public class PrayerModeActivity extends AppCompatActivity implements TextToSpeec
     @Override
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
-            Locale spanishLocale = new Locale("es", "ES");
-            int result = tts.setLanguage(spanishLocale);
+            LanguageManager langMgr = new LanguageManager(this);
+            String currentLang = langMgr.getLanguage();
+            Locale ttsLocale = currentLang.equals("es") ? new Locale("es", "ES") : new Locale("en", "US");
+
+            int result = tts.setLanguage(ttsLocale);
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 // Try default locale
                 result = tts.setLanguage(Locale.getDefault());
