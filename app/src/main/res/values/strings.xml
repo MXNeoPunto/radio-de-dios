@@ -210,6 +210,7 @@ Guatemala – LATAM
     <string name="prayer_generate">Generate Prayer</string>
     <string name="prayer_select_category_error">Please select a category</string>
     <string name="prayer_new">New Prayer</string>
+    <string name="generating_audio">Generating audio...</string>
     <string name="amen_counted">Amen! Count: %d</string>
     <string name="blessings_message">God bless you abundantly!</string>
     <string name="listen">Listen</string>

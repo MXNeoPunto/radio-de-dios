@@ -195,6 +195,7 @@ Guatemala – LATAM
     <string name="prayer_generate">Generar Oración</string>
     <string name="prayer_select_category_error">Por favor selecciona una categoría</string>
     <string name="prayer_new">Nueva Oración</string>
+    <string name="generating_audio">Generando audio...</string>
     <string name="amen_counted">¡Amén! Contador: %d</string>
     <string name="blessings_message">¡Que Dios te bendiga abundantemente!</string>
     <string name="listen">Escuchar</string>
