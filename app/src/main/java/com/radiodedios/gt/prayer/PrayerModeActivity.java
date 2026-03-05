@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.media.MediaPlayer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +29,24 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.radiodedios.gt.R;
 import com.radiodedios.gt.manager.LanguageManager;
 
+import com.radiodedios.gt.BuildConfig;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class PrayerModeActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
+public class PrayerModeActivity extends AppCompatActivity {
 
     private EditText etName;
     private AutoCompleteTextView spinnerCategory;
@@ -53,9 +67,15 @@ public class PrayerModeActivity extends AppCompatActivity implements TextToSpeec
     private Button btnNewPrayer;
 
     private PrayerGenerator generator;
-    private TextToSpeech tts;
-    private boolean isTtsReady = false;
     private Prayer currentPrayer;
+
+    private MediaPlayer mediaPlayer;
+    private ExecutorService executorService;
+    private boolean isPlaying = false;
+    private File tempAudioFile;
+
+    private static final String ELEVENLABS_API_KEY = BuildConfig.ELEVENLABS_API_KEY;
+    private static final String ELEVENLABS_VOICE_ID = "2zRM7PkgwBPiau2jvVXc";
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -76,7 +96,7 @@ public class PrayerModeActivity extends AppCompatActivity implements TextToSpeec
         });
 
         generator = new PrayerGenerator(this);
-        tts = new TextToSpeech(this, this);
+        executorService = Executors.newSingleThreadExecutor();
 
         initViews();
         setupSpinner();
@@ -133,9 +153,6 @@ public class PrayerModeActivity extends AppCompatActivity implements TextToSpeec
             layoutForm.setVisibility(View.VISIBLE);
             etName.setText("");
             etDescription.setText("");
-            if (tts != null && tts.isSpeaking()) {
-                tts.stop();
-            }
         });
 
         btnAmen.setOnClickListener(v -> {
@@ -178,17 +195,106 @@ public class PrayerModeActivity extends AppCompatActivity implements TextToSpeec
     }
 
     private void listenPrayer(Prayer prayer) {
-        if (isTtsReady) {
-            String separator = getString(R.string.prayer_verse_separator);
-            String verse = prayer.getVerse();
-            // Replace ':' with the verse separator (e.g., "versículo" or "verse")
-            // so TTS doesn't read verses as time formats
-            verse = verse.replace(":", " " + separator + " ");
-            String textToSpeak = prayer.getText() + ". " + verse;
-            tts.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, "PrayerTTS");
-        } else {
-            Toast.makeText(this, R.string.tts_not_ready, Toast.LENGTH_SHORT).show();
+        if (isPlaying) {
+            stopAudio();
+            return;
         }
+
+        btnListenResult.setEnabled(false);
+        Toast.makeText(this, R.string.generating_audio, Toast.LENGTH_SHORT).show();
+
+        String separator = getString(R.string.prayer_verse_separator);
+        String verse = prayer.getVerse();
+        verse = verse.replace(":", " " + separator + " ");
+        String textToSpeak = prayer.getText() + ". " + verse;
+
+        fetchElevenLabsAudio(textToSpeak);
+    }
+
+    private void fetchElevenLabsAudio(String text) {
+        executorService.execute(() -> {
+            try {
+                URL url = new URL("https://api.elevenlabs.io/v1/text-to-speech/" + ELEVENLABS_VOICE_ID);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("xi-api-key", ELEVENLABS_API_KEY);
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Accept", "audio/mpeg");
+                conn.setDoOutput(true);
+
+                JSONObject payload = new JSONObject();
+                payload.put("text", text);
+                payload.put("model_id", "eleven_multilingual_v2");
+
+                try (OutputStream os = conn.getOutputStream()) {
+                    byte[] input = payload.toString().getBytes("utf-8");
+                    os.write(input, 0, input.length);
+                }
+
+                int responseCode = conn.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    tempAudioFile = File.createTempFile("prayer_tts", ".mp3", getCacheDir());
+                    try (InputStream in = conn.getInputStream();
+                         FileOutputStream out = new FileOutputStream(tempAudioFile)) {
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+                        while ((bytesRead = in.read(buffer)) != -1) {
+                            out.write(buffer, 0, bytesRead);
+                        }
+                    }
+
+                    runOnUiThread(() -> playAudio(tempAudioFile));
+                } else {
+                    runOnUiThread(() -> {
+                        btnListenResult.setEnabled(true);
+                        Toast.makeText(PrayerModeActivity.this, "Error: " + responseCode, Toast.LENGTH_SHORT).show();
+                    });
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    btnListenResult.setEnabled(true);
+                    Toast.makeText(PrayerModeActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
+                });
+            } catch (JSONException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    btnListenResult.setEnabled(true);
+                    Toast.makeText(PrayerModeActivity.this, "Error parsing API request", Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+    }
+
+    private void playAudio(File audioFile) {
+        try {
+            if (mediaPlayer == null) {
+                mediaPlayer = new MediaPlayer();
+                mediaPlayer.setOnCompletionListener(mp -> stopAudio());
+            } else {
+                mediaPlayer.reset();
+            }
+
+            mediaPlayer.setDataSource(audioFile.getAbsolutePath());
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+
+            isPlaying = true;
+            btnListenResult.setEnabled(true);
+            btnListenResult.setImageResource(R.drawable.ic_pause);
+        } catch (IOException e) {
+            e.printStackTrace();
+            btnListenResult.setEnabled(true);
+            Toast.makeText(this, "Error playing audio", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void stopAudio() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
+        isPlaying = false;
+        btnListenResult.setImageResource(R.drawable.ic_play);
     }
 
     private void showHistoryDialog() {
@@ -234,30 +340,16 @@ public class PrayerModeActivity extends AppCompatActivity implements TextToSpeec
     }
 
     @Override
-    public void onInit(int status) {
-        if (status == TextToSpeech.SUCCESS) {
-            LanguageManager langMgr = new LanguageManager(this);
-            String currentLang = langMgr.getLanguage();
-            Locale ttsLocale = currentLang.equals("es") ? Locale.forLanguageTag("es-ES") : Locale.forLanguageTag("en-US");
-
-            int result = tts.setLanguage(ttsLocale);
-            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                // Try default locale
-                result = tts.setLanguage(Locale.getDefault());
-                if (result != TextToSpeech.LANG_MISSING_DATA && result != TextToSpeech.LANG_NOT_SUPPORTED) {
-                    isTtsReady = true;
-                }
-            } else {
-                isTtsReady = true;
-            }
-        }
-    }
-
-    @Override
     protected void onDestroy() {
-        if (tts != null) {
-            tts.stop();
-            tts.shutdown();
+        if (executorService != null) {
+            executorService.shutdown();
+        }
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+        if (tempAudioFile != null && tempAudioFile.exists()) {
+            tempAudioFile.delete();
         }
         super.onDestroy();
     }

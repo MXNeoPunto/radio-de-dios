@@ -15,6 +15,13 @@ android {
         versionName = "3.6"
 
         testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
+
+        Properties properties = new Properties()
+        if (project.rootProject.file('local.properties').exists()) {
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        }
+        def apiKey = properties.getProperty('elevenlabs.api.key', '""')
+        buildConfigField("String", "ELEVENLABS_API_KEY", "\"${apiKey}\"")
     }
 
     buildTypes {
