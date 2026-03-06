@@ -24,7 +24,7 @@ import androidx.media3.session.SessionToken;
 import com.radiodedios.gt.manager.SleepTimerManager;
 import com.radiodedios.gt.manager.ThemeManager;
 import com.radiodedios.gt.manager.BillingManager;
-import com.radiodedios.gt.ui.FluidVisualizerView;
+import com.radiodedios.gt.ui.BarVisualizerView;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.MoreExecutors;
 import java.util.concurrent.ExecutionException;
@@ -33,13 +33,14 @@ import com.google.android.material.color.MaterialColors;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Animatable;
 import android.graphics.Color;
 
 public class PlayerActivity extends AppCompatActivity {
 
     private MediaController mediaController;
-    private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton btnPlayPauseContainer;
-    private TextView title, desc;
+    private com.google.android.material.floatingactionbutton.FloatingActionButton btnPlayPauseContainer;
+    private TextView title, desc, nextSong;
     private ImageButton btnClose;
     private ImageButton btnShare;
     private View btnSleepTimerContainer;
@@ -57,7 +58,8 @@ public class PlayerActivity extends AppCompatActivity {
 
     private ThemeManager themeManager;
     private com.radiodedios.gt.manager.LanguageManager languageManager;
-    private FluidVisualizerView waveView;
+    private BarVisualizerView waveView;
+    private com.google.android.material.imageview.ShapeableImageView stationArtwork;
 
     @Override
     protected void attachBaseContext(android.content.Context newBase) {
@@ -88,6 +90,7 @@ public class PlayerActivity extends AppCompatActivity {
         btnPlayPauseContainer = findViewById(R.id.btnPlayPauseContainer);
         title = findViewById(R.id.playerTitle);
         desc = findViewById(R.id.playerDesc);
+        nextSong = findViewById(R.id.playerNextSong);
         btnClose = findViewById(R.id.btnClose);
         btnShare = findViewById(R.id.btnShare);
         
@@ -96,7 +99,8 @@ public class PlayerActivity extends AppCompatActivity {
         tvTimerCountdown = findViewById(R.id.tvTimerCountdown);
         
         btnCarMode = findViewById(R.id.btnCarMode);
-        waveView = findViewById(R.id.fluidVisualizer);
+        waveView = findViewById(R.id.barVisualizer);
+        stationArtwork = findViewById(R.id.stationArtwork);
 
         billingManager = new BillingManager(this);
         adsManager = new com.radiodedios.gt.manager.AdsManager(this, billingManager);
@@ -288,8 +292,17 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void updateUI(boolean isPlaying) {
-        btnPlayPauseContainer.setIconResource(isPlaying ? R.drawable.ic_pause : R.drawable.ic_play);
-        btnPlayPauseContainer.setText(isPlaying ? R.string.pause : R.string.play);
+        if (isPlaying) {
+            btnPlayPauseContainer.setImageResource(R.drawable.avd_play_to_pause);
+        } else {
+            btnPlayPauseContainer.setImageResource(R.drawable.avd_pause_to_play);
+        }
+
+        Drawable drawable = btnPlayPauseContainer.getDrawable();
+        if (drawable instanceof Animatable) {
+            ((Animatable) drawable).start();
+        }
+
         if (waveView != null) {
             if (isPlaying) {
                 waveView.startAnimation();
@@ -305,6 +318,28 @@ public class PlayerActivity extends AppCompatActivity {
         if (metadata != null) {
             title.setText(metadata.title != null ? metadata.title : "Unknown");
             desc.setText(metadata.artist != null ? metadata.artist : "");
+
+            // Try to extract extra info if stream supports "Next Song" or similar custom metadata.
+            // Often custom metadata is placed in `description` or `subtitle`.
+            // In RadioService we map standard title to title.
+            // In standard shoutcast/icy streams, "next song" is rarely natively supported without custom JSON polling,
+            // but we add UI support for it via standard metadata fields if available in future updates.
+            if (metadata.subtitle != null && !metadata.subtitle.toString().isEmpty()) {
+                nextSong.setVisibility(View.VISIBLE);
+                nextSong.setText("Next: " + metadata.subtitle);
+            } else {
+                nextSong.setVisibility(View.GONE);
+            }
+
+            if (metadata.artworkUri != null) {
+                Glide.with(this)
+                     .load(metadata.artworkUri)
+                     .placeholder(R.drawable.ic_music_placeholder)
+                     .error(R.drawable.ic_music_placeholder)
+                     .into(stationArtwork);
+            } else {
+                stationArtwork.setImageResource(R.drawable.ic_music_placeholder);
+            }
         }
     }
 
