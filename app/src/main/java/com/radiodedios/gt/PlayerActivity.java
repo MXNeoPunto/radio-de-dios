@@ -24,7 +24,6 @@ import androidx.media3.session.SessionToken;
 import com.radiodedios.gt.manager.SleepTimerManager;
 import com.radiodedios.gt.manager.ThemeManager;
 import com.radiodedios.gt.manager.BillingManager;
-import com.radiodedios.gt.ui.BarVisualizerView;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.MoreExecutors;
 import java.util.concurrent.ExecutionException;
@@ -58,7 +57,6 @@ public class PlayerActivity extends AppCompatActivity {
 
     private ThemeManager themeManager;
     private com.radiodedios.gt.manager.LanguageManager languageManager;
-    private BarVisualizerView waveView;
     private com.google.android.material.imageview.ShapeableImageView stationArtwork;
 
     @Override
@@ -99,7 +97,6 @@ public class PlayerActivity extends AppCompatActivity {
         tvTimerCountdown = findViewById(R.id.tvTimerCountdown);
         
         btnCarMode = findViewById(R.id.btnCarMode);
-        waveView = findViewById(R.id.barVisualizer);
         stationArtwork = findViewById(R.id.stationArtwork);
 
         billingManager = new BillingManager(this);
@@ -154,10 +151,6 @@ public class PlayerActivity extends AppCompatActivity {
         });
         
         setupMediaController();
-
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-            waveView.linkToAudioSession(0); // 0 corresponds to the output mix
-        }
     }
 
     @Override
@@ -302,22 +295,25 @@ public class PlayerActivity extends AppCompatActivity {
         if (drawable instanceof Animatable) {
             ((Animatable) drawable).start();
         }
-
-        if (waveView != null) {
-            if (isPlaying) {
-                waveView.startAnimation();
-            } else {
-                waveView.stopAnimation();
-            }
-        }
     }
     
     private void updateMetadata(MediaMetadata metadata) {
         if (isFinishing() || isDestroyed()) return;
 
         if (metadata != null) {
-            title.setText(metadata.title != null ? metadata.title : "Unknown");
-            desc.setText(metadata.artist != null ? metadata.artist : "");
+            String titleText = metadata.title != null ? metadata.title.toString() : "";
+            String artistText = metadata.artist != null ? metadata.artist.toString() : "";
+
+            if (titleText.trim().isEmpty()) {
+                titleText = artistText;
+                artistText = "";
+            }
+            if (titleText.trim().isEmpty()) {
+                titleText = "Unknown";
+            }
+
+            title.setText(titleText);
+            desc.setText(artistText);
 
             // Try to extract extra info if stream supports "Next Song" or similar custom metadata.
             // Often custom metadata is placed in `description` or `subtitle`.
