@@ -50,7 +50,7 @@ public class NotificationHistoryActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.appBarLayout), (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(v.getPaddingLeft(), insets.top, v.getPaddingRight(), v.getPaddingBottom());
-            return WindowInsetsCompat.CONSUMED;
+            return windowInsets;
         });
 
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);
@@ -79,7 +79,7 @@ public class NotificationHistoryActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), insets.bottom);
-            return WindowInsetsCompat.CONSUMED;
+            return windowInsets;
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

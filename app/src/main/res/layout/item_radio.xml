@@ -11,6 +11,7 @@
     app:strokeColor="@drawable/selector_station_border"
     android:focusable="true"
     android:clickable="true"
+    android:focusableInTouchMode="false"
     app:cardBackgroundColor="?attr/colorSurface">
 
     <LinearLayout
