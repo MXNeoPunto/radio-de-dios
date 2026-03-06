@@ -712,10 +712,7 @@ public class MainActivity extends AppCompatActivity {
         com.google.android.material.card.MaterialCardView cardThemeDark = view.findViewById(R.id.cardThemeDark);
         com.google.android.material.card.MaterialCardView cardThemeSystem = view.findViewById(R.id.cardThemeSystem);
 
-        com.google.android.material.chip.ChipGroup chipGroupFps = view.findViewById(R.id.chipGroupFps);
-        com.google.android.material.chip.Chip chipFps30 = view.findViewById(R.id.chipFps30);
-        com.google.android.material.chip.Chip chipFps60 = view.findViewById(R.id.chipFps60);
-        com.google.android.material.chip.Chip chipFps120 = view.findViewById(R.id.chipFps120);
+        com.google.android.material.materialswitch.MaterialSwitch switchPowerSaving = view.findViewById(R.id.switchPowerSaving);
 
         View btnApply = view.findViewById(R.id.btnApply);
 
@@ -730,7 +727,7 @@ public class MainActivity extends AppCompatActivity {
         final String[] selectedLang = {languageManager.getLanguage()};
         final int[] selectedTheme = {themeManager.getCurrentTheme()};
         final android.content.SharedPreferences prefs = getSharedPreferences("app_prefs", MODE_PRIVATE);
-        final int[] selectedFps = {prefs.getInt("visualizer_fps", 60)};
+        final boolean[] isPowerSaving = {prefs.getBoolean("power_saving_mode", false)};
 
         // UI Update Helper
         Runnable updateUI = () -> {
@@ -754,18 +751,11 @@ public class MainActivity extends AppCompatActivity {
             if (selectedTheme[0] == ThemeManager.THEME_LIGHT) cardThemeLight.setCardBackgroundColor(colorSelected);
             else if (selectedTheme[0] == ThemeManager.THEME_DARK) cardThemeDark.setCardBackgroundColor(colorSelected);
             else cardThemeSystem.setCardBackgroundColor(colorSelected);
-
-            if (selectedFps[0] == 30) {
-                chipFps30.setChecked(true);
-            } else if (selectedFps[0] == 120) {
-                chipFps120.setChecked(true);
-            } else {
-                chipFps60.setChecked(true);
-            }
         };
 
         // Initial State
         updateUI.run();
+        switchPowerSaving.setChecked(isPowerSaving[0]);
 
         // Listeners
         cardLangEn.setOnClickListener(v -> { selectedLang[0] = "en"; updateUI.run(); });
@@ -775,10 +765,8 @@ public class MainActivity extends AppCompatActivity {
         cardThemeDark.setOnClickListener(v -> { selectedTheme[0] = ThemeManager.THEME_DARK; updateUI.run(); });
         cardThemeSystem.setOnClickListener(v -> { selectedTheme[0] = ThemeManager.THEME_SYSTEM; updateUI.run(); });
 
-        chipGroupFps.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.chipFps30) selectedFps[0] = 30;
-            else if (checkedId == R.id.chipFps120) selectedFps[0] = 120;
-            else selectedFps[0] = 60;
+        switchPowerSaving.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            isPowerSaving[0] = isChecked;
         });
 
         androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(this)
@@ -805,7 +793,16 @@ public class MainActivity extends AppCompatActivity {
                 restartNeeded = true; 
             }
 
-            prefs.edit().putInt("visualizer_fps", selectedFps[0]).apply();
+            boolean previousPowerSaving = prefs.getBoolean("power_saving_mode", false);
+            if (isPowerSaving[0] != previousPowerSaving) {
+                prefs.edit()
+                    .putBoolean("power_saving_mode", isPowerSaving[0])
+                    .putInt("visualizer_fps", isPowerSaving[0] ? 30 : 60)
+                    .apply();
+                restartNeeded = true;
+            } else {
+                prefs.edit().putInt("visualizer_fps", isPowerSaving[0] ? 30 : 60).apply();
+            }
 
             dialog.dismiss();
             if (restartNeeded) {
