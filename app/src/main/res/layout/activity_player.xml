@@ -4,7 +4,7 @@
     android:id="@+id/playerRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/player_background">
+    android:background="?attr/colorSurface">
 
     <!-- Drag Handle -->
     <View
@@ -58,81 +58,64 @@
         app:layout_constraintTop_toBottomOf="@id/dragHandle" />
 
 
-    <!-- Album Art (Rounded Squircle Style) -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardArt"
-        android:layout_width="0dp"
+    <com.radiodedios.gt.ui.FluidVisualizerView
+        android:id="@+id/fluidVisualizer"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="48dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:cardCornerRadius="32dp"
-        app:cardElevation="20dp"
-        app:strokeWidth="0dp"
-        android:transitionName="player_image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="24dp"
         app:layout_constraintTop_toBottomOf="@id/btnClose"
-        app:layout_constraintBottom_toTopOf="@id/infoLayout">
-
-        <ImageView
-            android:id="@+id/playerImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_music_placeholder"
-            android:scaleType="centerCrop"
-            android:background="?attr/colorSurfaceVariant"/>
-            
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintBottom_toTopOf="@id/infoCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Info Section -->
-    <LinearLayout
-        android:id="@+id/infoLayout"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/infoCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@id/waveView">
-
-        <TextView
-            android:id="@+id/playerTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:text="@string/station_name_placeholder"
-            android:gravity="center"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textAppearance="?attr/textAppearanceHeadlineMedium"
-            android:textStyle="bold"
-            android:textColor="?attr/colorOnSurface" />
-
-        <TextView
-            android:id="@+id/playerDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/description_placeholder"
-            android:gravity="center"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
-            android:textColor="?attr/colorOnSurfaceVariant" />
-
-    </LinearLayout>
-
-
-    <com.radiodedios.gt.ui.RGBWaveView
-        android:id="@+id/waveView"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="32dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="?attr/colorSurfaceVariant"
+        app:strokeWidth="0dp"
+        app:layout_constraintBottom_toTopOf="@id/controlsLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/controlsLayout" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/playerTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/station_name_placeholder"
+                android:gravity="center"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textAppearance="?attr/textAppearanceHeadlineMedium"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+
+            <TextView
+                android:id="@+id/playerDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/description_placeholder"
+                android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Controls (Squircle Play Button) -->
     <LinearLayout
@@ -180,26 +163,16 @@
                 android:text="30"/>
         </FrameLayout>
 
-        <!-- Modern Play Button (Squircle) - Shadow Removed -->
-        <com.google.android.material.card.MaterialCardView
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/btnPlayPauseContainer"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="?attr/colorPrimary"
-            android:clickable="true"
-            android:focusable="true">
-            
-            <ImageView
-                android:id="@+id/btnPlayPauseIcon"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_pause"
-                app:tint="?attr/colorOnPrimary" />
-                
-        </com.google.android.material.card.MaterialCardView>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pause"
+            app:icon="@drawable/ic_pause"
+            app:backgroundTint="?attr/colorPrimary"
+            android:textColor="?attr/colorOnPrimary"
+            app:iconTint="?attr/colorOnPrimary"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge"/>
 
         <!-- Next (Placeholder -> Car Mode / Share) -->
         <ImageButton

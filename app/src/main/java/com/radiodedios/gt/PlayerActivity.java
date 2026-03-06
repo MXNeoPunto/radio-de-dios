@@ -24,7 +24,7 @@ import androidx.media3.session.SessionToken;
 import com.radiodedios.gt.manager.SleepTimerManager;
 import com.radiodedios.gt.manager.ThemeManager;
 import com.radiodedios.gt.manager.BillingManager;
-import com.radiodedios.gt.ui.RGBWaveView;
+import com.radiodedios.gt.ui.FluidVisualizerView;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.MoreExecutors;
 import java.util.concurrent.ExecutionException;
@@ -38,9 +38,7 @@ import android.graphics.Color;
 public class PlayerActivity extends AppCompatActivity {
 
     private MediaController mediaController;
-    private View btnPlayPauseContainer;
-    private ImageView btnPlayPauseIcon;
-    private ImageView playerImage;
+    private com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton btnPlayPauseContainer;
     private TextView title, desc;
     private ImageButton btnClose;
     private ImageButton btnShare;
@@ -59,7 +57,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     private ThemeManager themeManager;
     private com.radiodedios.gt.manager.LanguageManager languageManager;
-    private RGBWaveView waveView;
+    private FluidVisualizerView waveView;
 
     @Override
     protected void attachBaseContext(android.content.Context newBase) {
@@ -88,10 +86,8 @@ public class PlayerActivity extends AppCompatActivity {
         });
 
         btnPlayPauseContainer = findViewById(R.id.btnPlayPauseContainer);
-        btnPlayPauseIcon = findViewById(R.id.btnPlayPauseIcon);
         title = findViewById(R.id.playerTitle);
         desc = findViewById(R.id.playerDesc);
-        playerImage = findViewById(R.id.playerImage);
         btnClose = findViewById(R.id.btnClose);
         btnShare = findViewById(R.id.btnShare);
         
@@ -100,7 +96,7 @@ public class PlayerActivity extends AppCompatActivity {
         tvTimerCountdown = findViewById(R.id.tvTimerCountdown);
         
         btnCarMode = findViewById(R.id.btnCarMode);
-        waveView = findViewById(R.id.waveView);
+        waveView = findViewById(R.id.fluidVisualizer);
 
         billingManager = new BillingManager(this);
         adsManager = new com.radiodedios.gt.manager.AdsManager(this, billingManager);
@@ -154,6 +150,10 @@ public class PlayerActivity extends AppCompatActivity {
         });
         
         setupMediaController();
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            waveView.linkToAudioSession(0); // 0 corresponds to the output mix
+        }
     }
 
     @Override
@@ -288,7 +288,8 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void updateUI(boolean isPlaying) {
-        btnPlayPauseIcon.setImageResource(isPlaying ? R.drawable.ic_pause : R.drawable.ic_play);
+        btnPlayPauseContainer.setIconResource(isPlaying ? R.drawable.ic_pause : R.drawable.ic_play);
+        btnPlayPauseContainer.setText(isPlaying ? R.string.pause : R.string.play);
         if (waveView != null) {
             if (isPlaying) {
                 waveView.startAnimation();
@@ -304,25 +305,6 @@ public class PlayerActivity extends AppCompatActivity {
         if (metadata != null) {
             title.setText(metadata.title != null ? metadata.title : "Unknown");
             desc.setText(metadata.artist != null ? metadata.artist : "");
-
-            int color = MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnSurfaceVariant, Color.DKGRAY);
-            Drawable placeholder = ContextCompat.getDrawable(this, R.drawable.ic_music_placeholder);
-            Drawable tintedPlaceholder = null;
-            if (placeholder != null) {
-                tintedPlaceholder = DrawableCompat.wrap(placeholder).mutate();
-                DrawableCompat.setTint(tintedPlaceholder, color);
-            }
-
-            if (metadata.artworkUri != null) {
-                playerImage.clearColorFilter();
-                Glide.with(this)
-                        .load(metadata.artworkUri)
-                        .placeholder(tintedPlaceholder)
-                        .error(tintedPlaceholder)
-                        .into(playerImage);
-            } else {
-                playerImage.setImageDrawable(tintedPlaceholder);
-            }
         }
     }
 

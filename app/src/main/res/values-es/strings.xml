@@ -205,8 +205,14 @@ Guatemala – LATAM
     <string name="prayer_default_desc">lo que atraviesa</string>
     <string name="prayer_verse_separator">versículo</string>
 
+    <string name="visualizer_fps_select">FPS del Visualizador</string>
+    <string name="onboarding_audio_title">Efectos Visuales</string>
+    <string name="onboarding_audio_desc">Para mostrar el visualizador de audio fluido necesitamos el permiso de grabar audio (solo se usa localmente para las animaciones y NO se envía ningún dato).</string>
+    <string name="onboarding_audio_btn_allow">Dar permiso</string>
+    <string name="onboarding_audio_btn_deny">Más tarde</string>
+
     <string-array name="prayer_categories">
-        <item>Salud / Enfermedades / Covid</item>
+        <item>Salud / Enfermedades</item>
         <item>Economía / Finanzas</item>
         <item>Familia</item>
         <item>Ansiedad</item>

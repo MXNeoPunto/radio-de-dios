@@ -15,6 +15,7 @@
 
         <include layout="@layout/view_onboarding_battery" />
         <include layout="@layout/view_onboarding_notifications" />
+        <include layout="@layout/view_onboarding_audio_record" />
         <include layout="@layout/view_onboarding_ads" />
 
     </ViewFlipper>
