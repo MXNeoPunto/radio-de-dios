@@ -43,7 +43,7 @@ import java.util.Random;
 public class RadioService extends MediaSessionService {
     private ExoPlayer player;
     private MediaSession mediaSession;
-    
+
     // Retry logic
     private int retryCount = 0;
     private static final int MAX_RETRIES = 5;
@@ -61,27 +61,27 @@ public class RadioService extends MediaSessionService {
     @Override
     public void onCreate() {
         super.onCreate();
-        
+
         // Setup HTTP DataSource with Icy-MetaData header
         Map<String, String> defaultRequestProperties = new HashMap<>();
         defaultRequestProperties.put("Icy-MetaData", "1");
-        
+
         String userAgent = "RadioDeDios/1.0 (Linux;Android " + android.os.Build.VERSION.RELEASE + ") ExoPlayerLib/2.18.7";
 
         DefaultHttpDataSource.Factory httpDataSourceFactory = new DefaultHttpDataSource.Factory()
                 .setUserAgent(userAgent)
                 .setDefaultRequestProperties(defaultRequestProperties)
                 .setAllowCrossProtocolRedirects(true);
-        
+
         DefaultMediaSourceFactory mediaSourceFactory = new DefaultMediaSourceFactory(this)
                 .setDataSourceFactory(httpDataSourceFactory);
-        
+
         player = new ExoPlayer.Builder(this)
                 .setMediaSourceFactory(mediaSourceFactory)
                 .build();
-                
+
         player.addListener(new PlayerListener());
-        
+
         ForwardingPlayer forwardingPlayer = new ForwardingPlayer(player) {
             @Override
             public void seekToNextMediaItem() {
@@ -118,6 +118,9 @@ public class RadioService extends MediaSessionService {
                         new Handler(Looper.getMainLooper()).post(() -> {
                              playStationInternal(list.get(0));
                         });
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                             playStationInternal(list.get(0));
+                        });
                         return;
                     }
                     int index = -1;
@@ -148,9 +151,7 @@ public class RadioService extends MediaSessionService {
                 if (response.getRadios() != null && !response.getRadios().isEmpty()) {
                     List<RadioStation> list = response.getRadios();
                     if (currentStation == null) {
-                        new Handler(Looper.getMainLooper()).post(() -> {
-                             playStationInternal(list.get(0));
-                        });
+                        playStationInternal(list.get(0));
                         return;
                     }
                     int index = -1;
@@ -229,7 +230,7 @@ public class RadioService extends MediaSessionService {
                 }
             }
         }
-        
+
         @Override
         public void onPlayerError(PlaybackException error) {
             if (retryCount < MAX_RETRIES) {
@@ -247,7 +248,7 @@ public class RadioService extends MediaSessionService {
                 playRandomStation();
             }
         }
-        
+
         @Override
         public void onIsPlayingChanged(boolean isPlaying) {
             if (isPlaying) {
@@ -266,14 +267,14 @@ public class RadioService extends MediaSessionService {
             }
         }
     }
-    
+
     private void updateMetadata(String title) {
         if (currentStation == null) return;
         if (player.getCurrentMediaItem() == null) return;
 
         MediaMetadata currentMeta = player.getMediaMetadata();
         MediaMetadata.Builder builder = currentMeta.buildUpon();
-        
+
         if (title != null && !title.isEmpty()) {
             builder.setTitle(title);
             // Set station name as artist so it's visible
@@ -287,13 +288,13 @@ public class RadioService extends MediaSessionService {
         if (currentMeta.artworkUri == null && currentStation.getImage() != null && !currentStation.getImage().isEmpty()) {
              builder.setArtworkUri(Uri.parse(currentStation.getImage()));
         }
-        
+
         // Update metadata by replacing the current item (seamlessly)
         MediaItem currentItem = player.getCurrentMediaItem();
         MediaItem newItem = currentItem.buildUpon()
                 .setMediaMetadata(builder.build())
                 .build();
-        
+
         player.replaceMediaItem(player.getCurrentMediaItemIndex(), newItem);
     }
 
@@ -304,7 +305,7 @@ public class RadioService extends MediaSessionService {
                 if (response.getRadios() != null && !response.getRadios().isEmpty()) {
                     List<RadioStation> list = response.getRadios();
                     RadioStation randomStation = list.get(new Random().nextInt(list.size()));
-                    
+
                     new Handler(Looper.getMainLooper()).post(() -> {
                          playStationInternal(randomStation);
                     });
@@ -322,7 +323,7 @@ public class RadioService extends MediaSessionService {
     private void playStationInternal(RadioStation station) {
         currentStation = station;
         retryCount = 0;
-        
+
         MediaMetadata.Builder metaBuilder = new MediaMetadata.Builder()
                 .setTitle(station.getName())
                 .setArtist(station.getDescription());
@@ -330,7 +331,7 @@ public class RadioService extends MediaSessionService {
         if (station.getImage() != null && !station.getImage().isEmpty()) {
              metaBuilder.setArtworkUri(Uri.parse(station.getImage()));
         }
-        
+
         MediaMetadata metadata = metaBuilder.build();
 
         MediaItem mediaItem = new MediaItem.Builder()
