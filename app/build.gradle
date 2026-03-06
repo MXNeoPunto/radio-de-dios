@@ -24,6 +24,10 @@ android {
             ndk {
                 debugSymbolLevel = 'FULL'
             }
+            buildConfigField "String", "DEEPGRAM_API_KEY", "\"${project.properties['deepgram.api.key'] ?: ''}\""
+        }
+        debug {
+            buildConfigField "String", "DEEPGRAM_API_KEY", "\"${project.properties['deepgram.api.key'] ?: ''}\""
         }
     }
 
@@ -54,6 +58,7 @@ dependencies {
     implementation libs.lottie
     implementation libs.play.services.ads
     implementation libs.billing
+    implementation libs.okhttp
 
     implementation platform(libs.firebase.bom)
     implementation libs.firebase.analytics
