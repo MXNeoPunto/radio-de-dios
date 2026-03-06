@@ -60,6 +60,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import android.graphics.drawable.Drawable;
 import android.graphics.Color;
+import com.radiodedios.gt.ui.VoiceAgentDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -202,6 +203,11 @@ public class MainActivity extends AppCompatActivity {
         android.widget.ImageButton btnMenu = findViewById(R.id.btnMenu);
         if (btnMenu != null) {
             btnMenu.setOnClickListener(v -> showModernMenu());
+        }
+
+        com.google.android.material.floatingactionbutton.FloatingActionButton fabVoiceAgent = findViewById(R.id.fabVoiceAgent);
+        if (fabVoiceAgent != null) {
+            fabVoiceAgent.setOnClickListener(v -> handleVoiceAgentClick());
         }
 
         miniPlayerPlayPause.setOnClickListener(v -> {
@@ -839,6 +845,31 @@ public class MainActivity extends AppCompatActivity {
             })
             .setNeutralButton(R.string.rate_later, null)
             .show();
+    }
+
+    private void handleVoiceAgentClick() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.MODIFY_AUDIO_SETTINGS}, 102);
+        } else {
+            showVoiceAgent();
+        }
+    }
+
+    private void showVoiceAgent() {
+        VoiceAgentDialog dialog = new VoiceAgentDialog();
+        dialog.show(getSupportFragmentManager(), "VoiceAgentDialog");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 102) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                showVoiceAgent();
+            } else {
+                Toast.makeText(this, R.string.error_loading_data, Toast.LENGTH_SHORT).show(); // generic error for now or add specific string
+            }
+        }
     }
 
     private void pauseRadio() {
