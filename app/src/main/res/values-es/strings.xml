@@ -104,11 +104,11 @@ Guatemala – LATAM
     <!-- Modern Popup -->
     <string name="support_radio">Gracias por apoyar esta radio</string>
     <string name="god_bless_you">Dios te bendiga</string>
-    <string name="max_mode">Eliminar publicidad</string>
+    <string name="max_mode">Eliminar anuncios</string>
     <string name="timer_idle">Temporizador</string>
     <string name="watch_1_ad">Ver Anuncio / Renovar</string>
     <string name="remove_ads_2h">30 minutos sin anuncios</string>
-    <string name="max_permanent">Donar al desarrollador</string>
+    <string name="max_permanent">Desbloquear Premium</string>
     <string name="purchase">Compra</string>
     <string name="next_ad_in">Siguiente anuncio en %ds</string>
     <string name="hours_remaining">Tiempo restante</string>
@@ -318,5 +318,5 @@ Guatemala – LATAM
         <item>Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal... - Jeremías 29:11</item>
     </string-array>
     <string name="power_saving_mode">Modo ahorro de energía</string>
-    <string name="power_saving_desc">Elimina anuncios, limita a 30 FPS y reduce algunas animaciones para ahorrar batería.</string>
+    <string name="power_saving_desc">Limita a 30 FPS y reduce algunas animaciones para ahorrar batería.</string>
 </resources>
