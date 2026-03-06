@@ -10,6 +10,7 @@ import android.os.Looper;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +34,9 @@ import java.util.concurrent.ExecutionException;
 public class CarModeActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
     
     private MediaController mediaController;
-    private Button btnPlayPause;
+    private ImageButton btnPlayPause;
+    private ImageButton btnPrevious;
+    private ImageButton btnNext;
     private TextView tvBlessing;
     private TextView tvTripTimer;
     private TextToSpeech tts;
@@ -61,6 +64,21 @@ public class CarModeActivity extends AppCompatActivity implements TextToSpeech.O
         tvBlessing = findViewById(R.id.tvBlessing);
         tvTripTimer = findViewById(R.id.tvTripTimer);
         
+        btnPrevious = findViewById(R.id.btnPrevious);
+        btnNext = findViewById(R.id.btnNext);
+
+        btnPrevious.setOnClickListener(v -> {
+            if (mediaController != null) {
+                mediaController.seekToPreviousMediaItem();
+            }
+        });
+
+        btnNext.setOnClickListener(v -> {
+            if (mediaController != null) {
+                mediaController.seekToNextMediaItem();
+            }
+        });
+
         btnClose.setOnClickListener(v -> finish());
         
         btnPlayPause.setOnClickListener(v -> {
@@ -239,9 +257,11 @@ public class CarModeActivity extends AppCompatActivity implements TextToSpeech.O
 
     private void updateUI(boolean isPlaying) {
         if (isPlaying) {
-            btnPlayPause.setText(getString(R.string.pause));
+            btnPlayPause.setImageResource(R.drawable.ic_pause);
+            btnPlayPause.setContentDescription(getString(R.string.pause));
         } else {
-            btnPlayPause.setText(getString(R.string.play));
+            btnPlayPause.setImageResource(R.drawable.ic_play);
+            btnPlayPause.setContentDescription(getString(R.string.play));
         }
     }
 

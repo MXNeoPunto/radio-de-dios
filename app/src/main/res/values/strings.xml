@@ -334,4 +334,6 @@ Guatemala – LATAM
     </string-array>
     <string name="power_saving_mode">Power Saving Mode</string>
     <string name="power_saving_desc">Limits to 30 FPS and disables some animations to save battery.</string>
+    <string name="previous">Anterior</string>
+    <string name="next">Siguiente</string>
 </resources>
