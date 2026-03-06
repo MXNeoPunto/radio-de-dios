@@ -74,7 +74,10 @@ public class AdsManager {
     }
 
     public void showInterstitial(Activity activity, Runnable onAdShowed, Runnable onAdClosed) {
-        if (billingManager.isPremiumPurchased() || maxManager.isMaxActive()) {
+        boolean isPowerSaving = activity.getSharedPreferences("app_prefs", android.content.Context.MODE_PRIVATE)
+            .getBoolean("power_saving_mode", false);
+
+        if (billingManager.isPremiumPurchased() || maxManager.isMaxActive() || isPowerSaving) {
             if (onAdClosed != null) onAdClosed.run();
             return;
         }
@@ -213,6 +216,18 @@ public class AdsManager {
     }
 
     public void showMixedRewardedAd(Activity activity, boolean preferInterstitial, Runnable onAdShowed, Runnable onAdClosed, OnUserEarnedRewardListener listener) {
+        boolean isPowerSaving = activity.getSharedPreferences("app_prefs", android.content.Context.MODE_PRIVATE)
+            .getBoolean("power_saving_mode", false);
+
+        if (billingManager.isPremiumPurchased() || maxManager.isMaxActive() || isPowerSaving) {
+            if (listener != null) {
+                // If they have premium, max, or power saving mode, give them the reward directly without ad
+                listener.onUserEarnedReward(null);
+            }
+            if (onAdClosed != null) onAdClosed.run();
+            return;
+        }
+
         if (preferInterstitial) {
             if (mRewardedInterstitialAd != null) {
                 Toast.makeText(activity, R.string.loading_ad, Toast.LENGTH_SHORT).show();

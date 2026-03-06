@@ -332,4 +332,6 @@ Guatemala – LATAM
         <item>Trust in the LORD with all your heart and lean not on your own understanding. - Proverbs 3:5</item>
         <item>For I know the plans I have for you, declares the LORD, plans to prosper you and not to harm you, plans to give you hope and a future. - Jeremiah 29:11</item>
     </string-array>
+    <string name="power_saving_mode">Power Saving Mode</string>
+    <string name="power_saving_desc">Removes ads, limits to 30 FPS, and disables some animations to save battery.</string>
 </resources>

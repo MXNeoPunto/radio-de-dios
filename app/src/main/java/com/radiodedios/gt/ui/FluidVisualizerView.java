@@ -65,11 +65,13 @@ public class FluidVisualizerView extends View implements Choreographer.FrameCall
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         path = new Path();
 
-        // Material 3 Dynamic Colors
-        colorPrimary = MaterialColors.getColor(this, androidx.appcompat.R.attr.colorPrimary, Color.MAGENTA);
-        colorSecondaryContainer = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondaryContainer, Color.BLUE);
-        colorTertiary = MaterialColors.getColor(this, com.google.android.material.R.attr.colorTertiary, Color.CYAN);
-        colorSurface = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.BLACK);
+        // Strong Animated Blues/Cyans per user request
+        colorPrimary = Color.parseColor("#00FFFF"); // Cyan
+        colorSecondaryContainer = Color.parseColor("#1E90FF"); // DodgerBlue
+        colorTertiary = Color.parseColor("#0000CD"); // MediumBlue
+
+        // Use a dynamic surface color for the outer edge to blend smoothly
+        colorSurface = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurfaceVariant, Color.BLACK);
 
         gradientColors = new int[]{colorPrimary, colorSecondaryContainer, colorTertiary, colorSurface};
         pointsX = new float[points];
