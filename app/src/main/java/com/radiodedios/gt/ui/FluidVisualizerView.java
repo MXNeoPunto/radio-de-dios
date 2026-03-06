@@ -42,8 +42,9 @@ public class FluidVisualizerView extends View implements Choreographer.FrameCall
     private float[] gradientPositions = new float[]{0f, 0.4f, 0.8f, 1f};
     private float[] pointsX;
     private float[] pointsY;
-    private int points = 8;
+    private int points = 12;
     private float angleStep = (float) (Math.PI * 2 / points);
+    private android.graphics.Matrix gradientMatrix;
 
     // FPS configuration
     private int fpsLimit = 60;
@@ -73,6 +74,7 @@ public class FluidVisualizerView extends View implements Choreographer.FrameCall
         gradientColors = new int[]{colorPrimary, colorSecondaryContainer, colorTertiary, colorSurface};
         pointsX = new float[points];
         pointsY = new float[points];
+        gradientMatrix = new android.graphics.Matrix();
 
         loadFpsSettings(context);
     }
@@ -127,7 +129,7 @@ public class FluidVisualizerView extends View implements Choreographer.FrameCall
         float currentBass = (bassCount > 0) ? (bassSum / bassCount) / 256f : 0;
 
         // Smoothly update amplitude
-        amplitude = amplitude * 0.8f + currentBass * 0.2f;
+        amplitude = amplitude * 0.7f + currentBass * 0.3f;
 
         // Calculate treble agitation (high frequencies)
         float trebleSum = 0;
@@ -141,7 +143,7 @@ public class FluidVisualizerView extends View implements Choreographer.FrameCall
                 trebleSum += mag;
             }
             float currentTreble = (trebleSum / trebleCount) / 256f;
-            agitaion = agitaion * 0.8f + currentTreble * 0.2f;
+            agitaion = agitaion * 0.7f + currentTreble * 0.3f;
         }
     }
 
@@ -167,7 +169,7 @@ public class FluidVisualizerView extends View implements Choreographer.FrameCall
 
         if (frameTimeNanos - lastFrameTimeNs >= frameIntervalNs) {
             lastFrameTimeNs = frameTimeNanos;
-            time += 0.05f + (agitaion * 0.1f);
+            time += 0.08f + (agitaion * 0.15f);
             invalidate();
         }
         Choreographer.getInstance().postFrameCallback(this);
@@ -187,13 +189,16 @@ public class FluidVisualizerView extends View implements Choreographer.FrameCall
         int cy = getHeight() / 2;
 
         // Dynamic radius based on bass amplitude
-        float currentRadius = baseRadius + (baseRadius * amplitude * 1.5f);
+        float currentRadius = baseRadius + (baseRadius * amplitude * 1.8f);
 
         // Update gradient based on size
         RadialGradient gradient = new RadialGradient(cx, cy, currentRadius * 1.5f,
                 gradientColors,
                 gradientPositions,
                 Shader.TileMode.CLAMP);
+
+        gradientMatrix.setRotate(time * 50f, cx, cy);
+        gradient.setLocalMatrix(gradientMatrix);
         paint.setShader(gradient);
 
         // Fluid Blob Path
@@ -201,7 +206,7 @@ public class FluidVisualizerView extends View implements Choreographer.FrameCall
 
         for (int i = 0; i < points; i++) {
             float angle = i * angleStep;
-            float deform = (float) Math.sin(angle * 3 + time) * (agitaion * 50f + 10f);
+            float deform = (float) (Math.sin(angle * 3 + time) + Math.cos(angle * 4 - time * 0.8f)) * (agitaion * 80f + 15f + amplitude * 30f);
             float r = currentRadius + deform;
 
             pointsX[i] = cx + (float) Math.cos(angle) * r;
