@@ -213,6 +213,33 @@
 
         </LinearLayout>
 
+        <!-- Visualizer FPS Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/visualizer_fps_select"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:layout_marginBottom="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="32dp">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupFps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="true"
+                app:selectionRequired="true">
+                <com.google.android.material.chip.Chip android:id="@+id/chipFps30" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="30 FPS" style="@style/Widget.Material3.Chip.Filter"/>
+                <com.google.android.material.chip.Chip android:id="@+id/chipFps60" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="60 FPS" style="@style/Widget.Material3.Chip.Filter"/>
+                <com.google.android.material.chip.Chip android:id="@+id/chipFps120" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="120 FPS" style="@style/Widget.Material3.Chip.Filter"/>
+            </com.google.android.material.chip.ChipGroup>
+
+        </LinearLayout>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnApply"
             android:layout_width="match_parent"

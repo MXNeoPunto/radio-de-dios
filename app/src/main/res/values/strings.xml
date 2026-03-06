@@ -190,6 +190,12 @@ Guatemala – LATAM
     <string name="onboarding_notif_btn_allow">Permitir</string>
     <string name="onboarding_notif_btn_deny">No permitir</string>
 
+    <string name="visualizer_fps_select">Visualizer FPS</string>
+    <string name="onboarding_audio_title">Visual Effects</string>
+    <string name="onboarding_audio_desc">To show the fluid audio visualizer we need permission to record audio (used only locally for animations and NO data is sent anywhere).</string>
+    <string name="onboarding_audio_btn_allow">Grant Permission</string>
+    <string name="onboarding_audio_btn_deny">Later</string>
+
     <string name="onboarding_ads_title">Eliminar Publicidad</string>
     <string name="onboarding_ads_desc">Debido a que es una aplicación cristiana, eliminamos anuncios de manera gratuita mediante un botón en la parte superior. Al ver un video publicitario de 30 segundos, eliminas todos los anuncios molestos durante 30 minutos. También puedes donar para eliminarlos permanentemente.</string>
     <string name="onboarding_ads_btn_finish">Entendido</string>
@@ -221,7 +227,7 @@ Guatemala – LATAM
     <string name="prayer_verse_separator">verse</string>
 
     <string-array name="prayer_categories">
-        <item>Health / Illness / Covid</item>
+        <item>Health / Illness</item>
         <item>Economy / Finance</item>
         <item>Family</item>
         <item>Anxiety</item>

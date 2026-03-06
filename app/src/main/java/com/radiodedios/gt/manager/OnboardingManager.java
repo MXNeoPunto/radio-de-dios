@@ -79,7 +79,20 @@ public class OnboardingManager {
 
         btnDenyNotif.setOnClickListener(v -> flipper.showNext());
 
-        // --- Step 3: Ads Info ---
+        // --- Step 3: Audio Record ---
+        View btnAllowAudio = view.findViewById(R.id.btnAllowAudio);
+        View btnDenyAudio = view.findViewById(R.id.btnDenyAudio);
+
+        btnAllowAudio.setOnClickListener(v -> {
+            if (ContextCompat.checkSelfPermission(activity, android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.RECORD_AUDIO}, 102);
+            }
+            flipper.showNext();
+        });
+
+        btnDenyAudio.setOnClickListener(v -> flipper.showNext());
+
+        // --- Step 4: Ads Info ---
         View btnFinishOnboarding = view.findViewById(R.id.btnFinishOnboarding);
 
         btnFinishOnboarding.setOnClickListener(v -> {
