@@ -25,8 +25,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.radiodedios.gt.R;
+import com.radiodedios.gt.manager.AdsManager;
+import com.radiodedios.gt.manager.BillingManager;
 import com.radiodedios.gt.manager.LanguageManager;
 
 import java.util.List;
@@ -57,6 +60,10 @@ public class PrayerModeActivity extends AppCompatActivity implements TextToSpeec
     private boolean isTtsReady = false;
     private Prayer currentPrayer;
 
+    private AdView adView;
+    private AdsManager adsManager;
+    private BillingManager billingManager;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         LanguageManager langMgr = new LanguageManager(newBase);
@@ -78,9 +85,17 @@ public class PrayerModeActivity extends AppCompatActivity implements TextToSpeec
         generator = new PrayerGenerator(this);
         tts = new TextToSpeech(this, this);
 
+        billingManager = new BillingManager(this);
+        adsManager = new AdsManager(this, billingManager);
+
         initViews();
         setupSpinner();
         setupListeners();
+
+        adView = findViewById(R.id.adView);
+        if (adView != null) {
+            adsManager.loadBanner(adView);
+        }
     }
 
     private void initViews() {
@@ -259,6 +274,25 @@ public class PrayerModeActivity extends AppCompatActivity implements TextToSpeec
             tts.stop();
             tts.shutdown();
         }
+        if (adView != null) {
+            adView.destroy();
+        }
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
     }
 }

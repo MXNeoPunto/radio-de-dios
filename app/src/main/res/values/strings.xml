@@ -108,7 +108,6 @@ Guatemala – LATAM
     <string name="timer_idle">Timer</string>
     <string name="watch_1_ad">Watch Ad / Renew</string>
     <string name="remove_ads_2h">30 minutes ad-free</string>
-    <string name="max_permanent">Donate to developer</string>
     <string name="purchase">Purchase</string>
     <string name="next_ad_in">Next ad in %ds</string>
     <string name="hours_remaining">Time remaining</string>
@@ -116,7 +115,8 @@ Guatemala – LATAM
     
     <string name="max_benefits_title">Benefits</string>
     <string name="max_benefits_desc">• Remove ads permanently\n• Support added stations\n• Help churches spread the word</string>
-    <string name="donate_message">This donation is to help added stations and help churches.</string>
+    <string name="max_permanent">Unlock Premium</string>
+    <string name="donate_message">This purchase is to help added stations and help churches.</string>
 
     <string name="loading_ad">Loading ad...</string>
     <string name="ad_load_failed">Error loading ad, trying alternative...</string>
@@ -196,8 +196,8 @@ Guatemala – LATAM
     <string name="onboarding_audio_btn_allow">Grant Permission</string>
     <string name="onboarding_audio_btn_deny">Later</string>
 
-    <string name="onboarding_ads_title">Eliminar Publicidad</string>
-    <string name="onboarding_ads_desc">Debido a que es una aplicación cristiana, eliminamos anuncios de manera gratuita mediante un botón en la parte superior. Al ver un video publicitario de 30 segundos, eliminas todos los anuncios molestos durante 30 minutos. También puedes donar para eliminarlos permanentemente.</string>
+    <string name="onboarding_ads_title">Eliminar Anuncios</string>
+    <string name="onboarding_ads_desc">Debido a que es una aplicación cristiana, te damos la opción de eliminar los anuncios. Al ver un video de 30 segundos, eliminas todos los anuncios molestos durante 30 minutos. También puedes comprar Premium para eliminarlos permanentemente.</string>
     <string name="onboarding_ads_btn_finish">Entendido</string>
 
     <string name="dj_mode_active">DJ Mode Active</string>
@@ -333,5 +333,5 @@ Guatemala – LATAM
         <item>For I know the plans I have for you, declares the LORD, plans to prosper you and not to harm you, plans to give you hope and a future. - Jeremiah 29:11</item>
     </string-array>
     <string name="power_saving_mode">Power Saving Mode</string>
-    <string name="power_saving_desc">Removes ads, limits to 30 FPS, and disables some animations to save battery.</string>
+    <string name="power_saving_desc">Limits to 30 FPS and disables some animations to save battery.</string>
 </resources>
