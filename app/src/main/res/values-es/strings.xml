@@ -115,8 +115,8 @@ Guatemala – LATAM
     <string name="wait_seconds">Esperar %ds</string>
     
     <string name="max_benefits_title">Beneficios</string>
-    <string name="max_benefits_desc">• Elimina anuncios permanente\n• Apoya a las emisoras agregadas\n• Ayuda a iglesias a difundir la palabra</string>
-    <string name="donate_message">Esta donación es para ayudar a las emisoras agregadas y ayudar a iglesias.</string>
+    <string name="max_benefits_desc">• Elimina publicidad\n• Ayuda a Emisoras a difundir la palabra</string>
+    <string name="donate_message">Este pago es opcional y sirve para mantener servidores y actualizaciones constantes.</string>
 
     <string name="loading_ad">Cargando anuncio...</string>
     <string name="ad_load_failed">Error cargando anuncio, intentando alternativa...</string>
