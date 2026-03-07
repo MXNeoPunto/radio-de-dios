@@ -84,41 +84,67 @@
                         android:padding="24dp">
 
                         <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxStrokeWidthFocused="2dp"
+                            app:boxStrokeColor="?attr/colorPrimary"
                             android:hint="@string/prayer_who_for">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
                                 android:inputType="textPersonName" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxStrokeWidthFocused="2dp"
+                            app:boxStrokeColor="?attr/colorPrimary"
                             android:hint="@string/prayer_category">
 
                             <AutoCompleteTextView
                                 android:id="@+id/spinnerCategory"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
                                 android:inputType="none" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxStrokeWidthFocused="2dp"
+                            app:boxStrokeColor="?attr/colorPrimary"
                             android:hint="@string/prayer_description">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/etDescription"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
                                 android:inputType="textMultiLine"
                                 android:lines="3"
                                 android:gravity="top|start" />
@@ -129,6 +155,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="24dp"
+                            android:focusable="true"
+                            android:focusableInTouchMode="false"
                             android:text="@string/prayer_generate"
                             app:cornerRadius="16dp"
                             android:paddingVertical="12dp" />
