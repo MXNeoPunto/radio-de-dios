@@ -4,31 +4,22 @@
     <string name="checking_updates">Buscando actualizaciones...</string>
     <string name="updated_to_version">Actualizado a la versión: %1$s</string>
     <string name="no_updates">No hay actualizaciones disponibles (Revise su internet)</string>
-    <string name="about_title">Acerca de</string>
     <string name="about_message">¡Bienvenido a Radio de Dios! 🕊️\n\nDisfruta de la mejor música cristiana y mensajes que edifican tu vida las 24 horas del día. Estamos aquí para acompañarte en tu caminar espiritual.\n\nPara cualquier consulta o soporte:</string>
     <string name="privacy_policy">Política de Privacidad</string>
-    <string name="terms_of_use">Términos de Uso</string>
     <string name="settings_title">Ajustes</string>
-    <string name="theme_title">Tema</string>
     <string name="theme_light">Claro</string>
     <string name="theme_dark">Oscuro</string>
     <string name="theme_system">Sistema</string>
     <string name="language_select">Seleccionar Idioma</string>
     <string name="theme_select">Seleccionar Tema</string>
-    <string name="language_title">Idioma</string>
     <string name="language_en">Inglés</string>
     <string name="language_es">Español</string>
-    <string name="max_active_remaining">MAX Activo: %1$d m restantes</string>
     <string name="max_limit_reached">Límite diario alcanzado para MAX</string>
-    <string name="upgrade_max_title">Mejorar a MAX</string>
-    <string name="upgrade_max_message">Mira un video corto para desbloquear MAX Premium por 30 minutos. \n\n• Sin Anuncios Banner\n• Sin Intersticiales\n• Escucha sin interrupciones</string>
-    <string name="unlock_free">DESBLOQUEAR GRATIS</string>
     <string name="cancel">Cancelar</string>
     <string name="close">Cerrar</string>
     <string name="ok">Guardar</string>
     <string name="max_activated">¡MAX Activado por 30 minutos!</string>
     
-    <string name="action_update">Buscar Actualizaciones</string>
     <string name="action_about">Acerca de</string>
     
     <string name="sleep_timer">Temporizador</string>
@@ -38,13 +29,9 @@
     <string name="share_message">¡Escucha la mejor música Cristiana con RadioDeDios! Descarga ahora. https://play.google.com/store/apps/details?id=com.radiodedios.gt</string>
     
     <string name="verse_of_day">Versículo del Día</string>
-    <string name="resume_station">Reanudar Estación</string>
-    <string name="resume_message">¿Deseas seguir escuchando %s?</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
     
-    <string name="particles_effect">Partículas Espirituales</string>
-    <string name="auto_play">Auto-reproducir</string>
     <string name="contact_email">cliente@neopunto.com</string>
    <string name="policy_text">
 Términos de Servicio y Política de Privacidad\n\n
@@ -82,7 +69,6 @@ Guatemala – LATAM
     <string name="play_pause">REPRODUCIR / PAUSAR</string>
     <string name="pause">PAUSAR</string>
     <string name="play">REPRODUCIR</string>
-    <string name="verse_placeholder">Texto del versículo...</string>
     <string name="retry_connection">Conexión fallida. Reintentando... (%d/5)</string>
     <string name="switching_station">Conexión fallida. Cambiando emisora...</string>
     <string name="update_available_title">Actualización Disponible</string>
@@ -90,20 +76,15 @@ Guatemala – LATAM
     <string name="update_now">Actualizar Ahora</string>
 
     <string name="remove_ads_title">Eliminar Anuncios</string>
-    <string name="remove_ads_message">Paga $5 una vez para eliminar anuncios permanentemente o mira un video para desbloquear 30 minutos gratis.</string>
-    <string name="pay_5_dollars">Pagar $5 (Permanente)</string>
     <string name="premium_active">Premium Activo (Permanente)</string>
     <string name="battery_saver_title">Ahorro de Energía</string>
-    <string name="battery_saver_message">Para asegurar una reproducción sin interrupciones, por favor desactiva el ahorro de energía para esta aplicación.</string>
     <string name="battery_saver_message_detailed">Android detiene la radio en segundo plano para ahorrar batería.\n\nPara evitar cortes:\n1. Toca \'Ir a Ajustes\'\n2. Selecciona \'Todas las aplicaciones\' -> \'Radio De Dios\'\n3. Selecciona \'No optimizar\'</string>
-    <string name="go_to_settings">Ajustes</string>
     <string name="go_to_settings_action">Ir a Ajustes y Activar</string>
     <string name="later">Más tarde</string>
     <string name="cancel_sleep_timer_message">¿Cancelar autoapagado?</string>
 
     <!-- Modern Popup -->
     <string name="support_radio">Gracias por apoyar esta radio</string>
-    <string name="god_bless_you">Dios te bendiga</string>
     <string name="max_mode">Eliminar anuncios</string>
     <string name="timer_idle">Temporizador</string>
     <string name="watch_1_ad">Ver Anuncio / Renovar</string>
@@ -114,7 +95,6 @@ Guatemala – LATAM
     <string name="hours_remaining">Tiempo restante</string>
     <string name="wait_seconds">Esperar %ds</string>
     
-    <string name="max_benefits_title">Beneficios</string>
     <string name="max_benefits_desc">• Elimina publicidad\n• Ayuda a Emisoras a difundir la palabra</string>
     <string name="donate_message">Este pago es opcional y sirve para mantener servidores y actualizaciones constantes.</string>
 
@@ -146,24 +126,14 @@ Guatemala – LATAM
 
     <!-- Car Mode -->
     <string name="blessing_trip">Que Dios guarde tu camino hoy</string>
-    <string name="trip_timer_active">Viaje de %d min</string>
     <string name="listening_to">Estás escuchando %s</string>
     <string name="quick_favorite">Ir a mi emisora favorita</string>
 
     <!-- Stats (Mi Reals) -->
-    <string name="stats_title">Mi Reals (Estadísticas)</string>
-    <string name="total_listening_time">Tiempo total escuchado: %s</string>
-    <string name="most_played_station">Emisora más escuchada: %s</string>
-    <string name="active_day">Día más activo: %s</string>
-    <string name="data_usage_warning">Has usado %s hoy en streaming</string>
 
     <!-- Player Reactions & Features -->
     <string name="reaction_amen">Amén</string>
-    <string name="reaction_like">Me gusta</string>
     <string name="reaction_blessing">Bendición</string>
-    <string name="search_lyrics">Buscar letra</string>
-    <string name="search_youtube">Buscar en YouTube</string>
-    <string name="no_song_info">No hay información de la canción</string>
     <string name="no_favorites_found">No hay favoritos</string>
 
     <!-- Modern Menu -->
@@ -179,10 +149,6 @@ Guatemala – LATAM
         <item>Y sabemos que á los que a Dios aman, todas las cosas les ayudan a bien... - Romanos 8:28</item>
     </string-array>
 
-    <string name="dj_mode_active">Modo DJ Activo</string>
-    <string name="dj_mode_inactive">Modo DJ Inactivo</string>
-    <string name="dj_intro_msg">Iniciando Modo DJ con la mejor selección</string>
-    <string name="dj_outro_msg">A continuación %s</string>
 
 
     <!-- Prayer Mode -->
@@ -205,7 +171,6 @@ Guatemala – LATAM
     <string name="prayer_default_desc">lo que atraviesa</string>
     <string name="prayer_verse_separator">versículo</string>
 
-    <string name="visualizer_fps_select">FPS del Visualizador</string>
     <string name="onboarding_audio_title">Efectos Visuales</string>
     <string name="onboarding_audio_desc">Para mostrar el visualizador de audio fluido necesitamos el permiso de grabar audio (solo se usa localmente para las animaciones y NO se envía ningún dato).</string>
     <string name="onboarding_audio_btn_allow">Dar permiso</string>
