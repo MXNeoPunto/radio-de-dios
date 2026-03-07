@@ -52,7 +52,14 @@ public class PrayerGenerator {
         String defaultName = context.getString(com.radiodedios.gt.R.string.prayer_default_name);
         String defaultDesc = context.getString(com.radiodedios.gt.R.string.prayer_default_desc);
         String cleanName = (name != null && !name.trim().isEmpty()) ? name.trim() : defaultName;
-        String cleanDesc = (description != null && !description.trim().isEmpty()) ? description.trim() : defaultDesc;
+
+        // Use defaultDesc or 'this situation' logic if default string isn't well adapted to grammar.
+        // In this case, "esta situación" works universally better for "En medio de %2$s".
+        String cleanDesc = (description != null && !description.trim().isEmpty())
+                ? description.trim()
+                : (defaultDesc.equals("lo que atraviesa") || defaultDesc.equals("what they are going through")
+                    ? (defaultDesc.equals("lo que atraviesa") ? "esta situación" : "this situation")
+                    : defaultDesc);
 
         String prayerText = String.format(template, cleanName, cleanDesc);
 
