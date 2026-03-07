@@ -50,4 +50,8 @@
     <color name="nexa_primary">#011843</color>
     <color name="nexa_on_primary">#FFFFFF</color>
     <color name="nexa_accent">#990ABC</color>
+
+    <!-- Premium Colors -->
+    <color name="premium_card_bg">#FFF8E1</color>
+    <color name="premium_icon_color">#FFB300</color>
 </resources>
