@@ -662,7 +662,6 @@ public class MainActivity extends AppCompatActivity {
 
         String verse = bibleManager.getDailyVerse();
         String message = getString(R.string.about_message) + " " + getString(R.string.contact_email) + "\n\n" +
-                         getString(R.string.developer_info) + "\n\n" +
                          "\"" + verse + "\"";
 
         textAboutMessage.setText(message);
