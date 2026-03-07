@@ -122,9 +122,9 @@ Guatemala – LATAM
     <string name="ad_load_failed">Error cargando anuncio, intentando alternativa...</string>
 
     <string name="action_send_email">Enviar correo</string>
-    <string name="developer_info">Desarrollador: Andrés Turcios</string>
-    
     <!-- New Strings -->
+    <string name="donations_title">Donaciones</string>
+    <string name="nexa_bank_details">Cuenta Monetaria Guatemala\nA nombre de NeoPunto\n23102111258001\nBanco Nexa S.A</string>
     <string name="billing_error_canceled">Compra cancelada</string>
     <string name="billing_error_failed">Compra fallida</string>
     <string name="billing_error_product_not_found">Producto no encontrado</string>

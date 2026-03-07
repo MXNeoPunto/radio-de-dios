@@ -45,4 +45,9 @@
     <color name="glass_background_dark">#401F222A</color>
 
     <color name="splash_background">#87CEEB</color>
+
+    <!-- Banco Nexa Colors -->
+    <color name="nexa_primary">#011843</color>
+    <color name="nexa_on_primary">#FFFFFF</color>
+    <color name="nexa_accent">#990ABC</color>
 </resources>

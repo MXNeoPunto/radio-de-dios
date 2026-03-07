@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <color name="nexa_primary">#990ABC</color>
+    <color name="nexa_on_primary">#FFFFFF</color>
+    <color name="nexa_accent">#011843</color>
 </resources>
