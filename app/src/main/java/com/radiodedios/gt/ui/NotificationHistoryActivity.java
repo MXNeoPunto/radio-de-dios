@@ -82,7 +82,9 @@ public class NotificationHistoryActivity extends AppCompatActivity {
             return windowInsets;
         });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        int screenWidthDp = getResources().getConfiguration().screenWidthDp;
+        int spanCount = Math.max(1, screenWidthDp / 300);
+        recyclerView.setLayoutManager(new androidx.recyclerview.widget.GridLayoutManager(this, spanCount));
         
         loadNotifications();
     }

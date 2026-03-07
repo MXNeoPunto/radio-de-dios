@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#6750A4"
+    android:background="#1E1E24"
     android:padding="16dp"
     android:gravity="center">
 
@@ -75,7 +75,7 @@
             android:contentDescription="@string/play_pause"
             app:cornerRadius="80dp"
             app:backgroundTint="#FFFFFF"
-            app:iconTint="#6750A4"/>
+            app:iconTint="#1E1E24"/>
     </LinearLayout>
         
     <com.google.android.material.button.MaterialButton
