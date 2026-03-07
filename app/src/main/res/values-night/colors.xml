@@ -3,4 +3,8 @@
     <color name="nexa_primary">#990ABC</color>
     <color name="nexa_on_primary">#FFFFFF</color>
     <color name="nexa_accent">#011843</color>
+
+    <!-- Premium Colors -->
+    <color name="premium_card_bg">#332900</color>
+    <color name="premium_icon_color">#FFD54F</color>
 </resources>
